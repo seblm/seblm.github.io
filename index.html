@@ -5,14 +5,14 @@ title: Sébastian Le Merdy
 
 {% for post in site.posts %}<div class="post">
   <p class="day-date">{{ post.date | date_to_string }}</p>
-  <h2 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+  <h2 class="post-title"><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h2>
   <p class="post-info">Par Sébastian Le Merdy,
     {{ post.date || date_to_string }} <span>::</span> <a href="/?General">General</a>
   </p>
 
   <div class="post-content" lang="fr">
     {{ post.content }}
-    <p><a href="{{ post.url }}" title="Lire {{ post.url }}">Lire la suite</a></p>
+    <p><a href="{{ site.url }}{{ post.url }}" title="Lire {{ post.url }}">Lire la suite</a></p>
   </div>
 
   <p class="post-info-co"><a href="/?2012/11/04/197-how-to-master-hibernatemode-on-your-mac#co" title="commentaires pour : How to master hibernatemode on your mac">aucun commentaire</a> <span>::</span> <a href="/?2012/11/04/197-how-to-master-hibernatemode-on-your-mac#tb" title="trackbacks pour : How to master hibernatemode on your mac">aucun trackback</a></p>

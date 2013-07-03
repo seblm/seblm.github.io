@@ -1,3 +1,5 @@
+---
+---
 /* ***** BEGIN LICENSE BLOCK *****
  * This file is part of DotClear.
  * Copyright (c) 2004 Maurice Svay and contributors. All rights
@@ -121,7 +123,7 @@ a:hover{
 /* La page
 -------------------------------------------------------- */
 #page{
-    background: #fff url(../img/page.png) repeat-y center top;
+    background: #fff url({{ site.url }}/img/page.png) repeat-y center top;
     color: inherit;
 }
 
@@ -130,7 +132,7 @@ a:hover{
 #top{
     height: 120px;
     /*padding-top: 20px;*/
-    background: #FFF url(../img/top.png) no-repeat left top;
+    background: #FFF url({{ site.url }}/img/top.png) no-repeat left top;
 }
 
 #top h1{
@@ -170,7 +172,7 @@ a:hover{
     padding-left: 20px;
     margin-left: -25px;
     color: #888;
-    background: transparent url(/img/day-date.png) no-repeat left center;
+    background: transparent url({{ site.url }}/img/day-date.png) no-repeat left center;
     font-style: italic;
 }
 
@@ -255,7 +257,7 @@ a:hover{
 
 #q{
     padding-left: 18px;
-    background: #fff url(img/q.png) no-repeat 4px center;
+    background: #fff url({{ site.url }}/img/q.png) no-repeat 4px center;
 }
 
 #sidebar div#calendar{
