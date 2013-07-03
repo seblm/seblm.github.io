@@ -6,12 +6,15 @@ title: Sébastian Le Merdy
 {% for post in site.posts %}<div class="post">
   <p class="day-date">{{ post.date | date_to_long_string }}</p>
   <h2 class="post-title"><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h2>
-  <p class="post-info">Par Sébastian Le Merdy,
-    {{ post.date || date_to_long_string }} <span>::</span> <!-- TODO categories <a href="/?General">-->{{ post.category }}<!--</a>-->
+  <p class="post-info">Par Sébastian Le Merdy, {{ post.date || date_to_long_string }} <span>::</span> <!-- TODO categories <a href="/?General">-->{{ post.category }}<!--</a>-->
   </p>
 
   <div class="post-content" lang="fr">
-    {{ post.excerpt }}
-    <p><a href="{{ site.url }}{{ post.url }}" title="Lire {{ post.url }}">Lire la suite</a></p>
+    {% if post.noExcerpt %}
+      {{ post.content }}
+    {% else %}
+      {{ post.excerpt }}
+      <p><a href="{{ site.url }}{{ post.url }}" title="Lire {{ post.url }}">Lire la suite</a></p>
+    {% endif %}
   </div>
 </div>{% endfor %}
