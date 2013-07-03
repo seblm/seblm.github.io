@@ -4,14 +4,14 @@ title: Sébastian Le Merdy
 ---
 
 {% for post in site.posts %}<div class="post">
-  <p class="day-date">{{ post.date | date_to_string }}</p>
+  <p class="day-date">{{ post.date | date_to_long_string }}</p>
   <h2 class="post-title"><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h2>
   <p class="post-info">Par Sébastian Le Merdy,
-    {{ post.date || date_to_string }} <span>::</span> <!-- TODO categories <a href="/?General">-->{{ post.category }}<!--</a>-->
+    {{ post.date || date_to_long_string }} <span>::</span> <!-- TODO categories <a href="/?General">-->{{ post.category }}<!--</a>-->
   </p>
 
   <div class="post-content" lang="fr">
-    {{ post.content }}
+    {{ post.excerpt }}
     <p><a href="{{ site.url }}{{ post.url }}" title="Lire {{ post.url }}">Lire la suite</a></p>
   </div>
 </div>{% endfor %}
