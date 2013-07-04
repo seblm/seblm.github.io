@@ -48,7 +48,7 @@
     <link rel="chapter" href="/?2009/11/07/183-generateur-de-mots-de-passe-avec-calc-de-libreoffice" title="Générateur de mots de passe avec Calc d'OpenOffice" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
     <link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/atom.php" />
-    <title>{{ page.title }} - {{ site.name }}</title>
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.name }}</title>
     <link rel="stylesheet" type="text/css" href="{{ site.url }}/css/style.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="{{ site.url }}/css/syntax.css" media="screen" />
 </head>
