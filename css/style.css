@@ -211,6 +211,10 @@ a:hover{
     font-style: italic;
 }
 
+.post-content img {
+    width: 490px;
+}
+
 .post-info-co{
     text-align: right;
 }
