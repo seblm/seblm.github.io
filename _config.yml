@@ -19,7 +19,7 @@ title: Sébastian Le Merdy
 description: >- # this means to ignore newlines until "baseurl:"
   blog about programming
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://sebastian.lemerdy.name" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://seblm.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: seblm
 github_username:  seblm
 
