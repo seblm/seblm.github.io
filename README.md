@@ -14,3 +14,29 @@ In order to be up to date:
 ```bash
 $ bundle update
 ```
+
+In order to check from a fresh new site generation:
+
+```bash
+bundle exec jekyll _3.7.3_ new test
+```
+
+This way you can now compare your configuration with default one.
+
+To check current theme source:
+
+```bash
+$ ls -l $(bundle show jekyll-theme-hacker)
+total 32
+-rw-r--r--  1 ***  staff  6555 Jun 13 22:27 LICENSE
+-rw-r--r--  1 ***  staff  4814 Jun 13 22:27 README.md
+drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 _layouts
+drwxr-xr-x  5 ***  staff   170 Jun 13 22:27 _sass
+drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 assets
+```
+
+At last to test your site locally:
+
+```bash
+bundle exec jekyll serve
+```
