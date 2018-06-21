@@ -42,5 +42,5 @@ exclude:
 #   - vendor/ruby/
   - README.md
 
-highlighter: true
+highlighter: rouge
 google_analytics: UA-6197811-2
