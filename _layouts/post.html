@@ -3,6 +3,6 @@ layout: default
 ---
 <div class="post">
   <h2 class="post-title">{{ page.title }}</h2>
-  <p class="post-info">Par Sébastian Le Merdy, {{ page.date | date_to_long_string }} <span>::</span> <!-- TODO categories <a href="/?General">-->{{ page.category }}<!--</a>--> <span>::</span> <a href="{{ site.url }}{{ page.url }}" title="Lien permanent vers : {{ page.title }}">lien</a><!-- TODO syndication --><!-- <span>::</span> <a href="/blog/rss.php?type=co&amp;post=197" title="fil RSS des commentaires de : How to master hibernatemode on your mac">rss</a>--></p>
+  <p class="post-info">Par Sébastian Le Merdy, {{ page.date | date_to_long_string }} <span>::</span> <!-- TODO categories <a href="/?General">-->{{ page.category }}<!--</a>--> <span>::</span> <a href="{{ site.url }}{{ page.url }}" title="Lien permanent vers : {{page.title}}">lien</a><!-- TODO syndication --><!-- <span>::</span> <a href="/blog/rss.php?type=co&amp;post=197" title="fil RSS des commentaires de : How to master hibernatemode on your mac">rss</a>--></p>
   <div class="post-content">{{ content }}</div>
 </div>

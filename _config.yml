@@ -1,3 +1,5 @@
 name: Sébastian Le Merdy
-pygments: true
+title: Sébastian Le Merdy
+highlighter: true
 url: http://sebastian.lemerdy.name
+exclude: ["Gemfile", "Gemfile.lock", "README.md"]
