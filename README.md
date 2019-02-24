@@ -18,7 +18,7 @@ $ bundle update
 In order to check from a fresh new site generation:
 
 ```bash
-bundle exec jekyll _3.7.3_ new test
+bundle exec jekyll _3.7.4_ new test
 ```
 
 This way you can now compare your configuration with default one.
