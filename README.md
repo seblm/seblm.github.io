@@ -12,13 +12,14 @@ $ bundle install
 In order to be up to date:
 
 ```bash
+$ gem update bundler
 $ bundle update
 ```
 
 In order to check from a fresh new site generation:
 
 ```bash
-bundle exec jekyll _3.7.4_ new test
+bundle exec jekyll _3.8.5_ new test
 ```
 
 This way you can now compare your configuration with default one.
@@ -39,4 +40,32 @@ At last to test your site locally:
 
 ```bash
 bundle exec jekyll serve
+```
+
+## Prerequisites
+
+Instead of relying on system ruby, I prefer upgrading to latest ruby with rvm. Once rvm is installed, be sure to have
+latest rvm version with:
+
+```bash
+rvm get stable
+```
+
+Then check your ruby version:
+
+```bash
+rvm list
+```
+
+If it should be upgraded then type (2.6.4 is an example):
+
+```bash
+rvm install ruby-2.6.4
+rvm use ruby-2.6.4
+```
+
+Remove previous ruby installation (2.4.1 is an example):
+
+```bash
+rvm remove ruby-2.4.1
 ```
