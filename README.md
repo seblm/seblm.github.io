@@ -39,7 +39,7 @@ drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 assets
 At last to test your site locally:
 
 ```bash
-bundle exec jekyll serve
+bundle exec jekyll serve --drafts
 ```
 
 ## Prerequisites
