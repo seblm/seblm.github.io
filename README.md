@@ -16,6 +16,13 @@ $ gem update bundler
 $ bundle update
 ```
 
+What is current version of jekyll?
+
+```bash
+bundle show jekyll
+~/.rvm/gems/ruby-2.6.4/gems/jekyll-3.8.5
+```
+
 In order to check from a fresh new site generation:
 
 ```bash
