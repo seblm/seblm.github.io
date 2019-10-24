@@ -48,31 +48,3 @@ At last to test your site locally:
 ```bash
 bundle exec jekyll serve --drafts
 ```
-
-## Prerequisites
-
-Instead of relying on system ruby, I prefer upgrading to latest ruby with rvm. Once rvm is installed, be sure to have
-latest rvm version with:
-
-```bash
-rvm get stable
-```
-
-Then check your ruby version:
-
-```bash
-rvm list
-```
-
-If it should be upgraded then type (2.6.4 is an example):
-
-```bash
-rvm install ruby-2.6.4
-rvm use ruby-2.6.4
-```
-
-Remove previous ruby installation (2.4.1 is an example):
-
-```bash
-rvm remove ruby-2.4.1
-```
