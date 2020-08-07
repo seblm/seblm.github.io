@@ -20,13 +20,13 @@ What is current version of jekyll?
 
 ```bash
 bundle show jekyll
-~/.rvm/gems/ruby-2.6.4/gems/jekyll-3.8.5
+~/.rvm/gems/ruby-2.6.4/gems/jekyll-3.9.0
 ```
 
 In order to check from a fresh new site generation:
 
 ```bash
-bundle exec jekyll _3.8.5_ new test
+bundle exec jekyll _3.9.0_ new test
 ```
 
 This way you can now compare your configuration with default one.
@@ -34,7 +34,7 @@ This way you can now compare your configuration with default one.
 To check current theme source:
 
 ```bash
-$ ls -l $(bundle show jekyll-theme-hacker)
+$ ls -l $(bundle info jekyll-theme-hacker | grep "Path:" | grep --only-matching "/.*")
 total 32
 -rw-r--r--  1 ***  staff  6555 Jun 13 22:27 LICENSE
 -rw-r--r--  1 ***  staff  4814 Jun 13 22:27 README.md
