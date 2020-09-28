@@ -19,8 +19,11 @@ $ bundle update
 What is current version of jekyll?
 
 ```bash
-bundle show jekyll
-~/.rvm/gems/ruby-2.6.4/gems/jekyll-3.9.0
+bundle info jekyll
+  * jekyll (3.9.0)
+        Summary: A simple, blog aware, static site generator.
+        Homepage: https://github.com/jekyll/jekyll
+        Path: /Library/Ruby/Gems/2.6.0/gems/jekyll-3.9.0
 ```
 
 In order to check from a fresh new site generation:
