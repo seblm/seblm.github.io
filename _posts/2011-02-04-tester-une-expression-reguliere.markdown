@@ -1,8 +1,8 @@
 ---
-layout: post
-title: Tester une expression régulière
-date: 2011-02-04 08:17:49
-category: General
+layout:    post
+title:     Tester une expression régulière
+date:      2011-02-04 08:17:49
+tags:      General
 noExcerpt: true
 ---
 

@@ -1,8 +1,8 @@
 ---
-layout: post
-title: How to install git subtree with a former home brew installation
-date: 2012-09-10 20:55:49
-category: General
+layout:    post
+title:     How to install git subtree with a former home brew installation
+date:      2012-09-10 20:55:49
+tags:      General
 noExcerpt: true
 ---
 

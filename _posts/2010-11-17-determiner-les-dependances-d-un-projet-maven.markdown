@@ -1,8 +1,8 @@
 ---
-layout: post
-title: Déterminer les dépendances d'un projet maven
-date: 2010-11-17 21:46:49
-category: Professionnel
+layout:    post
+title:     Déterminer les dépendances d'un projet maven
+date:      2010-11-17 21:46:49
+tags:      Professionnel
 noExcerpt: true
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 title:  "Prometheus et akka-http"
 date:   2018-07-08 05:40:00 +0200
-categories: Techno
+tags:   Techno
 ---
 Prometheus est une base de données timeseries qui permet de stocker des informations de métriques afin de les restituer
 dans un grafana. akka-http est une librairie qui permet d'écrire des serveurs web en scala. Le but de cet article est de

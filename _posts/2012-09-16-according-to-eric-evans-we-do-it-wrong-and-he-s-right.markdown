@@ -1,8 +1,8 @@
 ---
-layout: post
-title: "According to Eric Evans we do it wrong and he's right"
-date: 2012-09-16 09:33:49
-category: General
+layout:    post
+title:     "According to Eric Evans we do it wrong and he's right"
+date:      2012-09-16 09:33:49
+tags:      General
 noExcerpt: true
 ---
 

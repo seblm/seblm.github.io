@@ -1,8 +1,8 @@
 ---
-layout: post
-title: Le singleton statique
-date: 2012-03-08 20:59:49
-category: Professionnel
+layout:    post
+title:     Le singleton statique
+date:      2012-03-08 20:59:49
+tags:      Professionnel
 noExcerpt: true
 ---
 

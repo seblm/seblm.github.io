@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "How to master hibernatemode on your mac"
-date: 2012-11-04 21:35:49
-category: General
+title:  "How to master hibernatemode on your mac"
+date:   2012-11-04 21:35:49
+tags:   General
 ---
 
 Do you know that you can turn your mac into hibernation mode whenever you want ? Not after it runs out of battery power.

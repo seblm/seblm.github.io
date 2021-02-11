@@ -2,8 +2,7 @@
 layout: post
 title:  "Jekyll à jour"
 date:   2018-06-21 03:19:54 +0200
-categories: Techno
-tags: oui
+tags:   Techno
 ---
 J'ai enfin pris le temps de mettre à jour mon blog. L'objectif va être de poster des articles un peu plus régulièrement.
 
