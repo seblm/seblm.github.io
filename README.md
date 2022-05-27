@@ -1,7 +1,7 @@
-According to [documenation](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll),
+According to [documentation](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll),
 here are commands that needs to be run in order to get a functional jekyll local install:
 
-```bash
+```shell
 $ gem install bundler
 $ cat Gemfile
 source 'https://rubygems.org'
@@ -11,14 +11,14 @@ $ bundle install
 
 In order to be up to date:
 
-```bash
+```shell
 $ gem update bundler
 $ bundle update
 ```
 
 What is current version of jekyll?
 
-```bash
+```shell
 bundle info jekyll
   * jekyll (3.9.0)
         Summary: A simple, blog aware, static site generator.
@@ -28,7 +28,7 @@ bundle info jekyll
 
 In order to check from a fresh new site generation:
 
-```bash
+```shell
 bundle exec jekyll _3.9.0_ new test
 ```
 
@@ -36,7 +36,7 @@ This way you can now compare your configuration with default one.
 
 To check current theme source:
 
-```bash
+```shell
 $ ls -l $(bundle info jekyll-theme-hacker | grep "Path:" | grep --only-matching "/.*")
 total 32
 -rw-r--r--  1 ***  staff  6555 Jun 13 22:27 LICENSE
@@ -48,34 +48,40 @@ drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 assets
 
 At last to test your site locally:
 
-```bash
+```shell
 bundle exec jekyll serve --drafts
 ```
 
 ## Prerequisites
 
-Instead of relying on system ruby, I prefer upgrading to latest ruby with rvm. Once rvm is installed, be sure to have
-latest rvm version with:
+According to [Jekyll documentation](https://jekyllrb.com/docs/installation/macos), you can rely on `chruby`:
 
-```bash
-rvm get stable
+```shell
+brew install chruby ruby-install
+ruby-install ruby
 ```
 
 Then check your ruby version:
 
-```bash
-rvm list
+```shell
+ruby --version
 ```
 
-If it should be upgraded then type (2.6.4 is an example):
+You can fix your ruby version (3.1.2 is an example):
 
-```bash
-rvm install ruby-2.6.4
-rvm use ruby-2.6.4
+```shell
+echo "ruby-3.1.2" > .ruby-version
 ```
 
-Remove previous ruby installation (2.4.1 is an example):
+If it should be upgraded then type (3.1.2 is an example):
 
-```bash
-rvm remove ruby-2.4.1
+```shell
+ruby-install ruby-3.1.2
+chruby ruby-3.1.2
+```
+
+Remove previous ruby installation (2.6.4 is an example):
+
+```shell
+rm -rf ~/.rubies/ruby-2.6.4
 ```
