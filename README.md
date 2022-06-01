@@ -1,30 +1,38 @@
-According to [documentation](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll),
-here are commands that needs to be run in order to get a functional jekyll local install:
+## Create from scratch
+
+Create a docker volume to hold downloaded and built gems:
 
 ```shell
-$ gem install bundler
-$ cat Gemfile
-source 'https://rubygems.org'
-gem 'github-pages', group: :jekyll_plugins
-$ bundle install
+docker volume create gem_home
 ```
 
-In order to be up to date:
+Install [GitHub Pages compliant versions](https://pages.github.com/versions) of Jekyll with ruby:
 
 ```shell
-$ gem update bundler
-$ bundle update
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle ruby:2.7.3 gem install jekyll --version 3.9.2
 ```
 
-What is current version of jekyll?
+Create new Jekyll site:
 
 ```shell
-bundle info jekyll
-  * jekyll (3.9.0)
-        Summary: A simple, blog aware, static site generator.
-        Homepage: https://github.com/jekyll/jekyll
-        Path: /Library/Ruby/Gems/2.6.0/gems/jekyll-3.9.0
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site ruby:2.7.3 jekyll new --skip-bundle /usr/site
 ```
+
+Comment `gem "jekyll", "~> 3.9.2"` and uncomment `gem "github-pages", group: :jekyll_plugins` into `"$(pwd)"/Gemfile`.
+
+Install dependencies:
+
+```shell
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle install
+```
+
+## Run locally
+
+```shell
+docker run --name ruby --publish 4000:4000 --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle exec jekyll serve --drafts --host=0.0.0.0
+```
+
+## Natively
 
 In order to check from a fresh new site generation:
 
@@ -44,44 +52,4 @@ total 32
 drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 _layouts
 drwxr-xr-x  5 ***  staff   170 Jun 13 22:27 _sass
 drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 assets
-```
-
-At last to test your site locally:
-
-```shell
-bundle exec jekyll serve --drafts
-```
-
-## Prerequisites
-
-According to [Jekyll documentation](https://jekyllrb.com/docs/installation/macos), you can rely on `chruby`:
-
-```shell
-brew install chruby ruby-install
-ruby-install ruby
-```
-
-Then check your ruby version:
-
-```shell
-ruby --version
-```
-
-You can fix your ruby version (3.1.2 is an example):
-
-```shell
-echo "ruby-3.1.2" > .ruby-version
-```
-
-If it should be upgraded then type (3.1.2 is an example):
-
-```shell
-ruby-install ruby-3.1.2
-chruby ruby-3.1.2
-```
-
-Remove previous ruby installation (2.6.4 is an example):
-
-```shell
-rm -rf ~/.rubies/ruby-2.6.4
 ```

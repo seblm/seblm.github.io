@@ -7,13 +7,13 @@ layout: default
 
 {% for post in site.posts %}<div class="post">
   <p class="day-date">{{ post.date | date_to_long_string }}</p>
-  <h2 class="post-title"><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h2>
+  <h2 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
   <div class="post-content" lang="fr">
     {% if post.noExcerpt %}
       {{ post.content }}
     {% else %}
       {{ post.excerpt }}
-      <p><a href="{{ site.url }}{{ post.url }}" title="Read {{ post.url }}">Read more</a></p>
+      <p><a href="{{ post.url | relative_url }}" title="Read {{ post.url | escape }}">Read more</a></p>
     {% endif %}
   </div>
 </div>{% endfor %}
