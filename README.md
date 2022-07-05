@@ -32,12 +32,16 @@ docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)
 docker run --name ruby --publish 4000:4000 --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle exec jekyll serve --drafts --host=0.0.0.0
 ```
 
-## Natively
-
-In order to check from a fresh new site generation:
+## Update dependencies
 
 ```shell
-bundle exec jekyll _3.9.0_ new test
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle update
+```
+
+## Compare with fresh new site generation
+
+```shell
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle exec jekyll new test
 ```
 
 This way you can now compare your configuration with default one.
