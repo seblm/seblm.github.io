@@ -161,7 +161,7 @@ sérieux avec de nombreux tests, le log est extrêmement volumineux. Une stacktr
 par exemple à votre IDE de vous montrer un avancement synchronisé et cohérent de vos tests quand vous les faites
 tourner.
 
-<video width="1000" loop autoplay src="{{ site.url }}/img/launching-tests-ide.mp4">
+<video width="1000" loop autoplay src="{{ '/img/launching-tests-ide.mp4' | relative_url }}">
  Affichage de l’exécution d’une suite de test ScalaTest dans un ide
 </video>
 
@@ -170,7 +170,7 @@ _Reporter_ appelé `SocketReporter`. Il est fréquent que [ScalaTest] utilise ce
 est lancée par [sbt] en [mode _forké_][Sbt Forking] afin qu’il puisse, tout comme un ide, produire un avancement
 synchronisé et cohérent des tests dans la jvm forkée.
 
-<video width="1000" loop autoplay src="{{ site.url }}/img/launching-tests-sbt.mp4">
+<video width="1000" loop autoplay src="{{ '/img/launching-tests-sbt.mp4' | relative_url }}">
  Affichage de l’exécution d’une suite de test ScalaTest dans sbt
 </video>
 
@@ -267,7 +267,7 @@ Caused by: java.io.NotSerializableException: org.scalatest.EitherValues$RightVal
 Cette fois on obtient un test unitaire qui échoue pour les bonnes raisons. C’est seulement à partir de ce test en échec
 qu’on va pouvoir comprendre ce qui ne va pas avec la sérialisation de cette `TestFailedException`.
 
-![capture d’écran d’IntelliJ IDEA en mode debug sur l’exception NotSerializedException]({{ site.url }}/img/debug-not-serializable-exception.png)
+![capture d’écran d’IntelliJ IDEA en mode debug sur l’exception NotSerializedException]({{ '/img/debug-not-serializable-exception.png' | relative_url }})
 
 Je ne conserve que les éléments de la stack intéressant dans cette chronologie d’appels en pseudo code :
 
@@ -344,7 +344,7 @@ build ScalaJS. Il a ensuite donné le feu vert au mainteneur pour qu’il puisse
 Après avoir posé une remarque judicieuse sur [la pull request][pull request de correction] il l’a finalement intégrée
 dans la branche stable.
 
-![capture d’écran du commit de merge de la pull request]({{ site.url }}/img/merged.png)
+![capture d’écran du commit de merge de la pull request]({{ '/img/merged.png' | relative_url }})
 
 ## Attente de la release
 

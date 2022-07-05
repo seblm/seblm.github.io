@@ -10,7 +10,7 @@ Je viens de suivre
 [cette procédure](http://www.01net.com/contenu/2562/ta_fiches/ios-4--repasser-son-iphone-sous-os-313-944-1). Ça a
 fonctionné parfaitement pour moi.
 
-![capture d'écran de iTunes montrant le numéro de version de l'iPhone]({{ site.url }}/img/iPhoneDowngrade.png)
+![capture d'écran de iTunes montrant le numéro de version de l'iPhone]({{ '/img/iPhoneDowngrade.png' | relative_url }})
 
 J'apporte quelques précisions par rapport à l'article :
 

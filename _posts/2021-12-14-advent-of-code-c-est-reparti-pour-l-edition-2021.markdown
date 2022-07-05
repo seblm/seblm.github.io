@@ -50,7 +50,7 @@ d’exercices. [Cette année][my-repository], je m’y tiens depuis 13 jours. Le
 _rage quit_ sur des exercices trop compliqués. Cette année, je me tiens à ce que je connais le mieux : du Scala. La
 seule excentricité, c’est d’utiliser [Scala 3][scala-3] pour découvrir sa syntaxe.
 
-![mes stars sur advent of code]({{ site.url }}/img/2021-advent-of-code.png)
+![mes stars sur advent of code]({{ '/img/2021-advent-of-code.png' | relative_url }})
 
 Comme toujours le plus sympa reste d’échanger avec les autres sur le cheminement vers la solution employée par chacun. Pour l’instant, je n’ai pas encore regardé d’autres repositories. J’avoue qu’une fois résolu, je passe parfois un peu de temps à refactorer mais bien souvent, je me contente des tests vers et de mes deux étoiles quotidiennes. Il faut savoir économiser ses forces et tenir sur la durée.
 

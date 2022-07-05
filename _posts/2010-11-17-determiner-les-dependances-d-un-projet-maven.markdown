@@ -48,7 +48,7 @@ l'exécution de l'artifact. L'ensemble des dépendances contenues dans le graphe
 dépendances de chacuns des artifacts récursivement en commençant par l'artifact initial et cela récursivement jusqu'à ce
 qu'il ne reste plus aucune dépendance transitive à résoudre.
 
-![exemple de graphe de dépendances]({{ site.url }}/img/image_gallery.jpg)
+![exemple de graphe de dépendances]({{ '/img/image_gallery.jpg' | relative_url }})
 
 À la main
 ---------
