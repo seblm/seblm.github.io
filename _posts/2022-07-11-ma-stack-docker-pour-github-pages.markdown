@@ -30,27 +30,31 @@ précisément les bonnes versions de [ruby][ruby] et [Jekyll][jekyllrb] utilisé
 sont pas les dernières versions.
 
 ```shell
-docker run --name ruby --rm --volume gem_home:/usr/local/bundle ruby:2.7.3 gem install jekyll --version 3.9.2
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle ruby:2.7.4 gem install jekyll --version 3.9.2
 ```
 
 ## Création d'un site
 
 On va créer un nouveau site sans installer les bundles car nous avons besoin d'adapter légèrement la configuration par
-défaut de [Jekyll][jekyllrb] à [GitHub Pages][github-pages]:
+défaut de [Jekyll][jekyllrb] à [GitHub Pages][github-pages] :
 
 ```shell
-docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site ruby:2.7.3 jekyll new --skip-bundle /usr/site
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site ruby:2.7.4 jekyll new --skip-bundle /usr/site
 ```
 
 ## Adaptation du site pour GitHub Pages
 
-En suivant les recommandation, il est nécessaire de commenter `gem "jekyll", "~> 3.9.2"` and décommenter
-`gem "github-pages", group: :jekyll_plugins` dans le fichier `"$(pwd)"/Gemfile`.
+En suivant [les recommandations][github-pages-new], il est nécessaire de commenter `gem "jekyll", "~> 3.9.2"`. Je pense
+que GitHub souhaite que la version de [Jekyll][jekyllrb] suive de manière transitive celle de la gem `github-page`. Je
+décide de ne pas le faire car je suis attentivement [la version][github-pages-versions] de [Jekyll][jekyllrb] supportée
+par [GitHub Pages][github-pages].
 
-Une fois que c'est fait, on peut installer les dépendences :
+Décommenter `gem "github-pages", group: :jekyll_plugins` dans le fichier `"$(pwd)"/Gemfile`.
+
+Une fois que c'est fait, on peut installer les dépendances :
 
 ```shell
-docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle install
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.4 bundle install
 ```
 
 ## Tester son site en local
@@ -58,7 +62,7 @@ docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)
 Il ne reste plus qu'à lancer [Jekyll][jekyllrb] :
 
 ```shell
-docker run --name ruby --publish 4000:4000 --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle exec jekyll serve --drafts --host=0.0.0.0
+docker run --name ruby --publish 4000:4000 --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.4 bundle exec jekyll serve --drafts --host=0.0.0.0
 ```
 
 ## Mise à jour des dépendances
@@ -66,17 +70,17 @@ docker run --name ruby --publish 4000:4000 --rm --volume gem_home:/usr/local/bun
 Pour rester à jour sur les dépendances transitives, on peut lancer cette commande :
 
 ```shell
-docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle update
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.4 bundle update
 ```
 
 ## Analyser les différences si GitHub Pages mettait à jour ses dépendances
 
 On a déjà vu que la page [GitHub Pages dependency versions][github-pages-versions] permettait de savoir sur quelles
-versions de [ruby][ruby] et de [Jekyll][jekyllrb] GitHub Pages tournait. Si jamais GitHub décidait de se mettre à jour, on pourrait
-adapter notre site aux nouvelles versions en générant à nouveau un site à côté :
+versions de [ruby][ruby] et de [Jekyll][jekyllrb] GitHub Pages tournait. Si jamais GitHub décidait de se mettre à jour,
+on pourrait adapter notre site aux nouvelles versions en générant à nouveau un site à côté :
 
 ```shell
-docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.3 bundle exec jekyll new test
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.4 bundle exec jekyll new test
 ```
 
 Et ainsi comparer la configuration actuelle avec la nouvelle par défaut.
@@ -95,5 +99,6 @@ drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 assets
 
 [github-pages]: https://pages.github.com
 [github-pages-versions]: https://pages.github.com/versions
+[github-pages-new]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site
 [jekyllrb]: https://jekyllrb.com
 [ruby]: https://www.ruby-lang.org
