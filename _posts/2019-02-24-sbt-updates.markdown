@@ -15,7 +15,7 @@ conjointement avec [la documentation du plugin][sbt-updates] en exécutant ces c
 
 {% highlight bash %}
 $ echo "// install sbt-updates to any sbt project according to documentation from https://github.com/rtimush/sbt-updates" > ~/.sbt/1.0/plugins/sbt-updates.sbt
-$ echo "addSbtPlugin(\"com.timushev.sbt\" % \"sbt-updates\" % \"0.4.0\")" >> ~/.sbt/1.0/plugins/sbt-updates.sbt
+$ echo "addSbtPlugin(\"com.timushev.sbt\" % \"sbt-updates\" % \"0.6.3\")" >> ~/.sbt/1.0/plugins/sbt-updates.sbt
 {% endhighlight %}
 
 # Utilisation du plugin
