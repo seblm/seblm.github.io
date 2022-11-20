@@ -20,8 +20,10 @@ description: >- # this means to ignore newlines until "baseurl:"
   blog about programming
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://seblm.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: seblm
 github_username:  seblm
+mastodon:
+  - username: seblm
+    instance: piaille.fr
 show_excerpts: true
 minima:
   date_format: "%e/%m/%Y"
