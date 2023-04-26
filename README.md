@@ -9,7 +9,7 @@ docker volume create gem_home
 Install [GitHub Pages compliant versions](https://pages.github.com/versions) of Jekyll with ruby:
 
 ```shell
-docker run --name ruby --rm --volume gem_home:/usr/local/bundle ruby:2.7.4 gem install jekyll --version 3.9.2
+docker run --name ruby --rm --volume gem_home:/usr/local/bundle ruby:2.7.4 gem install jekyll --version 3.9.3
 ```
 
 Create new Jekyll site:
