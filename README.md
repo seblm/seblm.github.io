@@ -46,14 +46,11 @@ docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)
 
 This way you can now compare your configuration with default one.
 
-To check current theme source:
+## Theme
+
+To check where theme source is located:
 
 ```shell
-$ ls -l $(bundle info jekyll-theme-hacker | grep "Path:" | grep --only-matching "/.*")
-total 32
--rw-r--r--  1 ***  staff  6555 Jun 13 22:27 LICENSE
--rw-r--r--  1 ***  staff  4814 Jun 13 22:27 README.md
-drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 _layouts
-drwxr-xr-x  5 ***  staff   170 Jun 13 22:27 _sass
-drwxr-xr-x  4 ***  staff   136 Jun 13 22:27 assets
+$ docker run --name ruby --rm --volume gem_home:/usr/local/bundle --volume "$(pwd)":/usr/site --workdir /usr/site ruby:2.7.4 bundle info --path minima
+/usr/local/bundle/gems/minima-2.5.1
 ```
