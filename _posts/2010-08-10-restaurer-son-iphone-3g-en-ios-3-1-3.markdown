@@ -2,7 +2,6 @@
 layout:    post
 title:     Restaurer son iPhone 3G en iOS 3.1.3
 date:      2010-08-10 20:58:49
-tags:      General
 noExcerpt: true
 ---
 

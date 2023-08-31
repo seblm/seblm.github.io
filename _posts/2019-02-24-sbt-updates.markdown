@@ -2,7 +2,6 @@
 layout: post
 title:  "Comment s'assurer que mon projet sbt est à jour"
 date:   2019-02-24 07:22:00 +0100
-tags:   Techno
 ---
 La bonne pratique sur un projet est de toujours être à jour sur ses dépendances. Or c'est assez fastidieux d'aller
 vérifier ça _à la main_ sur chacune des dépendances. C'est là que [sbt-updates] peut nous aider à nous en sortir.

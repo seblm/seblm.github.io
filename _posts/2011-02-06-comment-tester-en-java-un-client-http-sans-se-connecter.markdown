@@ -2,7 +2,6 @@
 layout:    post
 title:     Comment tester en Java un client HTTP sans se connecter ?
 date:      2011-02-06 20:52:49
-tags:      Techno
 noExcerpt: true
 ---
 

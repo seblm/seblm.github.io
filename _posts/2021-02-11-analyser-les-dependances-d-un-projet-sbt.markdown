@@ -2,7 +2,6 @@
 layout: post
 title:  "Analyser les dépendances d’un projet sbt"
 date:   2021-02-11 22:12:00 +0200
-tags:   Techno
 ---
 
 Depuis la version 1.4.0, le fameux plugin `sbt-dependency-graph` est [inclus nativement dans sbt][sbt-release-note]. La

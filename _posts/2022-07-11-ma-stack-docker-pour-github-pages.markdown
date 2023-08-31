@@ -2,7 +2,6 @@
 layout: post
 title:  "Ma stack Docker pour GitHub Pages"
 date:   2022-07-11 06:42:00 +0200
-tags:   Techno
 img_large: 2022-07-11-ma-stack-docker-pour-github-pages.png
 ---
 

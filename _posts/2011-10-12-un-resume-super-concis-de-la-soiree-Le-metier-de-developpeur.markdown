@@ -2,7 +2,6 @@
 layout:    post
 title:     Un résumé super concis de la soirée "Le métier de développeur"
 date:      2011-10-12 04:06:49
-tags:      Professionnel
 noExcerpt: true
 ---
 

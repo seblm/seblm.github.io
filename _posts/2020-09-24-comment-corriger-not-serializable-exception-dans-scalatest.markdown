@@ -2,7 +2,6 @@
 layout: post
 title:  "Pourquoi et comment a été corrigé NotSerializableException dans ScalaTest"
 date:   2020-09-24 13:47:00 +0200
-tags:   Techno
 ---
 
 Qu’est-ce qui ne va pas avec [ScalaTest 3.2.2] ? Dans cet article je vais revenir sur un bug introduit dans [ScalaTest]

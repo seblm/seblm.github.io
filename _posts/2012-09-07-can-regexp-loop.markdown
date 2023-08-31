@@ -2,7 +2,6 @@
 layout:    post
 title:     Can regexp loop?
 date:      2012-09-07 11:20:49
-tags:      General
 noExcerpt: true
 ---
 

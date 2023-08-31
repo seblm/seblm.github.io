@@ -2,7 +2,6 @@
 layout: post
 title:  "Découverte d’OpenFeature et implémentation d’un provider pour Unleash"
 date:   2022-07-11 06:05:00 +0200
-tags:   Techno
 ---
 
 La nécessité de créer des standards s’est souvent révélée utile même si des expériences passées (comme JEE par exemple)

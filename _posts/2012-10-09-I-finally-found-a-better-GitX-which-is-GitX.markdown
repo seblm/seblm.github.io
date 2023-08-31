@@ -2,7 +2,6 @@
 layout:    post
 title:     "I finally found a better GitX which is GitX"
 date:      2012-10-09 05:53:49
-tags:      General
 noExcerpt: true
 ---
 

@@ -2,7 +2,6 @@
 layout: post
 title:  "Advent of code : c’est reparti pour l’édition 2021"
 date:   2021-12-14 03:06:00 +0200
-tags:   Techno
 ---
 
 Avec cet article, j’aimerai revenir sur les ressorts qui poussent chaque année les développeurs du monde entier à

@@ -2,7 +2,6 @@
 layout: post
 title:  "Angular getting started : pas à pas"
 date:   2019-10-08 04:13:00 +0100
-tags:   Techno
 ---
 Après trois ans à ne coder que du backend, je suis un peu - voire beaucoup - rouillé sur le front. Je vais donc me
 remettre un peu dans le game en commençant par décrire la prise en main d'[Angular] et de son [getting started].

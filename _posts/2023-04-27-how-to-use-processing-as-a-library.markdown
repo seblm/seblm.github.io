@@ -2,7 +2,6 @@
 layout: post
 title:  "How to use Processing as a library"
 date:   2023-04-27 01:14:00 +0200
-tags:   Professionnel
 img_large: 2023-04-27-processing-into-central.png
 ---
 

@@ -2,7 +2,6 @@
 layout: post
 title:  "Comment savoir si on travaille dans une bonne boite ?"
 date:   2022-10-11 06:42:00 +0200
-tags:   Professionnel
 img_large: 2022-10-11-comment-savoir-si-on-travaille-dans-une-bonne-boite.jpeg
 ---
 

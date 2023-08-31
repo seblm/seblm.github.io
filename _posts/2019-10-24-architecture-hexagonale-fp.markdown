@@ -2,7 +2,6 @@
 layout: post
 title:  "Architecture hexagonale et programmation fonctionnelle"
 date:   2019-10-24 05:15:00 +0200
-tags:   Techno
 ---
 Après avoir présenté l'architecture hexagonale, j'ai eu le droit à une question _piège_ de la part d'un de mes
 collègues : est-ce que cette architecture est compatible avec la programmation fonctionnelle. Plus précisément : si
