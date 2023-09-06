@@ -19,18 +19,24 @@ description: >- # this means to ignore newlines until "baseurl:"
   blog about programming
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://seblm.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  seblm
-mastodon:
-  - username: seblm
-    instance: piaille.fr
-rss: rss
-show_excerpts: true
+# twitter_username: jekyllrb
+# github_username:  jekyll
 minima:
   date_format: "%e/%m/%Y"
+  skin: auto
+  social_links:
+    - platform: mastodon
+      user_url: https://piaille.fr/@seblm
+    - platform: github
+      user_url: https://github.com/seblm
+    - platform: rss
+      user_url: /feed.xml
+paginate: 5
+show_excerpts: true
 
 # Build settings
 markdown: kramdown
-theme: minima
+remote_theme: seblm/minima
 plugins:
   - jekyll-feed
 
