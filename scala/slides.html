@@ -66,6 +66,77 @@
 					<section>
 						<h2>Pureté</h2>
 					</section>
+
+					<section>
+                        <pre><code>
+def saveArticle(id: UUID, content: String, author: Author)(
+    database: Database
+): Boolean =
+  database.executeQuery(
+    """INSERT INTO Article(id, content, author_name, author_email)
+      |VALUES (:id, :content, :author_name, :author_email);
+      |""".stripMargin,
+    "id" -> id,
+    "content" -> content,
+    "author_name" -> author.name,
+    "author_email" -> author.email
+  )
+						</code></pre>
+						<code><pre>
+saveArticle(
+    UUID.fromString("0d975fff-44dc-4110-b21a-1f31148969b8"),
+    "<p>Great content</p>",
+    Author("Sébastian", "seb@example.com")
+  )(postgresql)
+val res0: Boolean = true
+						</code></pre>
+					</section>
+
+					<section>
+                        <pre><code>
+def sayHello(niceMessage: String): Unit =
+  println(s"Hello $niceMessage")
+						</code></pre>
+
+						<pre><code>
+sayHello("world!")
+Hello world!
+						</code></pre>
+					</section>
+
+					<section>
+                        <pre><code>
+def dice(): Int =
+  Random.nextInt(6) + 1
+						</code></pre>
+
+                        <pre><code>
+dice()
+dice()
+val res0: Int = 5
+val res1: Int = 3
+						</code></pre>
+					</section>
+
+					<section>
+                        <pre><code>
+def nowPlus(days: Long): Instant =
+  Instant.now().plus(days, ChronoUnit.DAYS)
+						</code></pre>
+                        <pre><code>
+nowPlus(3)
+nowPlus(5)
+val res0: java.time.Instant = 2024-03-05T18:55:34.125784Z
+val res1: java.time.Instant = 2024-03-07T18:55:34.215660Z
+						</code></pre>
+					</section>
+
+					<section>
+						<p>Toutes ces fonctions sont <em>impures</em> car:</p>
+						<ul>
+							<li>elles ...</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
@@ -418,7 +489,6 @@ Reveal.on( 'customevent', function() {
 				center: true,
 				hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealHighlight ]
 			});
 
