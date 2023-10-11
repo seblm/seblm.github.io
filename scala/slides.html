@@ -38,7 +38,8 @@
 					</section>
 
 					<section>
-						<p>
+						<h3>Définition mathématique</h3>
+						<p class="section">
 							<code>E &#8594; F</code><br>
 							<code>x &#8614; f(x)</code>
 						</p>
@@ -53,7 +54,7 @@
 					</section>
 
 					<section>
-						<p>Caractéristiques d’une fonction :</p>
+						<h3>Caractéristiques d’une fonction</h3>
 						<ul>
 							<li>totale</li>
 							<li>déterministe</li>
@@ -68,7 +69,47 @@
 					</section>
 
 					<section>
-                        <pre><code>
+                        <pre><code class="language-scala">
+def sayHello(niceMessage: String): Unit =
+  println(s"Hello $niceMessage")
+						</code></pre>
+
+						<pre><code class="language-scala">
+sayHello("world!")
+Hello world!
+						</code></pre>
+					</section>
+
+					<section>
+                        <pre><code class="language-scala">
+def dice(): Int =
+  Random.nextInt(6) + 1
+						</code></pre>
+
+                        <pre><code class="language-scala">
+dice()
+dice()
+val res0: Int = 5
+val res1: Int = 3
+						</code></pre>
+					</section>
+
+					<section>
+                        <pre><code class="language-scala">
+def nowPlus(days: Long): Instant =
+  Instant.now().plus(days, ChronoUnit.DAYS)
+						</code></pre>
+
+                        <pre><code class="language-scala">
+nowPlus(3)
+nowPlus(5)
+val res0: java.time.Instant = 2024-03-05T18:55:34.125784Z
+val res1: java.time.Instant = 2024-03-07T18:55:34.215660Z
+						</code></pre>
+					</section>
+
+					<section>
+                        <pre><code class="language-scala">
 def saveArticle(id: UUID, content: String, author: Author)(
     database: Database
 ): Boolean =
@@ -82,10 +123,11 @@ def saveArticle(id: UUID, content: String, author: Author)(
     "author_email" -> author.email
   )
 						</code></pre>
-						<code><pre>
+
+						<pre><code class="language-scala">
 saveArticle(
     UUID.fromString("0d975fff-44dc-4110-b21a-1f31148969b8"),
-    "<p>Great content</p>",
+    "&lt;p&gt;Great content&lt;/p&gt;",
     Author("Sébastian", "seb@example.com")
   )(postgresql)
 val res0: Boolean = true
@@ -93,55 +135,167 @@ val res0: Boolean = true
 					</section>
 
 					<section>
-                        <pre><code>
-def sayHello(niceMessage: String): Unit =
-  println(s"Hello $niceMessage")
-						</code></pre>
-
-						<pre><code>
-sayHello("world!")
-Hello world!
-						</code></pre>
-					</section>
-
-					<section>
-                        <pre><code>
-def dice(): Int =
-  Random.nextInt(6) + 1
-						</code></pre>
-
-                        <pre><code>
-dice()
-dice()
-val res0: Int = 5
-val res1: Int = 3
-						</code></pre>
-					</section>
-
-					<section>
-                        <pre><code>
-def nowPlus(days: Long): Instant =
-  Instant.now().plus(days, ChronoUnit.DAYS)
-						</code></pre>
-                        <pre><code>
-nowPlus(3)
-nowPlus(5)
-val res0: java.time.Instant = 2024-03-05T18:55:34.125784Z
-val res1: java.time.Instant = 2024-03-07T18:55:34.215660Z
-						</code></pre>
-					</section>
-
-					<section>
-						<p>Toutes ces fonctions sont <em>impures</em> car:</p>
+						<p>Toutes ces fonctions sont <em>impures</em> car :</p>
 						<ul>
-							<li>elles ...</li>
+							<li>deux appels successifs ne produisent pas la même valeur en retour ;</li>
+							<li>elles créent des effets de bord.</li>
 						</ul>
+					</section>
+
+					<section>
+						<h3>Pourquoi les fonctions pures sont-elles intéressantes ?</h3>
+						<ul>
+							<li class="fragment">transparence référentielle</li>
+							<li class="fragment">immuabilité
+								<ul>
+									<li>des paramètres en entrée</li>
+									<li>de la valeur produite en retour</li>
+								</ul>
+						</ul>
+						<p class="fragment">Permet donc des <strong>optimisations massivement parallélisables</strong></p>
 					</section>
 				</section>
 
 				<section>
-					<h2>Composition</h2>
+					<section>
+						<h2>Composition</h2>
+					</section>
+
+					<section>
+						<h3>Définition mathématique</h3>
+						<p><code>f &#8728; g</code></p>
+						<p><code>f(g(x))</code></p>
+					</section>
+
+					<section>
+						<h3>D’un point de vue génie logiciel</h3>
+						<p>Il s’agit d’un moyen de garantir</p>
+						<ol>
+							<li>la ré-utilisabilité du code</li>
+							<li>le bon niveau d’abstraction</li>
+							<li>la lisibilité</li>
+						</ol>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">
+case class User(name: String, age: Int)
+						</code></pre>
+
+						<pre><code class="language-scala fragment">
+enum Category:
+  case Young, Adult, Old
+						</code></pre>
+
+						<pre><code class="language-scala fragment">
+val categoryByMaxAges: Map[Int, Category] = Map(
+  24 -> Category.Young,
+  64 -> Category.Adult,
+  Integer.MAX_VALUE -> Category.Old
+)
+						</code></pre>
+
+						<pre><code class="language-scala fragment">
+val discountByCategories: Map[Category, Int] = Map(
+  Category.Young -> 25,
+  Category.Adult -> 0,
+  Category.Old -> 35
+)
+						</code></pre>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">
+def computePrice(
+    user: User,
+    categories: Map[Int, Category],
+    price: Long,
+    discounts: Map[Category, Int]
+): Long = price - price * discounts(
+  categories
+    .filter { case (maxAge, category) => maxAge >= user.age }
+    .minBy { case (maxAge, category) => maxAge }
+    ._2
+) / 100
+						</code></pre>
+
+						<pre><code class="language-scala fragment">
+computePrice(          computePrice(          computePrice(
+  User("Emma", 16),      User("Nicolas", 41),   User("Martine", 67),
+  categoryByMaxAges,     categoryByMaxAges,     categoryByMaxAges,
+  price = 1999,          price = 5500,          price = 4999,
+  discountByCategories   discountByCategories   discountByCategories
+)                      )                      )
+val res0: Long = 1500  val res1: Long = 5500  val res2: Long = 3250
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Décomposons</h3>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">
+def computePrice(
+    user: User,
+    categories: Map[Int, Category],
+    price: Long,
+    discounts: Map[Category, Int]
+): Long =
+  computePrice(
+    price,
+    computeDiscount(user, categories, discounts)
+  )
+						</code></pre>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">
+def computePrice(price: Long, discount: Long): Long =
+  price - price * discount / 100
+						</code></pre>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">
+def computeDiscount(
+    user: User,
+    categories: Map[Int, Category],
+    discounts: Map[Category, Int]
+): Long = discounts(findCategory(user, categories))
+						</code></pre>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">
+def findCategory(
+    user: User,
+    categories: Map[Int, Category]
+): Category =
+  val (_, category) = categories
+    .filter { case (maxAge, category) => maxAge >= user.age }
+    .minBy { case (maxAge, category) => maxAge }
+  category
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Les fonctions : ces citoyens de premier ordre</h3>
+					</section>
+
+					<section>
+						<p>Une fonction est considérée comme un type de données comme les autres.</p>
+						<ul>
+							<li>peut-être passée en argument d’une autre fonction</li>
+							<li>peut-être retournée par une autre fonction</li>
+						</ul>
+					</section>
+
+					<section>
+						<p>Exemples en scala TODO</p>
+					</section>
 				</section>
+
 
 				<section>
 					<h2>Récursivité</h2>
