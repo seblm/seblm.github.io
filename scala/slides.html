@@ -26,11 +26,70 @@
 
 		<div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
 					<h1>Introduction à la programmation fonctionnelle</h1>
 				</section>
+
+				<section>
+					<section>
+						<h2>Enseignant</h2>
+						<h3>Sébastian Le Merdy</h3>
+						<p><strong>19 ans</strong> d'expérience professionnelle<br>dans le développement</p>
+					</section>
+
+					<section>
+						<p>ESN &#128558;</p>
+						<dl>
+							<dt>
+							  <img src="img/logo-xebia.png" alt="Xebia" style="width: 5em">
+							</dt>
+							<dd>
+								<img src="img/logo-societe-generale.png" alt="Société Générale" style="width: 2em">
+								<img src="img/logo-colissimo.png" alt="Colissimo" style="width: 2em">
+								<img src="img/logo-libon.png" alt="Libon" style="width: 2em">
+								<img src="img/logo-vidal.png" alt="Vidal" style="width: 2em">
+								<img src="img/logo-michelin.png" alt="Michelin" style="width: 2em">
+								<img src="img/logo-bisam.png" alt="Bisam" style="width: 3em">
+							</dd>
+							<dt>
+								<img src="img/logo-elosi.png" alt="Elosi" style="width: 3em">
+							</dt>
+							<dd>
+								<img src="img/logo-rsi.png" alt="Rsi" style="width: 3em">
+								<img src="img/logo-gmf.png" alt="GMF" style="width: 1em">
+							</dd>
+						</dl>
+					</section>
+
+					<section>
+						<p>Plus récemment dans un organisme de paiement</p>
+						<p>
+							<img src="img/logo-nickel.png" alt="Nickel" style="width: 6em">
+						</p>
+					</section>
+
+					<section>
+						<p>Actuellement chez un <strong>éditeur</strong> SaaS<br><em>dans la data</em></p>
+						<p>
+							<img src="img/logo-zeenea.png" alt="Zeenea" style="width: 10em">
+						</p>
+					</section>
+
+					<section>
+						<p>Principalement autour des langages JVM</p>
+						<p>
+							<img src="img/logo-java.png" alt="Java">
+							<img src="img/logo-scala.png" alt="Scala">
+						</p>
+					</section>
+
+					<section>
+						<p>Mais rentrons dans le vif du sujet</p>
+						<p>FP&#8230;</p>
+					</section>
+				</section>
+
 
 				<section>
 					<section>
@@ -69,48 +128,38 @@
 					</section>
 
 					<section>
-                        <pre><code class="language-scala">
-def sayHello(niceMessage: String): Unit =
-  println(s"Hello $niceMessage")
-						</code></pre>
+                        <pre><code class="language-scala">def sayHello(niceMessage: String): Unit =
+  println(s"Hello $niceMessage")</code></pre>
 
-						<pre><code class="language-scala">
-sayHello("world!")
-Hello world!
-						</code></pre>
+                        <pre class="fragment"><code class="language-scala">sayHello("world!")</code></pre>
+
+						<pre class="fragment"><code class="language-plaintext">Hello world!</code></pre>
 					</section>
 
 					<section>
-                        <pre><code class="language-scala">
-def dice(): Int =
-  Random.nextInt(6) + 1
-						</code></pre>
+                        <pre><code class="language-scala">def dice(): Int =
+  Random.nextInt(6) + 1</code></pre>
 
-                        <pre><code class="language-scala">
-dice()
-dice()
-val res0: Int = 5
-val res1: Int = 3
-						</code></pre>
+                        <pre class="fragment"><code class="language-scala">dice()
+val res0: Int = 5</code></pre>
+
+						<pre class="fragment"><code class="language-scala">dice()
+val res1: Int = 3</code></pre>
 					</section>
 
 					<section>
-                        <pre><code class="language-scala">
-def nowPlus(days: Long): Instant =
-  Instant.now().plus(days, ChronoUnit.DAYS)
-						</code></pre>
+                        <pre><code class="language-scala">def nowPlus(days: Long): Instant =
+  Instant.now().plus(days, ChronoUnit.DAYS)</code></pre>
 
-                        <pre><code class="language-scala">
-nowPlus(3)
-nowPlus(5)
-val res0: java.time.Instant = 2024-03-05T18:55:34.125784Z
-val res1: java.time.Instant = 2024-03-07T18:55:34.215660Z
-						</code></pre>
+                        <pre class="fragment"><code class="language-scala">nowPlus(3)
+val res0: java.time.Instant = 2024-03-05T18:55:34.125784Z</code></pre>
+
+						<pre class="fragment"><code class="language-scala">nowPlus(5)
+val res1: java.time.Instant = 2024-03-07T18:55:34.215660Z</code></pre>
 					</section>
 
 					<section>
-                        <pre><code class="language-scala">
-def saveArticle(id: UUID, content: String, author: Author)(
+                        <pre><code class="language-scala">def saveArticle(id: UUID, content: String, author: Author)(
     database: Database
 ): Boolean =
   database.executeQuery(
@@ -121,17 +170,14 @@ def saveArticle(id: UUID, content: String, author: Author)(
     "content" -> content,
     "author_name" -> author.name,
     "author_email" -> author.email
-  )
-						</code></pre>
+  )</code></pre>
 
-						<pre><code class="language-scala">
-saveArticle(
+						<pre class="fragment"><code class="language-scala">saveArticle(
     UUID.fromString("0d975fff-44dc-4110-b21a-1f31148969b8"),
     "&lt;p&gt;Great content&lt;/p&gt;",
     Author("Sébastian", "seb@example.com")
   )(postgresql)
-val res0: Boolean = true
-						</code></pre>
+val res0: Boolean = true</code></pre>
 					</section>
 
 					<section>
@@ -178,35 +224,28 @@ val res0: Boolean = true
 					</section>
 
 					<section>
-						<pre><code class="language-scala">
-case class User(name: String, age: Int)
-						</code></pre>
+						<pre><code class="language-scala">case class User(name: String, age: Int)</code></pre>
 
-						<pre><code class="language-scala fragment">
-enum Category:
-  case Young, Adult, Old
-						</code></pre>
+						<pre class="fragment"><code class="language-scala">enum Category:
+  case Young, Adult, Old</code></pre>
 
-						<pre><code class="language-scala fragment">
-val categoryByMaxAges: Map[Int, Category] = Map(
-  24 -> Category.Young,
-  64 -> Category.Adult,
-  Integer.MAX_VALUE -> Category.Old
-)
-						</code></pre>
+						<pre class="fragment"><code class="language-scala">val categoryByMaxAges: Map[Int, Category] =
+  Map(
+    24 -> Category.Young,
+    64 -> Category.Adult,
+    Integer.MAX_VALUE -> Category.Old
+  )</code></pre>
 
-						<pre><code class="language-scala fragment">
-val discountByCategories: Map[Category, Int] = Map(
-  Category.Young -> 25,
-  Category.Adult -> 0,
-  Category.Old -> 35
-)
-						</code></pre>
+						<pre class="fragment"><code class="language-scala">val discountByCategories: Map[Category, Int] =
+  Map(
+    Category.Young -> 25,
+    Category.Adult -> 0,
+    Category.Old -> 35
+  )</code></pre>
 					</section>
 
 					<section>
-						<pre><code class="language-scala">
-def computePrice(
+						<pre><code class="language-scala">def computePrice(
     user: User,
     categories: Map[Int, Category],
     price: Long,
@@ -216,18 +255,15 @@ def computePrice(
     .filter { case (maxAge, category) => maxAge >= user.age }
     .minBy { case (maxAge, category) => maxAge }
     ._2
-) / 100
-						</code></pre>
+) / 100</code></pre>
 
-						<pre><code class="language-scala fragment">
-computePrice(          computePrice(          computePrice(
+						<pre class="fragment"><code class="language-scala">computePrice(          computePrice(          computePrice(
   User("Emma", 16),      User("Nicolas", 41),   User("Martine", 67),
   categoryByMaxAges,     categoryByMaxAges,     categoryByMaxAges,
   price = 1999,          price = 5500,          price = 4999,
   discountByCategories   discountByCategories   discountByCategories
 )                      )                      )
-val res0: Long = 1500  val res1: Long = 5500  val res2: Long = 3250
-						</code></pre>
+val res0: Long = 1500  val res1: Long = 5500  val res2: Long = 3250</code></pre>
 					</section>
 
 					<section>
@@ -286,13 +322,65 @@ def findCategory(
 					<section>
 						<p>Une fonction est considérée comme un type de données comme les autres.</p>
 						<ul>
-							<li>peut-être passée en argument d’une autre fonction</li>
-							<li>peut-être retournée par une autre fonction</li>
+							<li class="fragment">peut-être passée en argument d’une autre fonction</li>
 						</ul>
 					</section>
 
 					<section>
-						<p>Exemples en scala TODO</p>
+						<pre><code class="language-scala">def logBeforeAndAfter(message: String, task: () => Unit): Unit =
+  println(s"before $message")
+  task()
+  println(s" after $message")</code></pre>
+
+						<pre class="fragment"><code class="language-scala">logBeforeAndAfter("hello", () => { println("Hello World!") })</code></pre>
+
+						<pre class="fragment"><code class="language-plaintext">before hello
+Hello World!
+ after hello</code></pre>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">def logBeforeAndAfterResult(
+    message: String,
+    computeResult: String => Long
+): Unit =
+  println(s"before $message")
+  println(s"result ${computeResult(message)}")
+  println(s" after $message")</code></pre>
+
+						<pre class="fragment"><code class="language-scala">logBeforeAndAfterResult("hello", message => message.length)</code></pre>
+						<pre class="fragment"><code class="language-plaintext">before hello
+result 5
+ after hello</code></pre>
+					</section>
+
+					<section>
+						<p>Une fonction est considérée comme un type de données comme les autres.</p>
+						<ul>
+							<li>peut-être passée en argument d’une autre fonction</li>
+							<li class="fragment">peut-être retournée par une autre fonction</li>
+						</ul>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">def operationToCompute(operation: String): (Long, Long) => Long =
+  operation match
+    case "add"      => (left, right) => left + right
+    case "subtract" => (left, right) => left - right
+    case "multiply" => (left, right) => left * right
+    case _          => (left, right) => Long.MinValue</code></pre>
+
+						<pre class="fragment"><code class="language-scala">operationToCompute("add")(3, 2)
+val res0: Long = 5</code></pre>
+
+						<pre class="fragment"><code class="language-scala">operationToCompute("subtract")(3, 2)
+val res1: Long = 1</code></pre>
+
+						<pre class="fragment"><code class="language-scala">operationToCompute("multiply")(3, 2)
+val res2: Long = 6</code></pre>
+
+						<pre class="fragment"><code class="language-scala">operationToCompute("divide"  )(3, 2)
+val res3: Long = -9223372036854775808</code></pre>
 					</section>
 				</section>
 
