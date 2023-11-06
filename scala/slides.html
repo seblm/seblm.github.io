@@ -35,7 +35,7 @@
 					<section>
 						<h2>Enseignant</h2>
 						<h3>Sébastian Le Merdy</h3>
-						<p><strong>19 ans</strong> d'expérience professionnelle<br>dans le développement</p>
+						<p><strong>19 ans</strong> d’expérience professionnelle<br>dans le développement</p>
 					</section>
 
 					<section>
@@ -386,7 +386,55 @@ val res3: Long = -9223372036854775808</code></pre>
 
 
 				<section>
-					<h2>Récursivité</h2>
+					<section>
+						<h2>Récursivité</h2>
+					</section>
+
+					<section>
+						<p>La possibilité pour une fonction de se rappeler elle-même. Permet de traiter :</p>
+						<ul>
+							<li>une structure de données elle-même récursive</li>
+							<li>une collection</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Implémentation</h3>
+						<ol>
+							<li>trouver une ou plusieurs conditions d’arrêt</li>
+							<li>se rappeler soi-même avec des données transformées</li>
+						</ol>
+					</section>
+
+					<section>
+						<h3>Récursion terminale</h3>
+						<p>L’appel récursif est la dernière évaluation dans l’implémentation de la fonction</p>
+						<p>Permet d’éviter des épuisements de la pile d’exécution (aka StackOverflow®)</p>
+					</section>
+
+					<section>
+						<h3>Exemple: lire un flux</h3>
+						<pre><code class="language-scala">val input = """34
+              |84
+              |12
+              |
+              |32
+              |28
+              |9
+              |7""".stripMargin</code></pre>
+						<pre class="fragment"><code class="language-scala">@tailrec
+def sums(
+    input: List[String],
+    acc: Seq[Long] = Vector.empty,
+    sum: Long = 0
+): Seq[Long] =
+  input match
+    case Nil        => acc :+ sum
+    case "" :: tail => sums(tail, acc :+ sum)
+    case n :: tail  => sums(tail, acc, sum + n.toLong)</code></pre>
+						<pre class="fragment"><code class="language-scala">sums(input.linesIterator.toList)
+val res0: Seq[Long] = Vector(130, 76)</code></pre>
+					</section>
 				</section>
 
 				<section>
