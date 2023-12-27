@@ -4,6 +4,8 @@ services:
     image: ruby:2.7.4
     working_dir: /usr/site
     command: bundle update
+    profiles:
+      - update
     volumes:
       - type: volume
         source: gem_home
@@ -16,6 +18,7 @@ services:
     depends_on:
       bundle-update:
         condition: service_completed_successfully
+        required: false
     image: ruby:2.7.4
     working_dir: /usr/site
     command: bundle exec jekyll serve --drafts --host=0.0.0.0

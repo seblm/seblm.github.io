@@ -26,6 +26,12 @@ Comment `gem "minima", "~> 2.0"` and uncomment `gem "github-pages", group: :jeky
 docker compose up --detach
 ```
 
+## Update dependencies before running
+
+```shell
+docker compose up --profile update --detach
+```
+
 ## Compare with fresh new site generation
 
 ```shell
