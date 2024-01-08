@@ -395,7 +395,7 @@ result 5
     case "multiply" => (left, right) => left * right
     case _          => (left, right) => Long.MinValue</code></pre>
 
-						<pre class="fragment"><code class="language-scala">operationToCompute("add")(3, 2)
+						<pre class="fragment"><code class="language-scala">operationToCompute("add"     )(3, 2)
 val res0: Long = 5</code></pre>
 
 						<pre class="fragment"><code class="language-scala">operationToCompute("subtract")(3, 2)

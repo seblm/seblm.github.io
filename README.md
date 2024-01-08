@@ -29,7 +29,7 @@ docker compose up --detach
 ## Update dependencies before running
 
 ```shell
-docker compose up --profile update --detach
+docker compose --profile update up --detach
 ```
 
 ## Compare with fresh new site generation
