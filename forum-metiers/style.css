@@ -1,0 +1,7 @@
+.reveal ol.no-bullet {
+    list-style: none;
+}
+.fixed-width {
+    display: inline-block;
+    width: 3em;
+}
