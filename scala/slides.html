@@ -27,11 +27,45 @@
 		<div class="reveal">
 
 			<div class="slides">
-				<section>
-					<h1>Introduction à la programmation fonctionnelle</h1>
+
+<!--
+          Nom matière : Programmation fonctionnelle avec Scala
+     Objectif matière : Ce cours a pour objectif de présenter les concepts de la programmation fonctionnelle. Il est en
+                        effet important pour un élève ingénieur d’être familier avec les différents paradigmes qui
+                        fondent les nombreux langages de programmation qu’ils seront amenés à utiliser ou à comprendre
+                        car étant aujourd’hui adoptés de plus en plus dans de nombreux langages populaires (Python, Java
+                        8, Javascript, Rust…).
+                        L’introduction des concepts inhérents au paradigme fonctionnel seront introduits en début de
+                        cours et ce de façon indépendante d’un langage de programmation, de sorte que tout étudiant
+                        puisse en comprendre les principes, la philosophie et puisse ensuite les appliquer dans le
+                        langage de son choix. De plus Scala sera utilisé comme langage d’exemple pour le cours.
+                        Au long de ce cours nous aborderons de nombreux aspects du langage Scala, notamment le système
+                        de type, le polymorphisme, la complémentarité entre le paradigme objet et le paradigme
+                        fonctionnel et nous appliquerons ces concepts sur un projet de programmation de type CLI, de
+                        sorte que tout étudiant ayant suivi ce cours puisse être à même de monter en compétence sur un
+                        projet professionnel.
+Description détaillée : 1. Introduction à la programmation fonctionnelle
+                           - concepts : fonction, pureté, composition, récursivité
+					    2. Introduction à Scala
+					       - concepts : présentation fonctionnelle de Scala, présentation objet de Scala
+					    3. Types et polymorphisme
+					       - concepts : formes de typage, generics, typeclass, sous-typage, types avancés
+					    4. Gestion des effets en programmation fonctionnelle
+					       - concepts : effets, puretés, monades (Future, Either, Try, Option, List)
+					    5. Manipulations et cas pratiques
+Modalité d’évaluation : - CC - ÉCRIT
+                        - Partiel - Projet avec soutenance
+ Exemple d’évaluation : Construction d’une application en Scala en suivant les préceptes de programmation fonctionnelle
+                        et de modélisation abordés pendant le cours (pilotage d'une tondeuse à gazon automatique,
+                        destinée aux surfaces rectangulaires).
+-->
+
+
+				<section aria-description="Programmation fonctionnelle avec Scala">
+					<h1>Programmation fonctionnelle avec Scala</h1>
 				</section>
 
-				<section>
+				<section aria-description="Introduction">
 					<section>
 						<h2>Tour de table &#128064;</h2>
 					</section>
@@ -115,14 +149,17 @@
 					</section>
 				</section>
 
+				<section aria-description="1. Introduction à la programmation fonctionnelle">
+					<h2>Introduction à la programmation fonctionnelle</h2>
+				</section>
 
-				<section>
+				<section aria-description="1.1 Fonction">
 					<section>
-					    <h2>Fonction</h2>
+					    <h3>Fonction</h3>
 					</section>
 
 					<section>
-						<h3>Définition mathématique</h3>
+						<h4>Définition mathématique</h4>
 						<p class="section">
 							<code>E &#8594; F</code><br>
 							<code>x &#8614; f(x)</code>
@@ -138,7 +175,14 @@
 					</section>
 
 					<section>
-						<h3>Caractéristiques d’une fonction</h3>
+						<h5>Exemple</h5>
+						<p>Ensemble de départ : états possibles d’une tâche initiale ou en cours</p>
+						<p>Ensemble d'arrivée : états possibles d’une tâche en cours ou terminée</p>
+						<pre><code class="language-scala"></code></pre>
+					</section>
+
+					<section>
+						<h4>Caractéristiques d’une fonction</h4>
 						<ul>
 							<li>totale</li>
 							<li>déterministe</li>
@@ -147,9 +191,9 @@
 					</section>
 				</section>
 
-				<section>
+				<section aria-description="1.2 Pureté">
 					<section>
-						<h2>Pureté</h2>
+						<h3>Pureté</h3>
 					</section>
 
 					<section>
@@ -214,7 +258,7 @@ val res0: Boolean = true</code></pre>
 					</section>
 
 					<section>
-						<h3>Pourquoi les fonctions pures sont-elles intéressantes ?</h3>
+						<h4>Pourquoi les fonctions pures sont-elles intéressantes ?</h4>
 						<ul>
 							<li class="fragment">transparence référentielle</li>
 							<li class="fragment">immuabilité
@@ -227,19 +271,19 @@ val res0: Boolean = true</code></pre>
 					</section>
 				</section>
 
-				<section>
+				<section aria-description="1.3 Composition">
 					<section>
-						<h2>Composition</h2>
+						<h3>Composition</h3>
 					</section>
 
 					<section>
-						<h3>Définition mathématique</h3>
+						<h4>Définition mathématique</h4>
 						<p><code>f &#8728; g</code></p>
 						<p><code>f(g(x))</code></p>
 					</section>
 
 					<section>
-						<h3>D’un point de vue génie logiciel</h3>
+						<h4>D’un point de vue génie logiciel</h4>
 						<p>Il s’agit d’un moyen de garantir</p>
 						<ol>
 							<li>la ré-utilisabilité du code</li>
@@ -341,7 +385,7 @@ def findCategory(
 					</section>
 
 					<section>
-						<h3>Les fonctions : ces citoyens de premier ordre</h3>
+						<h4>Les fonctions : ces citoyens de premier ordre</h4>
 					</section>
 
 					<section>
@@ -409,10 +453,9 @@ val res3: Long = -9223372036854775808</code></pre>
 					</section>
 				</section>
 
-
-				<section>
+				<section aria-description="1.4 Récursivité">
 					<section>
-						<h2>Récursivité</h2>
+						<h3>Récursivité</h3>
 					</section>
 
 					<section>
@@ -424,7 +467,7 @@ val res3: Long = -9223372036854775808</code></pre>
 					</section>
 
 					<section>
-						<h3>Implémentation</h3>
+						<h4>Implémentation</h4>
 						<ol>
 							<li>trouver une ou plusieurs conditions d’arrêt</li>
 							<li>se rappeler soi-même avec des données transformées</li>
@@ -432,13 +475,13 @@ val res3: Long = -9223372036854775808</code></pre>
 					</section>
 
 					<section>
-						<h3>Récursion terminale</h3>
+						<h4>Récursion terminale</h4>
 						<p>L’appel récursif est la dernière évaluation dans l’implémentation de la fonction</p>
 						<p>Permet d’éviter des épuisements de la pile d’exécution (aka StackOverflow®)</p>
 					</section>
 
 					<section>
-						<h3>Exemple: lire un flux</h3>
+						<h4>Exemple: lire un flux</h4>
 						<pre><code class="language-scala">val input = """34
               |84
               |12
@@ -462,16 +505,16 @@ val res0: Seq[Long] = Vector(130, 76)</code></pre>
 					</section>
 				</section>
 
-				<section>
-					<h1>Introduction à Scala</h1>
+				<section aria-description="2. Introduction à Scala">
+					<h2>Introduction à Scala</h2>
 				</section>
 
-				<section>
+				<section aria-description="2.1 Présentation fonctionnelle de Scala">
 					<h2>Présentation fonctionnelle de Scala</h2>
 				</section>
 
-				<section>
-					<h2>Point of View</h2>
+				<section aria-description="2.2 Présentation objet de Scala">
+					<h2>Présentation objet de Scala</h2>
 					<p>
 						Press <strong>ESC</strong> to enter the slide overview.
 					</p>
@@ -483,309 +526,16 @@ val res0: Seq[Long] = Vector(130, 76)</code></pre>
 					</p>
 				</section>
 
-				<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-					<h2>Auto-Animate</h2>
-					<p>Automatically animate matching elements across slides with <a href="https://revealjs.com/auto-animate/">Auto-Animate</a>.</p>
-					<div class="r-hstack justify-center">
-						<div data-id="box1" style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
-						<div data-id="box2" style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
-						<div data-id="box3" style="background: #999; width: 50px; height: 50px; margin: 10px; border-radius: 5px;"></div>
-					</div>
-				</section>
-				<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-					<div class="r-hstack justify-center">
-						<div data-id="box1" data-auto-animate-delay="0" style="background: cyan; width: 150px; height: 100px; margin: 10px;"></div>
-						<div data-id="box2" data-auto-animate-delay="0.1" style="background: magenta; width: 150px; height: 100px; margin: 10px;"></div>
-						<div data-id="box3" data-auto-animate-delay="0.2" style="background: yellow; width: 150px; height: 100px; margin: 10px;"></div>
-					</div>
-					<h2 style="margin-top: 20px;">Auto-Animate</h2>
-				</section>
-				<section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
-					<div class="r-stack">
-						<div data-id="box1" style="background: cyan; width: 300px; height: 300px; border-radius: 200px;"></div>
-						<div data-id="box2" style="background: magenta; width: 200px; height: 200px; border-radius: 200px;"></div>
-						<div data-id="box3" style="background: yellow; width: 100px; height: 100px; border-radius: 200px;"></div>
-					</div>
-					<h2 style="margin-top: 20px;">Auto-Animate</h2>
+				<section aria-description="3. Types et polymorphisme">
+					<h2>Types et polymorphisme</h2>
 				</section>
 
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
+				<section aria-description="4. Gestion des effets en programmation fonctionnelle">
+					<h2>Gestion des effets en programmation fonctionnelle</h2>
 				</section>
 
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown Support
-
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [docs](https://revealjs.com/markdown/).
-
-						```html []
-						<section data-markdown>
-						  ## Markdown Support
-
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [docs](https://revealjs.com/markdown/).
-						</section>
-						```
-					</script>
-				</section>
-
-				<section>
-					<p>Add the <code>r-fit-text</code> class to auto-size text</p>
-					<h2 class="r-fit-text">FIT TEXT</h2>
-				</section>
-
-				<section>
-					<section id="fragments">
-						<h2>Fragments</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
-
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p>
-							<span style="display: inline-block;" class="fragment fade-right">fade-right, </span>
-							<span style="display: inline-block;" class="fragment fade-up">up, </span>
-							<span style="display: inline-block;" class="fragment fade-down">down, </span>
-							<span style="display: inline-block;" class="fragment fade-left">left</span>
-						</p>
-						<p class="fragment fade-in-then-out">fade-in-then-out</p>
-						<p class="fragment fade-in-then-semi-out">fade-in-then-semi-out</p>
-						<p>Highlight <span class="fragment highlight-red">red</span> <span class="fragment highlight-blue">blue</span> <span class="fragment highlight-green">green</span></p>
-					</section>
-				</section>
-
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
-
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/white.css'); return false;">White</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/league.css'); return false;">League</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/sky.css'); return false;">Sky</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/beige.css'); return false;">Beige</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/serif.css'); return false;">Serif</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/blood.css'); return false;">Blood</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/night.css'); return false;">Night</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/moon.css'); return false;">Moon</a> -
-						<a href="#/themes" onclick="document.getElementById('theme').setAttribute('href','dist/theme/solarized.css'); return false;">Solarized</a>
-					</p>
-				</section>
-
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img class="r-frame" style="background: rgba(255,255,255,0.1);" width="178" height="238" data-src="https://static.slid.es/reveal/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
-						<h2>Gradient Backgrounds</h2>
-						<pre><code class="hljs html wrap">&lt;section data-background-gradient=
-							"linear-gradient(to bottom, #ddd, #191919)"&gt;</code></pre>
-					</section>
-					<section data-background="https://static.slid.es/reveal/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code class="hljs html">&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://static.slid.es/reveal/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://static.slid.es/site/homepage/v1/homepage-video-editor.mp4" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-						<h2>... and GIFs!</h2>
-					</section>
-				</section>
-
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code class="hljs javascript">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
-
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code class="hljs html" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
-
-				<section data-background-iframe="https://hakim.se" data-background-interactive>
-					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-						<h2>Iframe Backgrounds</h2>
-						<p>Since reveal.js runs on the web, you can easily embed other web content. Try interacting with the page in the background.</p>
-					</div>
-				</section>
-
-				<section>
-					<h2>Marvelous List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							</tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
-
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">The nice thing about standards is that there are so many to choose from</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
-
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://revealjs.com/speaker-view/">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
-
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://revealjs.com/pdf-export/">exported to PDF</a>, here's an example:</p>
-					<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
-				</section>
-
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
-				</section>
-
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.on( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
-				</section>
-
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://revealjs.com/api/">Extensive JavaScript API</a></li>
-						<li><a href="https://revealjs.com/auto-slide/">Auto-progression</a></li>
-						<li><a href="https://revealjs.com/backgrounds/#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://revealjs.com/keyboard/">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
-
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="https://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
+				<section aria-description="5. Manipulations et cas pratiques">
+					<h2>Manipulations et cas pratiques</h2>
 				</section>
 
 			</div>

@@ -1,4 +1,16 @@
 object Functions:
+  sealed trait TaskStatusCreated
+  sealed trait TaskStatusInProgress
+  sealed trait TaskStatusDone
+  enum TaskStatus:
+    case Created extends TaskStatus with TaskStatusCreated
+    case Started extends TaskStatus with TaskStatusInProgress
+    case InReview extends TaskStatus with TaskStatusInProgress
+    case Done extends TaskStatus with TaskStatusDone
+  def transition(status: TaskStatusCreated | TaskStatusInProgress): TaskStatusInProgress | TaskStatusDone = status match
+    case TaskStatus.Created => TaskStatus.Started
+    case TaskStatus.Started => TaskStatus.InReview
+    case TaskStatus.InReview => TaskStatus.Done
   def main(args: Array[String]): Unit =
     println(
       computePrice(
