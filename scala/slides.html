@@ -174,11 +174,42 @@ Modalité d’évaluation : - CC - ÉCRIT
 						</p>
 					</section>
 
+					<section data-transition="none">
+						<h4>Exemple : des tâches et leur statut</h4>
+						<img src="img/tasks-01.png" alt="des statuts de tâche">
+					</section>
+
+					<section data-transition="none">
+						<h4>Des transitions entre tâches</h4>
+						<img src="img/tasks-02.png" alt="des statuts de tâche et des transitions">
+					</section>
+
+					<section data-transition="none">
+						<h4>Ensembles de départ et d'arrivée</h4>
+						<img src="img/tasks-03.png" alt="ensemble de départ et ensemble d’arrivée de findTransitions()">
+					</section>
+
 					<section>
-						<h5>Exemple</h5>
-						<p>Ensemble de départ : états possibles d’une tâche initiale ou en cours</p>
-						<p>Ensemble d'arrivée : états possibles d’une tâche en cours ou terminée</p>
-						<pre><code class="language-scala"></code></pre>
+						<pre><code class="language-scala">enum TaskStatus:
+  case Created, Started, InReview, Done</code></pre>
+						<pre class="fragment"><code class="language-scala">enum TaskTransition:
+  case Start, Finish, RequestChange, Accept</code></pre>
+						<pre class="fragment"><code class="language-scala">def findTransitions: TaskStatus => Seq[TaskTransition] =
+  case Created  => Seq(Start)
+  case Started  => Seq(Finish)
+  case InReview => Seq(RequestChange, Accept)
+  case Done     => Seq()</code></pre>
+					</section>
+
+					<section>
+						<h4>Règle tirée de la réalité</h4>
+						<p>Toujours chercher à diminuer la taille des ensembles de départ et d'arrivée permet de</p>
+						<ol>
+							<li>Simplifier le code et la lisibilité</li>
+							<li>Éviter les bugs</li>
+							<li>Éviter les attaques</li>
+							<li>Ne pas implémenter des cas qui ne serviront jamais</li>
+						</ol>
 					</section>
 
 					<section>
@@ -252,8 +283,8 @@ val res0: Boolean = true</code></pre>
 					<section>
 						<p>Toutes ces fonctions sont <em>impures</em> car :</p>
 						<ul>
-							<li>deux appels successifs ne produisent pas la même valeur en retour ;</li>
-							<li>elles créent des effets de bord.</li>
+							<li>Deux appels successifs ne produisent pas la même valeur en retour ;</li>
+							<li>Elles créent des effets de bord.</li>
 						</ul>
 					</section>
 
@@ -264,7 +295,7 @@ val res0: Boolean = true</code></pre>
 							<li class="fragment">immuabilité
 								<ul>
 									<li>des paramètres en entrée</li>
-									<li>de la valeur produite en retour</li>
+									<li>une valeur produite en retour</li>
 								</ul>
 						</ul>
 						<p class="fragment">Permet donc des <strong>optimisations massivement parallélisables</strong></p>
