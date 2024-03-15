@@ -321,6 +321,29 @@ val res0: Boolean = true</code></pre>
 						</ul>
 						<p class="fragment">Permet donc des <strong>optimisations massivement parallélisables</strong></p>
 					</section>
+					<section data-background-color="#003366">
+						<h4>Travail pratique</h4>
+						<p>Écrire une fonction pure qui débarrasse les emails suivant du bruit:</p>
+						<pre>"kai@example.com
+sacha@example.net"
+"cruz@example.org"
+  noam@example.com    </pre>
+						<div class="fragment">
+							Utiliser un framework de test unitaire<br>
+							<pre><code class="language-scala">libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test</code></pre>
+							<pre><code class="language-scala">import munit.FunSuite
+
+class EmailCleaner extends FunSuite:
+
+  private def clean(notCleanedEmail: String): String = ???
+
+  test("emailCleaner"):
+    assertEquals(
+      obtained = clean(""""kai@example.com"""),
+      expected = "kai@example.com"
+    )</code></pre>
+						</div>
+					</section>
 				</section>
 
 				<section aria-description="1.3 Composition">
