@@ -212,7 +212,7 @@ Modalité d’évaluation : - CC - ÉCRIT
 						</ol>
 					</section>
 
-					<section data-background-color="#003366">
+					<section data-background-color="#003366" data-background-gradient="radial-gradient(#336699, #003366)">
 						<h4>Travail pratique</h4>
 						<p>Mettre en place un environnement de développement pour écrire sa première fonction en Scala</p>
 						<ol>
@@ -223,12 +223,12 @@ Modalité d’évaluation : - CC - ÉCRIT
 						</ol>
 					</section>
 
-					<section data-background-color="#003366">
+					<section data-background-color="#003366" data-background-gradient="radial-gradient(#336699, #003366)">
 						<h4>Travail pratique</h4>
 						<img src="img/new-project.png" alt="Nouveau projet avec IntelliJ IDEA Community Edition" style="max-width: 75%">
 					</section>
 
-					<section data-background-color="#003366">
+					<section data-background-color="#003366" data-background-gradient="radial-gradient(#336699, #003366)">
 						<h4>Travail pratique</h4>
 						<img src="img/new-project-firstFunction.png" alt="Résultat de l’exécution de notre première fonction" style="max-width: 70%">
 					</section>
@@ -321,16 +321,21 @@ val res0: Boolean = true</code></pre>
 						</ul>
 						<p class="fragment">Permet donc des <strong>optimisations massivement parallélisables</strong></p>
 					</section>
-					<section data-background-color="#003366">
+
+					<section data-background-color="#003366" data-background-gradient="radial-gradient(#336699, #003366)">
 						<h4>Travail pratique</h4>
 						<p>Écrire une fonction pure qui débarrasse les emails suivant du bruit:</p>
 						<pre>"kai@example.com
 sacha@example.net"
 "cruz@example.org"
   noam@example.com    </pre>
-						<div class="fragment">
+					</section>
+
+					<section data-background-color="#003366" data-background-gradient="radial-gradient(#336699, #003366)">
+						<div>
 							Utiliser un framework de test unitaire<br>
-							<pre><code class="language-scala">libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test</code></pre>
+							<pre><code class="language-scala">libraryDependencies +=
+    "org.scalameta" %% "munit" % "0.7.29" % Test</code></pre>
 							<pre><code class="language-scala">import munit.FunSuite
 
 class EmailCleaner extends FunSuite:
@@ -343,6 +348,11 @@ class EmailCleaner extends FunSuite:
       expected = "kai@example.com"
     )</code></pre>
 						</div>
+					</section>
+
+					<section>
+						<p>Les fonctions pures sont importantes : ce sont les blocs de base de la programmation fonctionnelle.</p>
+						<p class="fragment">Mais comment aller plus loin et finir par écrire de vrais programmes ?</p>
 					</section>
 				</section>
 
@@ -459,6 +469,19 @@ def findCategory(
 						</code></pre>
 					</section>
 
+					<section data-background-color="#003366" data-background-gradient="radial-gradient(#336699, #003366)">
+						<h4>Travail pratique</h4>
+						<ol>
+							<li>Écrire deux fonctions pures :
+								<ol>
+									<li><code>times2</code> qui multiplie un <code>Int</code> par 2</li>
+									<li><code>addOne</code> qui ajoute 1 au <code>Int</code> passé en paramètre</li>
+								</ol>
+							</li>
+							<li class="fragment">Composer ces deux fonctions pour obtenir une fonction qui multiplie un <code>Int</code> par 2 puis ajoute 1.</li>
+						</ol>
+					</section>
+
 					<section>
 						<h4>Les fonctions : ces citoyens de premier ordre</h4>
 					</section>
@@ -525,6 +548,11 @@ val res2: Long = 6</code></pre>
 
 						<pre class="fragment"><code class="language-scala">operationToCompute("divide"  )(3, 2)
 val res3: Long = -9223372036854775808</code></pre>
+					</section>
+
+					<section data-background-color="#003366" data-background-gradient="radial-gradient(#336699, #003366)">
+						<h4>Travail pratique</h4>
+						<p>Utiliser <code>compose</code> et/ou <code>andThen</code> pour composer <code>times2</code> et <code>addOne</code></p>
 					</section>
 				</section>
 
