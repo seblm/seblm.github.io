@@ -9,7 +9,7 @@ docker volume create seblmgithubio_gem_home
 Install [GitHub Pages compliant versions](https://pages.github.com/versions) of Jekyll with ruby:
 
 ```shell
-docker run --name seblm.github.io --rm --volume seblmgithubio_gem_home:/usr/local/bundle ruby:2.7.4 gem install jekyll --version 3.9.3
+docker run --name seblm.github.io --rm --volume seblmgithubio_gem_home:/usr/local/bundle ruby:2.7.4 gem install jekyll --version 3.9.5
 ```
 
 Create new Jekyll site:
