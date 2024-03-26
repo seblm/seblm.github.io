@@ -7,12 +7,17 @@
 #
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
 # Site settings
 # These are used to personalize your new site. If you look in the HTML files,
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
+
 title: Sébastian Le Merdy
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
@@ -21,6 +26,8 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://seblm.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
 # github_username:  jekyll
+header_pages:
+  - scala/index.markdown
 minima:
   date_format: "%e/%m/%Y"
   skin: auto
@@ -31,23 +38,43 @@ minima:
       user_url: https://github.com/seblm
     - platform: rss
       user_url: /feed.xml
-paginate: 5
+pagination:
+  enabled: true
+  per_page: 5
+  offset: 0
+  permalink: '/page/:num/'
+  title: ':title - page :num of :max'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
 show_excerpts: true
 
 # Build settings
-markdown: kramdown
 remote_theme: seblm/minima
 plugins:
   - jekyll-feed
+  - jekyll-paginate-v2
 
 # Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
 exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+  - compose.yaml
   - Gemfile
   - Gemfile.lock
   - README.md
-#   - node_modules
+  - scala/examples
+  - scala/project
+  - scala/target
+#   - node_modules/
 #   - vendor/bundle/
 #   - vendor/cache/
 #   - vendor/gems/

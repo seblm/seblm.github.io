@@ -1,7 +1,7 @@
 services:
 
   bundle-update:
-    image: ruby:2.7.4
+    image: ruby:3.3.0
     working_dir: /usr/site
     command: bundle update
     profiles:
@@ -19,7 +19,7 @@ services:
       bundle-update:
         condition: service_completed_successfully
         required: false
-    image: ruby:2.7.4
+    image: ruby:3.3.0
     working_dir: /usr/site
     command: bundle exec jekyll serve --drafts --host=0.0.0.0
     ports:
