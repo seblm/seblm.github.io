@@ -67,6 +67,7 @@ exclude:
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/
+  - common.yaml
   - compose.yaml
   - Gemfile
   - Gemfile.lock

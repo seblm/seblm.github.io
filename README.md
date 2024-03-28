@@ -1,15 +1,9 @@
 ## Create from scratch
 
-Create a docker volume to hold downloaded and built gems:
-
-```shell
-docker volume create seblmgithubio_gem_home
-```
-
 Install Jekyll with ruby:
 
 ```shell
-docker run --name seblm.github.io --rm --volume seblmgithubio_gem_home:/usr/local/bundle ruby:3.3.0 gem install jekyll --version 4.3.3
+docker compose --profile install up --detach
 ```
 
 Create new Jekyll site:

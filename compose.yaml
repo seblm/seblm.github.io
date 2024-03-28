@@ -1,36 +1,37 @@
 services:
 
-  bundle-update:
-    image: ruby:3.3.0
-    working_dir: /usr/site
-    command: bundle update
+  install:
+    extends:
+      file: common.yaml
+      service: common
+    command: gem install jekyll --version 4.3.3
     profiles:
-      - update
-    volumes:
-      - type: volume
-        source: gem_home
-        target: /usr/local/bundle
-      - type: bind
-        source: .
-        target: /usr/site
+      - install
 
-  blog:
+  update:
+    extends:
+      file: common.yaml
+      service: site
     depends_on:
-      bundle-update:
+      install:
         condition: service_completed_successfully
         required: false
-    image: ruby:3.3.0
-    working_dir: /usr/site
-    command: bundle exec jekyll serve --drafts --host=0.0.0.0
+    command: bundle update
+    profiles:
+      - install
+      - update
+
+  blog:
+    extends:
+      file: common.yaml
+      service: site
+    depends_on:
+      update:
+        condition: service_completed_successfully
+        required: false
+    command: jekyll serve --drafts --host=0.0.0.0 --incremental
     ports:
       - 4000:4000
-    volumes:
-      - type: volume
-        source: gem_home
-        target: /usr/local/bundle
-      - type: bind
-        source: .
-        target: /usr/site
 
 volumes:
   gem_home:

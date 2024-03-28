@@ -1,0 +1,17 @@
+services:
+
+  common:
+    image: ruby:3.3.0
+    volumes:
+      - type: volume
+        source: gem_home
+        target: /usr/local/bundle
+
+  site:
+    extends:
+      service: common
+    working_dir: /usr/site
+    volumes:
+      - type: bind
+        source: .
+        target: /usr/site
