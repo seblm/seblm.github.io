@@ -647,7 +647,93 @@ zoneight234      -> z1ight234   ->  14
 				</section>
 
 				<section aria-description="2.1 Présentation fonctionnelle de Scala">
-					<h2>Présentation fonctionnelle de Scala</h2>
+					<section>
+						<h2>Présentation fonctionnelle de Scala</h2>
+					</section>
+
+					<section>
+						<h3>Modéliser la donnée</h3>
+						<p>ADT - Algebraic Data Types</p>
+						<ul>
+							<li class="fragment">
+								Sum types : énumérations
+								<pre><code class="language-scala">enum TaskStatus:
+  case Created, Started,
+    InReview, Done</code></pre>
+							</li>
+							<li class="fragment">
+								Product types : case classes
+								<pre><code class="language-scala">case class Task(
+    name: String,
+    status: TaskStatus
+)</code></pre>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Décrire et appliquer des traitements</h3>
+						<p>Écrire des fonctions</p>
+						<pre class="fragment"><code class="language-scala">def findTransitions: TaskStatus => Seq[TaskTransition] =
+  case Created  => Seq(Start)
+  case Started  => Seq(Finish)
+  case InReview => Seq(RequestChange, Accept)
+  case Done     => Seq()</code></pre>
+						<pre class="fragment"><code class="language-scala">def findTransitions(status: TaskStatus): Seq[TaskTransition] =
+  status match
+    case Created  => Seq(Start)
+    case Started  => Seq(Finish)
+    case InReview => Seq(RequestChange, Accept)
+    case Done     => Seq()</code></pre>
+					</section>
+
+					<section>
+						<h3>Notes sur les fonctions</h3>
+						<p>
+							Avec les ADT, on force les fonctions à être pures, car ces structures de données sont
+							immuables.
+						</p>
+					</section>
+
+					<section>
+						<h3>Comment organiser le code ?</h3>
+						<ul>
+							<li>des méthodes dans les objets compagnions</li>
+							<li>style modulaire avec des interfaces et des implémentations</li>
+							<li>des méthodes dans les types de données immuables</li>
+							<li>des méthodes d’extension pour ajouter les fonctionnalités aux types de données</li>
+						</ul>
+					</section>
+
+					<section data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
+						<h3>Exercice Pratique</h3>
+						<p>Matrice de lumières : calcul de la consommation énergétique</p>
+						<dl>
+							<dt><code>turn on 0,0 through 999,999</code></dt>
+							<dd>allume (ou laisse allumées) toutes les lumières</dd>
+							<dt><code>toggle 0,0 through 999,0</code></dt>
+							<dd>
+								bascule la première ligne de 1000 lumières, éteignant celles qui étaient allumées et
+								allumant celles qui étaient éteintes.
+							</dd>
+							<dt><code>turn off 499,499 through 500,500</code></dt>
+							<dd>éteint (ou laisse éteintes) les quatres lumières du milieu.</dd>
+						</dl>
+					</section>
+
+					<section data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
+						<h3>Exercice Pratique : instructions</h3>
+						<pre><code>turn on 887,9 through 959,629
+turn on 454,398 through 844,448
+turn off 539,243 through 559,965
+turn off 370,819 through 676,868
+turn off 145,40 through 370,997
+turn off 301,3 through 808,453
+turn on 351,678 through 951,908
+toggle 720,196 through 897,994
+toggle 831,394 through 904,860</code></pre>
+						<p>Combien de lumières sont-elles allumées ?</p>
+					</section>
 				</section>
 
 				<section aria-description="2.2 Présentation objet de Scala">
