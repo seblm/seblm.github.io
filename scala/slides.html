@@ -350,6 +350,44 @@ class EmailCleaner extends FunSuite:
 						</div>
 					</section>
 
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h3>Les tests unitaires</h3>
+						<pre><code class="language-scala">import EmailCleaner.clean
+import munit.FunSuite
+
+class EmailCleanerSuite extends FunSuite:
+  test("remove starting quote"):
+    assertEquals(clean(""""kai@example.com"""),
+                         "kai@example.com")
+  test("remove trailing quote"):
+    assertEquals(clean("""sacha@example.net""""),
+                         "sacha@example.net")
+  test("remove starting and trailing quote"):
+    assertEquals(clean(""""cruz@example.org""""),
+                         "cruz@example.org")
+  test("remove starting and trailing spaces"):
+    assertEquals(clean("""  noam@example.com    """),
+                         "noam@example.com")</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h3>L’implémentation</h3>
+						<pre><code class="language-scala">object EmailCleaner:
+
+  private val        startWithQuote = """^"(.+)""".r
+  private val         endsWithQuote = """(.+)"$""".r
+  private val  startAndEndWithQuote = """^"(.+)"$""".r
+  private val startAndEndWithSpaces = """^\s+(.*?)\s+$""".r
+
+  def clean(notCleanedEmail: String): String =
+    notCleanedEmail match
+      case startAndEndWithQuote(email) => email
+      case startWithQuote(email) => email
+      case endsWithQuote(email) => email
+      case startAndEndWithSpaces(email) => email
+      case _ => notCleanedEmail</code></pre>
+					</section>
+
 					<section>
 						<p>Les fonctions pures sont importantes : ce sont les blocs de base de la programmation fonctionnelle.</p>
 						<p class="fragment">Mais comment aller plus loin et finir par écrire de vrais programmes ?</p>
@@ -482,6 +520,20 @@ def findCategory(
 						</ol>
 					</section>
 
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé</h4>
+						<pre><code>object Composition:
+
+  def times2(value: Int): Int = value * 2
+
+  def addOne(value: Int): Int = value + 1
+
+  def times2PlusOne(value: Int): Int = addOne(times2(value))
+
+  @main def compositionMain(): Unit =
+    println(times2PlusOne(5)) // 11</code></pre>
+					</section>
+
 					<section>
 						<h4>Les fonctions : ces citoyens de premier ordre</h4>
 					</section>
@@ -553,6 +605,24 @@ val res3: Long = -9223372036854775808</code></pre>
 					<section data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
 						<h4>Travail pratique</h4>
 						<p>Utiliser <code>compose</code> et/ou <code>andThen</code> pour composer <code>times2</code> et <code>addOne</code></p>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé</h4>
+						<pre><code class="language-scala">object Composition:
+
+  def times2(value: Int): Int = value * 2
+
+  def addOne(value: Int): Int = value + 1
+
+  def times2PlusOne(value: Int): Int = addOne(times2(value))
+  def withCompose(value: Int): Int   = addOne.compose(times2)(value)
+  def withAndThen(value: Int): Int   = times2.andThen(addOne)(value)
+
+  @main def compositionMain(): Unit =
+    println(times2PlusOne(5)) // 11
+    println(withCompose(5))   // 11
+    println(withAndThen(5))   // 11</code></pre>
 					</section>
 				</section>
 
