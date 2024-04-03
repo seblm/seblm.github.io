@@ -694,7 +694,7 @@ zoneight234
 </pre>
 					</section>
 
-					<section  data-transition="none" data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
+					<section data-transition="none" data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
 						<h4>Travail pratique</h4>
 						<p>
 							Calculer la somme<br>
@@ -709,6 +709,121 @@ xtwone3four      -> x2ne34      ->  24
 zoneight234      -> z1ight234   ->  14
 7pqrstsixteen    -> 7pqrst6teen ->  76
                                    281</pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé de la première fonction: test unitaire</h4>
+						<pre><code class="language-scala">import SumAll.toNumber
+import munit.FunSuite
+
+class SumAllSuite extends FunSuite:
+
+  test("toNumber"):
+    assertEquals(toNumber("two1nine"),         "219")
+    assertEquals(toNumber("eightwothree"),     "8wo3")
+    assertEquals(toNumber("abcone2threexyz"),  "abc123xyz")
+    assertEquals(toNumber("xtwone3four"),      "x2ne34")
+    assertEquals(toNumber("4nineeightseven2"), "49872")
+    assertEquals(toNumber("zoneight234"),      "z1ight234")
+    assertEquals(toNumber("7pqrstsixteen"),    "7pqrst6teen")</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé de la première fonction: implémentation</h4>
+						<pre><code class="language-scala">object SumAll:
+
+  def toNumber(value: String): String = value match
+    case ""                         => "" // terminating scenario
+    case s if s.startsWith("one")   => "1" + toNumber(s.drop(3))
+    case s if s.startsWith("two")   => "2" + toNumber(s.drop(3))
+    case s if s.startsWith("three") => "3" + toNumber(s.drop(5))
+    case s if s.startsWith("four")  => "4" + toNumber(s.drop(4))
+    case s if s.startsWith("five")  => "5" + toNumber(s.drop(4))
+    case s if s.startsWith("six")   => "6" + toNumber(s.drop(3))
+    case s if s.startsWith("seven") => "7" + toNumber(s.drop(5))
+    case s if s.startsWith("eight") => "8" + toNumber(s.drop(5))
+    case s if s.startsWith("nine")  => "9" + toNumber(s.drop(4))
+    case s                          => s.take(1) + toNumber(s.drop(1))</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé de la seconde fonction: test unitaire</h4>
+						<pre><code class="language-scala">import SumAll.{firstAndLast, toNumber}
+import munit.FunSuite
+
+class SumAllSuite extends FunSuite:
+
+  test("firstAndLastNumber"):
+    assertEquals(firstAndLastNumber("219"),         "29")
+    assertEquals(firstAndLastNumber("8wo3"),        "83")
+    assertEquals(firstAndLastNumber("abc123xyz"),   "13")
+    assertEquals(firstAndLastNumber("x2ne34"),      "24")
+    assertEquals(firstAndLastNumber("49872"),       "42")
+    assertEquals(firstAndLastNumber("z1ight234"),   "14")
+    assertEquals(firstAndLastNumber("7pqrst6teen"), "76")
+
+  test("toNumber"):
+    () // …</code></pre></section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé de la seconde fonction: implémentation</h4>
+						<pre><code class="language-scala">import scala.util.Try
+
+object SumAll:
+
+  def first(value: String): String = value match
+    case ""                                  => ""
+    case s if Try(s.take(1).toInt).isSuccess => s.take(1)
+    case s                                   => first(s.drop(1))
+
+  def last(value: String): String = first(value.reverse)
+
+  def firstAndLastNumber(value: String): String =
+    first(value) + last(value)
+
+  def toNumber(value: String): String = ??? // …</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé de la fonction principale: test unitaire</h4>
+						<pre><code class="language-scala">import SumAll.{firstAndLastNumber, sumAll, toNumber}
+import munit.FunSuite
+
+class SumAllSuite extends FunSuite:
+
+  test("sumAll"):
+    assertEquals(sumAll("""two1nine
+                          |eightwothree
+                          |abcone2threexyz
+                          |xtwone3four
+                          |4nineeightseven2
+                          |zoneight234
+                          |7pqrstsixteen""".stripMargin), 281)
+
+  test("firstAndLastNumber"):
+	() // …
+
+  test("toNumber"):
+    () // …</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé de la seconde fonction: implémentation</h4>
+						<pre><code class="language-scala">import scala.jdk.StreamConverters.*
+import scala.util.Try
+
+object SumAll:
+
+  def firstAndLastNumber(value: String): String = ??? // …
+
+  def toNumber(value: String): String = ??? // …
+
+  def sumAll(values: String): Int =
+    values.lines().toScala(Vector)
+      .map(toNumber)
+      .map(firstAndLastNumber)
+      .map(_.toInt)
+      .sum</code></pre>
 					</section>
 				</section>
 
