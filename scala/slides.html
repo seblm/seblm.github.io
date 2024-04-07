@@ -919,6 +919,78 @@ toggle 720,196 through 897,994
 toggle 831,394 through 904,860</code></pre>
 						<p>Combien de lumières sont-elles allumées ?</p>
 					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé : test unitaire</h4>
+						<pre><code class="language-scala">import ChristmasLights.countLitLights
+
+class ChristmasLightsSuite extends munit.FunSuite:
+  test("count lit lights after instructions"):
+    val program = """turn on 887,9 through 959,629
+                    |turn on 454,398 through 844,448
+                    |turn off 539,243 through 559,965
+                    |turn off 370,819 through 676,868
+                    |turn off 145,40 through 370,997
+                    |turn off 301,3 through 808,453
+                    |turn on 351,678 through 951,908
+                    |toggle 720,196 through 897,994
+                    |toggle 831,394 through 904,860""".stripMargin
+    val count = countLitLights(program)
+    assertEquals(count, 230_022)</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé : ADTs</h4>
+						<pre><code class="language-scala">object ChristmasLights:
+
+  case class Coordinates(x: Int, y: Int)
+
+  enum Instruction:
+    case ON(corner1: Coordinates, corner2: Coordinates)
+    case OFF(corner1: Coordinates, corner2: Coordinates)
+    case TOGGLE(corner1: Coordinates, corner2: Coordinates)</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé : parsing</h4>
+						<pre><code class="language-scala">import scala.util.matching.Regex
+
+object ChristmasLights:
+
+  object Instruction:
+    val onRegex: Regex =
+      """turn on (\d+),(\d+) through (\d+),(\d+)""".r
+    val offRegex: Regex = """turn off (\d+),(\d+) through (\d+),(\d+)""".r
+    val toggleRegex: Regex = """toggle (\d+),(\d+) through (\d+),(\d+)""".r
+    def apply(line: String): Instruction = line match
+      case onRegex(x1, y1, x2, y2) =>
+        ON(Coordinates(x1.toInt, y1.toInt),
+           Coordinates(x2.toInt, y2.toInt))
+      case offRegex(x1, y1, x2, y2) => OFF(Coordinates(x1.toInt, y1.toInt), Coordinates(x2.toInt, y2.toInt))
+      case toggleRegex(x1, y1, x2, y2) => TOGGLE(Coordinates(x1.toInt, y1.toInt), Coordinates(x2.toInt, y2.toInt))</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h4>Corrigé : application des instruction et somme</h4>
+						<pre><code class="language-scala">import ChristmasLights.Instruction.{OFF, ON, TOGGLE}
+import scala.jdk.StreamConverters.*
+
+object ChristmasLights:
+  def applyToRectangle[T](c1: Coordinates, c2: Coordinates, effect: (x: Int, y: Int) => T): Seq[T] =
+    Range(c1.y, c2.y + 1).flatMap(y => Range(c1.x, c2.x + 1)
+                         .map(x => effect(x, y)))</code></pre>
+						<pre><code class="language-scala">  def countLitLights(program: String): Int =
+    val lights = applyToRectangle(Coordinates(0, 0), Coordinates(999, 999), (_, _) => false).toBuffer
+    program.lines().toScala(Vector).map(Instruction.apply)
+                                   .foreach:
+	  case ON(c1, c2)     => applyToRectangle(c1, c2,
+        (x, y) => lights.update(y * 1000 + x, true))
+	  case OFF(c1, c2)    => applyToRectangle(c1, c2,
+        (x, y) => lights.update(y * 1000 + x, false))
+	  case TOGGLE(c1, c2) => applyToRectangle(c1, c2,
+        (x, y) => lights.update(y * 1000 + x, !lights(y * 1000 + x)))
+    lights.count(lightIsOn => lightIsOn)</code></pre>
+					</section>
 				</section>
 
 				<section aria-description="2.2 Présentation objet de Scala">

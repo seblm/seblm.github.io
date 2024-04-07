@@ -1,4 +1,3 @@
-import ChristmasLights.Instruction
 import ChristmasLights.Instruction.{OFF, ON, TOGGLE}
 
 import scala.jdk.StreamConverters.*
@@ -18,15 +17,12 @@ object ChristmasLights:
     private val offRegex: Regex = """turn off (\d+),(\d+) through (\d+),(\d+)""".r
     private val toggleRegex: Regex = """toggle (\d+),(\d+) through (\d+),(\d+)""".r
     def apply(line: String): Instruction = line match
-      case onRegex(c1, c2, c3, c4)     => ON(Coordinates(c1.toInt, c2.toInt), Coordinates(c3.toInt, c4.toInt))
-      case offRegex(c1, c2, c3, c4)    => OFF(Coordinates(c1.toInt, c2.toInt), Coordinates(c3.toInt, c4.toInt))
-      case toggleRegex(c1, c2, c3, c4) => TOGGLE(Coordinates(c1.toInt, c2.toInt), Coordinates(c3.toInt, c4.toInt))
+      case onRegex(x1, y1, x2, y2)     => ON(Coordinates(x1.toInt, y1.toInt), Coordinates(x2.toInt, y2.toInt))
+      case offRegex(x1, y1, x2, y2)    => OFF(Coordinates(x1.toInt, y1.toInt), Coordinates(x2.toInt, y2.toInt))
+      case toggleRegex(x1, y1, x2, y2) => TOGGLE(Coordinates(x1.toInt, y1.toInt), Coordinates(x2.toInt, y2.toInt))
 
-  private def applyToRectangle[T](c1: Coordinates, c2: Coordinates, effect: (x: Int, y: Int) => T): Seq[T] =
-    for {
-      y <- Range(c1.y, c2.y + 1)
-      x <- Range(c1.x, c2.x + 1)
-    } yield effect(x, y)
+  def applyToRectangle[T](c1: Coordinates, c2: Coordinates, effect: (x: Int, y: Int) => T): Seq[T] =
+    Range(c1.y, c2.y + 1).flatMap(y => Range(c1.x, c2.x + 1).map(x => effect(x, y)))
 
   def countLitLights(instructions: String): Int =
     val lights = applyToRectangle(Coordinates(0, 0), Coordinates(999, 999), (_, _) => false).toBuffer
