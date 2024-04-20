@@ -1,0 +1,139 @@
+---
+layout:    post
+date:      2024-04-18 20:18:00 +0200
+title:     "Mon feedback sur Devoxx 2024 - jeudi"
+img_large: 2024-04-18-plan-devoxx.jpg
+---
+
+La seconde journée de conférences était assez dense. Elle s’est terminée par des rencontres assez sympa avec des gens
+que je n’avais pas revu depuis très longtemps. Dans ce second, billet je vous partage les retours des conférences que
+j’ai suivies : ça pourrait vous donner une idée de curation des talks qui seront disponibles sur [Youtube].
+
+### Keynotes
+
+Le show a été assuré avec Mark Rendle et son talk à propos des [Programming’s Greatest Mistakes]. Il nous a assuré que
+tous les bugs qu’il s’est amusés à nous expliquer n’ont engendrés aucune perte humaine - de ce qu’il sait. Même si on
+les connait un peu tous, ces fameux bugs sont toujours aussi drôles à se remettre en mémoire. Ça nous fait relativiser
+sur nos propres erreurs de tous les jours.
+
+En seconde partie de keynote sont intervenus Agnès Crepet de Fairphone et Guillaume Pitron pour nous alerter sur les
+besoins toujours plus importants de l’industrie en générale et de l’industrie numérique en particulier en matière de
+métaux. Il est indispensable de se raisonner sur notre consommation afin de rendre l’extraction et l’exploitation de ces
+minerais moins impactante pour notre planète.
+
+### [Comment Back Market a reconditionné sa plateforme en changeant de Cloud Provider] par Théotime Levêque et Mellier Antonin
+
+Back Market est une scale-up qui a été infogérée pendant 4 ans. En 2018, l’entreprise décide de ré-internaliser l’IT car
+le risque était trop grand de laisser l’hébergeur supporter leur croissance. Ils sont donc passés sur kube et se sont
+plus reposés sur les edges comme les CDNs par exemple. Ils ont pris cette décision en restant cloud agnostiques tout en
+déployant chez AWS. Durant cette phase de migration, ils avaient toutefois contacté GCP et les ingénieurs leur avaient
+laissé une bonne impression de no-bullshit en leur disant que les efforts de migration de leur base de données Aurora
+vers GCP seraient substantiels.
+
+5 ans plus tard, ils étaient passés de 100 à 700 employés. Ils se sont donc re-posés les questions d’une migration pour
+supporter leur déploiement à l’international et surtout éviter de faire exploser les coûts de transferts entre leur
+production applicative chez AWS et leur stack analytique chez GCP. Ils ont aussi fait le constat que le fait de vouloir
+être cloud agnostique coûtait cher : opérer kube en 2023 a moins de sens. Ils sont donc partis sur une migration POC de
+leur preprod et ont réussi à obtenir des résultats en 15 jours.
+
+On a pu avoir un aperçu de leur processus de décision assez élaboré, de leur processus de migration où ils notent tout
+ce qu’il font à mesure qu’ils le font régions par régions. Entre chaque migration, de l’effort est fait pour
+automatiser. Ce qui ne les as pas aidé et a fait prendre un peu de retard au projet est surtout l’absence de support du
+driver MariaDB sur la base relationnelle côté Google : ils ont du migrer leur layer d’accès à la base de données vers du
+PostgreSQL.
+
+Ce que je retiens de cette conférence est surtout l’aspect sans concession de la démarche : ils souhaitent que ce genre
+de migrations - même ambitieuses - soient faites le plus vite possible afin de passer à autre chose.
+
+### [Faire simple, la clé de la durabilité] par Bertrand Delacrétaz
+
+La simplicité est une quête. L’introduction de Bertrand m’a tout de suite parlé. Il nous a donné quelques exemples de
+systèmes simples dans la vie courante pour nous acclimater au concept :
+ - les légos
+ - le couteau Suisse (Bertrand est lui même suisse)
+ - [le kazoo] : un petit instrument de musique extrêmement simple
+   - la version ancienne en métal ne sonnant pas si bien que ça
+   - sa propre version imprimée en 3D qui donne un son bien meilleur : permet d’illustrer la différence entre simple et
+     simpliste
+
+La suite de son talk parlait de choses un peu plus proche de notre domaine : des projets informatiques
+ - le stockage des informations reçues par un ensemble de stations météorologiques
+   à l’époque le matériel et les licences coutaient cher donc il fallu se passer d’une base de données relationnelle et
+   implémenter un stockage sur disque avec une arborescence de répertoires pour indexer et retrouver les données
+ - l’enregistrement des sessions du parlement suisse afin de permettre la retranscription par des opérateurs
+   là encore les solutions offertes par les éditeurs étaient complexes et couteuses. Ils ont regardé du côté de Real
+   Media. Finalement ils sont partis sur la réutilisation du protocle RTP avec DirectX qui est initialement prévu pour
+   la VoIP. Leur programme fasait environ 86 lignes. Il pourrait encore tourner aujourd’hui et est solide comme un rock.
+ - le dernier exemple portait sur une servlet Sling au dessus de leur framework web. Il était là pour illustrer un
+   design composable et pluginifiable favorisant la réutilisation et la focalisation des traitements.
+
+Ce qu’il fallait retenir de cette conférence :
+ - ça vaut la peine d’investir dans la simplicité si le système est durable
+ - la simplicité émerge par elle même à force d’itérations sur le problème
+ - se focaliser sur ce qui est spécifique et utiliser les standards pour tout le reste
+ - plus vous êtes haut dans la conception, plus la recherche de la simplicité aura d’impact sur le système
+
+### [Angular Deferrable Views : Amélioration de la performance d’une application et de l’expérience utilisateur] par Modeste Assiongbon
+
+De nouvelles annotations sont apparues. Elles permettent de simplifier l’intégration de ces états intermédiaires
+préalables au chargement d’une page. On peut citer `@defer`, `@placeholder`, `@loading`, `@error` qu’on place
+directement sur nos templates. Ces annotations très déclaratives peuvent être déclenchées par des triggers spécifiques
+comme `hover`, `viewport`, etc. Modeste nous a donné dans ce quickie un bon aperçu de ces nouvelles capacités et cela
+ouvre la voie à de futures simplifications intéressantes dans les applications Angular
+
+### [Mais non, c’est pas une erreur de CORS] par Christophe Farges
+
+Cette mini conférence illustre d’une manière assez condensée le principe général des CORS ainsi que les pièges à éviter
+lorsqu’on le met en place sur nos projets. Entre les erreurs de développement front, back, proxies, etc. ça peut mal se
+passer à de nombreux endroits.
+
+### [La fin des archis event-based ? Orchestration avec Temporal] par Hugo Caupert
+
+C’est seulement sur le titre que j’ai choisi cette conférence. Je ne savais pas où je mettais mes pieds. J’ai donc
+découvert par surprise ce live coding sur le framework Temporal. Il permet de développer des workflows sur le temps.
+Ce sont de simples classes Java annotées qui décrivent les enchaînements entre les différents états. Il est à noter
+que le framework supporte le pattern Saga pour compenser des actions à annuler. Sympa de savoir que ça existe, mais je
+doute d’en avoir jamais besoin.
+
+### [Rendez vos applications Kafka plus robustes] par Stéphane Derosiaux
+
+Le choix de cette conférence s’est faite par rapport à un co-speaker qui n’est finalement pas venu à cause de problèmes
+météorologiques à Dubaï. Il s’agissait de Florent Ramière. Cela dit les conseils prodigués dans ce talk étaient tous
+plus intéressants les uns que les autres car provenant de nombreuses situations clients vécues. Je plaide coupable pour
+le problème de cardinalité des topics. On y parlait de la bonne pratique de mettre en place de bonnes dead letter
+queues ainsi que la mise en place de validation de schéma de données. Cela m’a notamment intéressé qu’il mentionne le
+data contract.
+
+### [IA ou IA pas ? Nous l’IA qui remplace les devs on y croit pas (encore) !] par Matthieu Vincent et Yann Gloriau
+
+Je n’ai fait qu’une seule conférence IA et j’aurais peut-être prêter attention au niveau _beginner level_ présent sur le
+programme. Matthieu et Yann étaient un peu léger sur leur manière d’aborder le sujet. Ils ont tout de même expliquer la
+démarche de défrichage chez Sopra Steria. Comme les autres, ils estiments que les assistants IA sont les plus efficaces
+lorsqu’ils permettent de remplacer le fameux canard en plastique.
+
+### [Instrumentez vos applications Java avec OpenTelemetry !] par Bruce Bujon
+
+Cette introduction de 30 minutes ne m’a pas appris grand chose. De son point de vue l’intégration la plus efficace est
+celle qui fait intervenir l’installation de l’agent Java.
+
+### [Au Cœur de l’Odyssée: Migrer une application d’Angular 10 à 17] par Loïc Magnette
+
+J’aime bien les retours d’expérience, les tranches de vie, les voyages initiatiques. Celui qui nous a proposé Loïc était
+du coup assez intéressant de ce point de vue. De plus, il était assez contextuel avec l’endroit où il a donné ce talk
+puisqu’il s’agissait de l’application de CFP de Devoxx Belgique. Notre ami Loïc étant lui même belge de nationnalité,
+nous avons eu le droit à quelques nonantes dépaysants. Il nous a donc surtout expliquer en quoi migrer les dépendances
+npm étaient à la fois simples et complexes. Il nous a aussi parlé de cas de composants obsolètes qu’il a du remplacé par
+d’autres afin de terminer son travail.
+
+[Youtube]: https://www.youtube.com/@DevoxxFRvideos
+[Programming’s Greatest Mistakes]: https://www.devoxx.fr/schedule/talk/?id=77109
+[Comment Back Market a reconditionné sa plateforme en changeant de Cloud Provider]: https://www.devoxx.fr/schedule/talk/?id=46424
+[Faire simple, la clé de la durabilité]: https://www.devoxx.fr/schedule/talk/?id=43652
+[le kazoo]: https://fr.wikipedia.org/wiki/Kazoo
+[Angular Deferrable Views : Amélioration de la performance d’une application et de l’expérience utilisateur]: https://www.devoxx.fr/schedule/talk?id=23556
+[Mais non, c’est pas une erreur de CORS]: https://www.devoxx.fr/schedule/talk/?id=36024
+[La fin des archis event-based ? Orchestration avec Temporal]: https://www.devoxx.fr/schedule/talk/?id=21851
+[Rendez vos applications Kafka plus robustes]: https://www.devoxx.fr/schedule/talk/?id=50172
+[IA ou IA pas ? Nous l’IA qui remplace les devs on y croit pas (encore) !]: https://www.devoxx.fr/schedule/talk/?id=36019
+[Instrumentez vos applications Java avec OpenTelemetry !]: https://www.devoxx.fr/schedule/talk/?id=30801
+[Au Cœur de l’Odyssée: Migrer une application d’Angular 10 à 17]: https://www.devoxx.fr/schedule/talk/?id=25630

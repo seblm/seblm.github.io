@@ -1,6 +1,6 @@
 ---
 layout:    post
-date:      2024-01-25 21:37:00 +0100
+date:      2024-04-17 21:37:00 +0200
 title:     "Mon feedback sur Devoxx 2024 - mercredi"
 img_large: 2024-04-17-badge-devoxx.jpg
 ---
