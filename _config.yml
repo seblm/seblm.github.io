@@ -54,6 +54,7 @@ remote_theme: seblm/minima
 plugins:
   - jekyll-feed
   - jekyll-paginate-v2
+  - jemoji
 
 # Exclude from processing.
 # The following items will not be processed, by default.

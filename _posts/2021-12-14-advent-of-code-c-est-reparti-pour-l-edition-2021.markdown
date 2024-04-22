@@ -4,7 +4,7 @@ title:  "Advent of code : c’est reparti pour l’édition 2021"
 date:   2021-12-14 03:06:00 +0200
 ---
 
-Avec cet article, j’aimerai revenir sur les ressorts qui poussent chaque année les développeurs du monde entier à
+Avec cet article, j’aimerais revenir sur les ressorts qui poussent chaque année les développeurs du monde entier à
 participer à une compétition sur la base d'un calendrier de l’avant un peu spécial : [advent of code][advent-of-code].
 
 ## Le calendrier de l’avant du code
@@ -13,7 +13,7 @@ Durant notre enfance, qui n’a pas ressenti au fur et à mesure que les petites
 s’ouvraient l’excitation d’atteindre tout au long de ce mois de décembre les nombreux jalons attendus toute l’année :
 la Saint Nicolas, les vacances, (son anniversaire) et enfin le réveillon puis le jour de Noël.
 
-Maintenant devenus adultes et dévelopeurs, un autre type de calendrier de l’avent a vu le jour et est devenu de ma
+Maintenant devenus adultes et développeurs, un autre type de calendrier de l’avent a vu le jour et est devenu de ma
 perception tout au moins de plus en plus populaire. Cette compétition permet à toute personne de résoudre chaque jour de
 décembre jusqu’au 24 inclus deux exercices de code.
 
@@ -35,11 +35,11 @@ Voici selon moi les caractéristiques qui font l’intérêt de cette compétiti
  - *un résultat concis* : le fichier d’entrée est souvent assez volumineux alors que la sortie attendue est très petite.
    Souvent un nombre. Ça donne une idée du genre de problèmes posés : des algorithmes de traitements ou de parcours puis
    une réduction.
- - *une réponse en deux parties* : on entrouve notre fenêtre du jour en répondant à une première question qui nous amène
-   à la seconde partie du problème. L’intérêt est souvent de pouvoir réutiliser du code de la première partie dans la
-   seconde. Hélas parfois on ne réutilisera que notre compréhension du fichier d’entrée.
+ - *une réponse en deux parties* : on entrouvre notre fenêtre du jour en répondant à une première question qui nous
+   amène à la seconde partie du problème. L’intérêt est souvent de pouvoir réutiliser du code de la première partie dans
+   la seconde. Hélas parfois, on ne réutilisera que notre compréhension du fichier d’entrée.
  - *un leaderboard entre amis* : l’aspect compétitif est renforcé par la possibilité de créer des leaderboards plus
-   petits que le leaderboard mondial. Ce dernier a d’ailleurs souvent tendance à énnerver si on étudie le temps de
+   petits que le leaderboard mondial. Ce dernier a d’ailleurs souvent tendance à énerver si on étudie le temps de
    réponse des premiers.
 
 ## Mon expérience
