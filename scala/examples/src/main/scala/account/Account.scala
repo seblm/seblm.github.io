@@ -1,26 +1,28 @@
-import Account.Transaction
+package account
+
+import account.Account.Transaction
 
 import java.time.ZoneOffset.UTC
 import java.time.format.DateTimeFormatter
 import java.time.{Clock, LocalDate}
 import scala.collection.mutable
 
-class Account(private val clock: Clock):
+class Account(private val clock: Clock) extends AccountContract:
 
   private val transactions = mutable.ListBuffer[Transaction]()
   private var balance = 0
 
-  def deposit(amount: Int): Unit =
+  override def deposit(amount: Int): Unit =
     balance += amount
     val now = clock.instant().atZone(UTC).toLocalDate
     transactions.append(Transaction(now, amount, balance))
 
-  def withdraw(amount: Int): Unit =
+  override def withdraw(amount: Int): Unit =
     balance -= amount
     val now = clock.instant().atZone(UTC).toLocalDate
     transactions.append(Transaction(now, -amount, balance))
 
-  def printStatement(): String = transactions
+  override def printStatement(): String = transactions
     .map(_.toString)
     .mkString("Date       Amount Balance\n", "\n", "")
 

@@ -1,9 +1,11 @@
-import AccountSuite.clock
+package account
+
+import account.AccountOOPSuite.clock
 import munit.FunSuite
 
 import java.time.{Clock, Instant, ZoneId}
 
-class AccountSuite extends FunSuite:
+class AccountOOPSuite extends FunSuite:
 
   test("should use account"):
     val account = Account(clock)
@@ -16,7 +18,7 @@ class AccountSuite extends FunSuite:
         |23.8.2016   -100     400""".stripMargin
     )
 
-object AccountSuite:
+object AccountOOPSuite:
 
   private val clock = new Clock:
     private var first = true

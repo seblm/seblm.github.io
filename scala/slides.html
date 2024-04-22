@@ -1004,11 +1004,53 @@ object ChristmasLights:
 					</section>
 
 					<section>
-						<p>Un trait permet de définir une interface ainsi qu'une implémentation</p>
+						<p>Un trait permet de définir une interface</p>
+						<p>C’est une liste de méthodes abstraites</p>
+						<pre class="fragment"><code class="language-scala">trait AccountContract:
+  def deposit(amount: Int): Unit
+  def withdraw(amount: Int): Unit
+  def printStatement(): String</code></pre>
+					</section>
+
+					<section>
+						<p>Il peut également définir des membres abstraits</p>
 						<ul>
-							<li class="fragment">Traits</li>
+							<li>méthodes abstraites : <code>def m(): T</code></li>
+							<li class="fragment">définitions de valeurs abstraites : <code>val x: T</code></li>
+							<li class="fragment">types abstraits : <code>type T</code></li>
+							<li class="fragment"><em>given</em> abstraits : <code>given t: T</code></li>
 						</ul>
 					</section>
+
+					<section>
+						<p>Ces traits peuvent ensuite être <em>mixés dans</em></p>
+						<p>— <em>Mixin Composition</em> —</p>
+						<p>des implémentations concrètes</p>
+					</section>
+
+					<section>
+						<pre><code class="language-scala">class Account(private val clock: Clock) extends AccountContract:
+  private val transactions = mutable.ListBuffer[Transaction]()
+  private var balance = 0
+
+  override def deposit(amount: Int): Unit =
+    balance += amount
+    val now = clock.instant().atZone(UTC).toLocalDate
+    transactions.append(Transaction(now, amount, balance))
+  override def withdraw(amount: Int): Unit =
+    balance -= amount
+    val now = clock.instant().atZone(UTC).toLocalDate
+    transactions.append(Transaction(now, -amount, balance))
+  override def printStatement(): String = transactions
+    .map(_.toString)
+    .mkString("Date       Amount Balance\n", "\n", "")</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<p>
+						Que se passe-t-il dans le cas où on mixin plusieurs traits avec des déclarations abstraites identiques ?
+					</p>
 				</section>
 
 				<section aria-description="3. Types et polymorphisme">
