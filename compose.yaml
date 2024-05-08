@@ -33,5 +33,10 @@ services:
     ports:
       - 4000:4000
 
+  plantuml:
+    image: plantuml/plantuml-server:jetty
+    ports:
+      - 8080:8080
+
 volumes:
   gem_home:

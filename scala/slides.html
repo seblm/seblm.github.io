@@ -1045,12 +1045,289 @@ object ChristmasLights:
     .map(_.toString)
     .mkString("Date       Amount Balance\n", "\n", "")</code></pre>
 					</section>
-				</section>
 
-				<section>
-					<p>
-						Que se passe-t-il dans le cas où on mixin plusieurs traits avec des déclarations abstraites identiques ?
-					</p>
+					<section>
+						<p>
+							Que se passe-t-il dans le cas où on <em>mixin</em> plusieurs traits avec des déclarations
+							abstraites identiques ?
+						</p>
+						<img src="img/oop-class-diagram-01.png" alt="Diagramme de classe">
+						<!--
+@startuml
+abstract class AccountContract << (T,#A492DE) >> {
+  {method} {abstract} +deposit(amount: Int): Unit
+  {method} {abstract} +withdraw(amount: Int): Unit
+  {method} {abstract} +printStatement(): String
+}
+
+abstract class Printable << (T,#A492DE) >> {
+  {method} {abstract} +printStatement(): String
+}
+
+class Account {
+  {method} +deposit(amount: Int): Unit
+  {method} +withdraw(amount: Int): Unit
+  {method} +printStatement(): String
+}
+
+AccountContract <|-- Account
+Printable <|-- Account
+@enduml
+						-->
+						<p class="fragment">&#9989; Ça compile &#128524;</p>
+					</section>
+
+					<section>
+						<p>
+							Mais dans le cas d'une implémentation par défaut dans les deux traits ?
+						</p>
+						<img src="img/oop-class-diagram-02.png" alt="Diagramme de classe avec implémentations par défaut">
+						<!--
+@startuml
+abstract class AccountContract << (T,#A492DE) >> {
+  {method} {abstract} +deposit(amount: Int): Unit
+  {method} {abstract} +withdraw(amount: Int): Unit
+  {method} +printStatement(): String = "account"
+}
+
+abstract class Printable << (T,#A492DE) >> {
+  {method} +printStatement(): String = "printable"
+}
+
+class Account {
+  {method} +deposit(amount: Int): Unit
+  {method} +withdraw(amount: Int): Unit
+}
+
+AccountContract <|-- Account
+Printable <|-- Account
+@enduml
+
+rsvg-convert class-diagram-02.svg > class-diagram-02.png
+						-->
+						<div class="fragment">
+							<p>&#10062; Ça ne compile pas &#128524;</p>
+							<pre><code class="language-diff">error overriding method printStatement in class Account inherits
+  conflicting members:
+    method printStatement in trait AccountContract
+and method printStatement in trait Printable
+(Note: this can be resolved by declaring an override in class
+ Account.)</code></pre>
+						</div>
+					</section>
+
+					<section>
+						<h2>Différents types d’outils</h2>
+						<ul>
+							<li>Traits</li>
+							<li class="fragment">Classes</li>
+						</ul>
+					</section>
+
+					<section>
+						<p>Implémentations concrètes, comme en C++ ou en Java.</p>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1-2|3-6|7-10|12">class Account(private val clock: Clock)
+    extends AccountContract:
+
+  private val transactions = mutable.ListBuffer[Transaction]()
+  private var balance = 0
+
+  override def deposit(amount: Int): Unit =
+    balance += amount
+    val now = clock.instant().atZone(UTC).toLocalDate
+    transactions.append(Transaction(now, amount, balance))
+
+end Account</code></pre>
+					</section>
+
+					<section>
+						<p>Pour s'en servir, on a besoin de l'<em>instancier</em>.</p>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1|3">val savings = Account(Clock.systemDefaultZone())
+
+savings.deposit(20000)</code></pre>
+					</section>
+
+					<section>
+						<h3>Note à propos de la visibilité</h3>
+						<p>Toutes les définitions d'une classe sont <code>public</code> par défaut.</p>
+						<p>
+							Il faut les rendre<code>private</code> ou <code>protected</code> si on veut les restreindre.
+						</p>
+					</section>
+
+					<section>
+						<h3>Constructeurs auxiliaires</h3>
+						<p>On peut définir d'autres constructeurs d'une classe :</p>
+						<pre><code class="language-scala" data-line-numbers="4-6">class Account(private val clock: Clock)
+    extends AccountContract:
+
+  def this() =
+    this(Clock.systemUTC())
+    println("Account constructor with UTC clock")</code></pre>
+						<p class="fragment">Souvent inutiles, car</p>
+						<ol class="fragment">
+							<li>
+								Scala permet de définir des valeurs par défaut aux paramètres du constructeur principal
+							</li>
+							<li>L'objet companion d'une classe peut définir des <em>factory methods</em>.</li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>Différents types d’outils</h2>
+						<ul>
+							<li>Traits</li>
+							<li>Classes</li>
+							<li class="fragment">Objets companions</li>
+						</ul>
+					</section>
+
+					<section>
+						<p>Un objet companion est</p>
+						<ol>
+							<li>un <code>object</code> qui doit porter le même nom que la classe</li>
+							<li>doit-être défini dans le même fichier que la classe</li>
+						</ol>
+					</section>
+
+					<section>
+						<h3>À quoi sert-il ?</h3>
+						<ul>
+							<li>À regrouper des fonctions qui ne sont pas dépendantes d'une instance mais seulement du type de classe<br>Pratique car l'objet companion peut accéder aux variables privées de la classe</li>
+							<li>À définir des valeurs statiques</li>
+							<li>À créer des <em>factory methods</em> (sucre syntaxique)</li>
+						</ul>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1-2|4|6-7|9|11-13">class Account(private val clock: Clock) extends AccountContract:
+  // ...
+
+object Account:
+
+  def sum(accounts: Seq[Account]): Int =
+    accounts.map(_.balance).sum
+
+  val dateFormatter = DateTimeFormatter.ofPattern("d.M.y")
+
+  def apply(name: String): Account =
+    println(s"Creating account for $name")
+    new Account(Clock.systemUTC())</code></pre>
+					</section>
+
+					<section>
+						<h2>Différents types d’outils</h2>
+						<ul>
+							<li>Traits</li>
+							<li>Classes</li>
+							<li>Objets companions</li>
+							<li class="fragment">Case classes</li>
+						</ul>
+					</section>
+
+					<section>
+						<p>Les case classes servent à modéliser des structures de données immuables</p>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1-5|7-8">case class Transaction(
+  date: LocalDate,
+  amount: Int,
+  balance: Int
+)
+
+val deposit =
+  Transaction(LocalDate.parse("2024-05-22"), 20000, 25398)</code></pre>
+					</section>
+
+					<section>
+						<p>Elles ont des propriétés suplémentaires que les classes n'ont pas</p>
+					</section>
+
+					<section>
+						<p>Méthode <code>unapply</code> générée permettant le pattern matching</p>
+						<pre class="fragment"><code class="language-scala">transaction match:
+  case Transaction(_, 0     , _)               => "zero"
+  case Transaction(_, amount, _) if amount > 0 => "positive"
+  case Transaction(_, amount, _)               => "negative"</code></pre>
+					</section>
+
+					<section>
+						<p>Méthode <code>copy</code> permettant de créer des copies modifiées d'une instance</p>
+						<pre class="fragment"><code class="language-scala">val toEuros: Transaction = transaction.copy(
+  amount  = amount  * 656,
+  balance = balance * 656
+)</code></pre>
+					</section>
+
+					<section>
+						<p>
+							Méthodes <code>equals</code> et <code>hashCode</code> permettant de garantir l'unicité et la
+							comparaison d'instances
+						</p>
+						<p>Méthode <code>toString</code> affichant les données compréhensibles d'une instance</p>
+						<pre class="fragment"><code class="language-scala">println(deposit)</code></pre>
+						<pre class="fragment"><code>Transaction(2024-05-22,20000,25398)</code></pre>
+					</section>
+
+					<section data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
+						<h3>Exercice Pratique</h3>
+						<p>Écrire une classe <code>Account</code><br>qui expose les méthodes ci-dessous :</p>
+						<ul>
+							<li><code>deposit(Int): Unit</code></li>
+							<li><code>withdraw(Int): Unit</code></li>
+							<li><code>printStatement(): String</code></li>
+						</ul>
+						<p>Voici un exemple de statement :</p>
+						<pre>Date        Amount  Balance
+24.12.2015   +500      500
+23.8.2016    -100      400</pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h3>Corrigé : classe Account</h3>
+						<pre><code class="language-scala">import Account.Transaction
+
+import java.time.ZoneOffset.UTC
+import java.time.Clock
+import scala.collection.mutable
+
+class Account(private val clock: Clock):
+
+  private val transactions = mutable.ListBuffer[Transaction]()
+  private var balance = 0
+
+  def deposit(amount: Int): Unit =
+    balance += amount
+    val now = clock.instant().atZone(UTC).toLocalDate
+    transactions.append(Transaction(now, amount, balance))</code></pre>
+						<pre class="fragment"><code class="language-scala">def withdraw(amount: Int): Unit =
+    balance -= amount
+    val now = clock.instant().atZone(UTC).toLocalDate
+    transactions.append(Transaction(now, -amount, balance))
+
+  def printStatement(): String = transactions
+    .map(_.toString)
+    .mkString("Date       Amount Balance\n", "\n", "")</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h3>Corrigé : objet companion de la classe Account</h3>
+						<pre><code class="language-scala">import java.time.format.DateTimeFormatter
+import java.time.LocalDate
+
+object Account:
+
+  private val dateFormatter =
+    DateTimeFormatter.ofPattern("d.M.y")
+
+  case class Transaction(date: LocalDate,
+                         amount: Int,
+                         balance: Int):
+    override def toString: String =
+      val formattedDate = date.format(dateFormatter)
+      "%-10s %+5d %7d".format(formattedDate, amount, balance)</code></pre>
+					</section>
+
+					<section data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
+						<h3>Contrôle continu</h3>
+						<p>Écrire une version de <code>Account</code><br>en programmation fonctionnelle pure</p>
+					</section>
+
 				</section>
 
 				<section aria-description="3. Types et polymorphisme">
