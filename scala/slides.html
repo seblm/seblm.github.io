@@ -56,7 +56,7 @@ Description détaillée : 1. Introduction à la programmation fonctionnelle
 Modalité d’évaluation : - CC - ÉCRIT
                         - Partiel - Projet avec soutenance
  Exemple d’évaluation : Construction d’une application en Scala en suivant les préceptes de programmation fonctionnelle
-                        et de modélisation abordés pendant le cours (pilotage d'une tondeuse à gazon automatique,
+                        et de modélisation abordés pendant le cours (pilotage d’une tondeuse à gazon automatique,
                         destinée aux surfaces rectangulaires).
 -->
 
@@ -185,7 +185,7 @@ Modalité d’évaluation : - CC - ÉCRIT
 					</section>
 
 					<section data-transition="none">
-						<h4>Ensembles de départ et d'arrivée</h4>
+						<h4>Ensembles de départ et d’arrivée</h4>
 						<img src="img/tasks-03.png" alt="ensemble de départ et ensemble d’arrivée de findTransitions()">
 					</section>
 
@@ -203,7 +203,7 @@ Modalité d’évaluation : - CC - ÉCRIT
 
 					<section>
 						<h4>Règle tirée de la réalité</h4>
-						<p>Toujours chercher à diminuer la taille des ensembles de départ et d'arrivée permet de</p>
+						<p>Toujours chercher à diminuer la taille des ensembles de départ et d’arrivée permet de</p>
 						<ol>
 							<li>Simplifier le code et la lisibilité</li>
 							<li>Éviter les bugs</li>
@@ -1079,7 +1079,7 @@ Printable <|-- Account
 
 					<section>
 						<p>
-							Mais dans le cas d'une implémentation par défaut dans les deux traits ?
+							Mais dans le cas d’une implémentation par défaut dans les deux traits ?
 						</p>
 						<img src="img/oop-class-diagram-02.png" alt="Diagramme de classe avec implémentations par défaut">
 						<!--
@@ -1141,7 +1141,7 @@ end Account</code></pre>
 					</section>
 
 					<section>
-						<p>Pour s'en servir, on a besoin de l'<em>instancier</em>.</p>
+						<p>Pour s’en servir, on a besoin de l’<em>instancier</em>.</p>
 						<pre class="fragment"><code class="language-scala" data-line-numbers="1|3">val savings = Account(Clock.systemDefaultZone())
 
 savings.deposit(20000)</code></pre>
@@ -1149,17 +1149,17 @@ savings.deposit(20000)</code></pre>
 
 					<section>
 						<h3>Note à propos de la visibilité</h3>
-						<p>Toutes les définitions d'une classe sont <code>public</code> par défaut.</p>
+						<p>Toutes les définitions d’une classe sont <code>public</code> par défaut.</p>
 						<p>
-							Il faut les rendre<code>private</code> ou <code>protected</code> si on veut les restreindre.
+							Il faut les rendre <code>private</code> ou <code>protected</code> si on veut les
+							restreindre.
 						</p>
 					</section>
 
 					<section>
 						<h3>Constructeurs auxiliaires</h3>
-						<p>On peut définir d'autres constructeurs d'une classe :</p>
-						<pre><code class="language-scala" data-line-numbers="4-6">class Account(private val clock: Clock)
-    extends AccountContract:
+						<p>On peut définir d’autres constructeurs d’une classe :</p>
+						<pre><code class="language-scala" data-line-numbers="4-6">class Account(private val clock: Clock):
 
   def this() =
     this(Clock.systemUTC())
@@ -1169,7 +1169,7 @@ savings.deposit(20000)</code></pre>
 							<li>
 								Scala permet de définir des valeurs par défaut aux paramètres du constructeur principal
 							</li>
-							<li>L'objet companion d'une classe peut définir des <em>factory methods</em>.</li>
+							<li>L’objet companion d’une classe peut définir des <em>factory methods</em>.</li>
 						</ol>
 					</section>
 
@@ -1193,11 +1193,11 @@ savings.deposit(20000)</code></pre>
 					<section>
 						<h3>À quoi sert-il ?</h3>
 						<ul>
-							<li>À regrouper des fonctions qui ne sont pas dépendantes d'une instance mais seulement du type de classe<br>Pratique car l'objet companion peut accéder aux variables privées de la classe</li>
+							<li>À regrouper des fonctions qui ne sont pas dépendantes d’une instance, mais du type</li>
 							<li>À définir des valeurs statiques</li>
 							<li>À créer des <em>factory methods</em> (sucre syntaxique)</li>
 						</ul>
-						<pre class="fragment"><code class="language-scala" data-line-numbers="1-2|4|6-7|9|11-13">class Account(private val clock: Clock) extends AccountContract:
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1-2|4|6-7|9|11-13">class Account(private val clock: Clock):
   // ...
 
 object Account:
@@ -1235,7 +1235,7 @@ val deposit =
 					</section>
 
 					<section>
-						<p>Elles ont des propriétés suplémentaires que les classes n'ont pas</p>
+						<p>Elles ont des propriétés suplémentaires que les classes n’ont pas</p>
 					</section>
 
 					<section>
@@ -1247,7 +1247,7 @@ val deposit =
 					</section>
 
 					<section>
-						<p>Méthode <code>copy</code> permettant de créer des copies modifiées d'une instance</p>
+						<p>Méthode <code>copy</code> permettant de créer des copies modifiées d’une instance</p>
 						<pre class="fragment"><code class="language-scala">val toEuros: Transaction = transaction.copy(
   amount  = amount  * 656,
   balance = balance * 656
@@ -1256,10 +1256,10 @@ val deposit =
 
 					<section>
 						<p>
-							Méthodes <code>equals</code> et <code>hashCode</code> permettant de garantir l'unicité et la
-							comparaison d'instances
+							Méthodes <code>equals</code> et <code>hashCode</code> permettant de garantir l’unicité et la
+							comparaison d’instances
 						</p>
-						<p>Méthode <code>toString</code> affichant les données compréhensibles d'une instance</p>
+						<p>Méthode <code>toString</code> affichant les données compréhensibles d’une instance</p>
 						<pre class="fragment"><code class="language-scala">println(deposit)</code></pre>
 						<pre class="fragment"><code>Transaction(2024-05-22,20000,25398)</code></pre>
 					</section>
@@ -1280,7 +1280,7 @@ val deposit =
 
 					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
 						<h3>Corrigé : classe Account</h3>
-						<pre><code class="language-scala">import Account.Transaction
+						<pre><code class="language-scala" data-line-numbers="1-15|17-24">import Account.Transaction
 
 import java.time.ZoneOffset.UTC
 import java.time.Clock
@@ -1294,8 +1294,9 @@ class Account(private val clock: Clock):
   def deposit(amount: Int): Unit =
     balance += amount
     val now = clock.instant().atZone(UTC).toLocalDate
-    transactions.append(Transaction(now, amount, balance))</code></pre>
-						<pre class="fragment"><code class="language-scala">def withdraw(amount: Int): Unit =
+    transactions.append(Transaction(now, amount, balance))
+
+  def withdraw(amount: Int): Unit =
     balance -= amount
     val now = clock.instant().atZone(UTC).toLocalDate
     transactions.append(Transaction(now, -amount, balance))
@@ -1326,6 +1327,70 @@ object Account:
 					<section data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
 						<h3>Contrôle continu</h3>
 						<p>Écrire une version de <code>Account</code><br>en programmation fonctionnelle pure</p>
+						<p>
+							L’interface est libre : à vous de choisir ce qui correspond le mieux au design fonctionnel
+						</p>
+						<pre>Date        Amount  Balance
+24.12.2015   +500      500
+23.8.2016    -100      400</pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h3>Corrigé : test unitaire</h3>
+						<pre><code class="language-scala" data-line-numbers="5-11|12|13-15">import munit.FunSuite
+import java.time.LocalDate
+class AccountSuite extends FunSuite:
+  test("should use account"):
+    val account = Account.withdraw(
+      Account.deposit(
+        Account.empty,
+        LocalDate.parse("2015-12-24"),
+        500),
+      LocalDate.parse("2016-08-23"),
+      100)
+    assertEquals(Account.printStatement(account),
+      """Date       Amount Balance
+        |24.12.2015  +500     500
+        |23.8.2016   -100     400""".stripMargin)</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h3>Corrigé : fonctions sur Account</h3>
+						<pre><code class="language-scala" data-line-numbers="3|5|7|7-15">import java.time.LocalDate
+
+case class Account(private val transactions: Seq[Transaction])
+
+case class Transaction(date: LocalDate, amount: Int)
+
+object Account:
+  def empty: Account = Account(Seq.empty)
+  def deposit(account: Account, date: LocalDate,
+              amount: Int): Account =
+    Account(account.transactions :+ Transaction(date, amount))
+  def withdraw(account: Account, date: LocalDate,
+               amount: Int): Account =
+    Account(account.transactions :+ Transaction(date, -amount))
+  def printStatement(account: Account): String = ???</code></pre>
+					</section>
+
+					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h3>Corrigé : affichage du statement</h3>
+						<pre><code class="language-scala" data-line-numbers="2-4|5-11|13-16">object Account:
+  def printStatement(account: Account): String =
+    "Date       Amount Balance" +
+      printStatement(account.transactions, 0)
+  private def printStatement(transactions: Seq[TransactionFP],
+                             balance: Int): String =
+    transactions match
+      case Nil => ""
+      case TransactionFP(date, amount) :: tail =>
+        "\n" + printTransaction(date, amount, balance + amount)
+             + printStatement(tail, balance + amount)
+  private val dateFormatter = DateTimeFormatter.ofPattern("d.M.y")
+  private def printTransaction(date: LocalDate, amount: Int,
+                               balance: Int): String =
+    "%-10s %+5d %7d".format(date.format(dateFormatter), amount,
+                            balance)</code></pre>
 					</section>
 
 				</section>
