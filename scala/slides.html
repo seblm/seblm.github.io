@@ -60,7 +60,6 @@ Modalité d’évaluation : - CC - ÉCRIT
                         destinée aux surfaces rectangulaires).
 -->
 
-
 				<section aria-description="Programmation fonctionnelle avec Scala">
 					<h1>Programmation fonctionnelle avec Scala</h1>
 				</section>
@@ -1396,12 +1395,100 @@ object Account:
 				</section>
 
 				<section aria-description="3. Types et polymorphisme">
-					<h2>Types et polymorphisme</h2>
-					<!-- formes de typage, generics, typeclass, sous-typage, types avancés -->
+					<h1>Types et polymorphisme</h1>
+				</section>
+
+				<!-- formes de typage, generics, typeclass, sous-typage, types avancés -->
+				<section aria-description="3.1 Qu’est-ce qu’un type ?">
+					<section>
+					    <h2>Qu’est-ce qu’un type ?</h2>
+						<p>Identifie sans ambiguité des définitions de structures de données.</p>
+						<p class="fragment">
+							Fondation de Scala en tant que langage typé statiquement : le compilateur connait et vérifie à
+							la compilation les interactions entre les structures de données, les arguments, les types de
+							retour.
+						</p>
+					</section>
+
+					<section>
+						<h3>Inférence</h3>
+						<p>
+							Bien que statiquement typé, Scala permet une relative souplesse dans la déclaration des
+							symboles. Le compilateur <em>devine</em> les types des variables si le contexte est suffisant.
+						</p>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1-2|3-6">val x: Int = 1
+val y: Double = 1
+val a = 1                           // Int
+val b = 1.0                         // Double
+val l = List(1, 2, 3)               // List[Int]
+val m = Map(1 -> "one", 2 -> "two") // Map[Int, String]</code></pre>
+					</section>
+
+					<section>
+						<h3>Génériques</h3>
+						<p>Des classes ou des traits qui prennent des types en paramètre. <em>DRY</em><sup>tm</sup></p>
+						<pre class="fragment"><code class="language-scala">class Stack[A]:
+  private var elements: List[A] = Nil
+  def push(x: A): Unit = elements = elements.prepended(x)
+  def peek: A = elements.head
+  def pop(): A =
+    val head = peek
+    elements = elements.tail
+    head</code></pre>
+						<pre class="fragment"><code class="language-scala">val stack = Stack[Int]
+stack.push(1)
+stack.push(2)
+println(stack.pop()) // 2
+println(stack.pop()) // 1</code></pre>
+					</section>
+
+					<section>
+						<h3>Types intersection</h3>
+						<p>Le type <code>A & B</code> représente les valeurs qui sont</p>
+						<ul>
+							<li><strong>à la fois</strong> de type <code>A</code></li>
+							<li><strong>et</strong> de type <code></code>B</li>
+						</ul>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1-2|4-5|7-9">trait Resettable:
+  def reset(): Unit
+
+trait Growable[A]:
+  def add(a: A): Unit
+
+def f(x: Resettable & Growable[String]): Unit =
+  x.reset()
+  x.add("first")</code></pre>
+					</section>
+
+					<section>
+						<h3>Types unions</h3>
+						<p>Le type <code>A | B</code> représente les valeurs qui sont</p>
+						<ul>
+							<li><strong>soit</strong> de type <code>A</code></li>
+							<li><strong>ou</strong> de type <code></code>B</li>
+						</ul>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1-2|4-8">case class Username(name: String)
+case class Password(hash: Hash)
+
+def help(id: Username | Password) =
+  val user = id match
+    case Username(name) => lookupName(name)
+    case Password(hash) => lookupPassword(hash)
+  // ...</code></pre>
+						<p class="fragment">
+							Ici pas besoin de créer un trait scelé ou une enumeration <em>en avance</em>.
+						</p>
+					</section>
+
+					<section>
+						<h3>Typeclasses</h3>
+						<!-- https://docs.scala-lang.org/scala3/book/ca-type-classes.html -->
+					</section>
 				</section>
 
 				<section aria-description="4. Gestion des effets en programmation fonctionnelle">
 					<h2>Gestion des effets en programmation fonctionnelle</h2>
+					<!-- effets, puretés, monades (Future, Either, Try, Option, List) -->
 				</section>
 
 				<section aria-description="5. Manipulations et cas pratiques">
