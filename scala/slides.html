@@ -1395,12 +1395,10 @@ object Account:
 				</section>
 
 				<section aria-description="3. Types et polymorphisme">
-					<h1>Types et polymorphisme</h1>
-				</section>
+					<section><h1>Types et polymorphisme</h1></section>
 
-				<!-- formes de typage, generics, typeclass, sous-typage, types avancés -->
-				<section aria-description="3.1 Qu’est-ce qu’un type ?">
-					<section>
+					<!-- formes de typage, generics, typeclass, sous-typage, types avancés -->
+					<section aria-description="3.1 Qu’est-ce qu’un type ?">
 					    <h2>Qu’est-ce qu’un type ?</h2>
 						<p>Identifie sans ambiguité des définitions de structures de données.</p>
 						<p class="fragment">
@@ -1410,7 +1408,7 @@ object Account:
 						</p>
 					</section>
 
-					<section>
+					<section aria-description="3.2 Inférence">
 						<h3>Inférence</h3>
 						<p>
 							Bien que statiquement typé, Scala permet une relative souplesse dans la déclaration des
@@ -1424,7 +1422,7 @@ val l = List(1, 2, 3)               // List[Int]
 val m = Map(1 -> "one", 2 -> "two") // Map[Int, String]</code></pre>
 					</section>
 
-					<section>
+					<section aria-description="3.3 Génériques">
 						<h3>Génériques</h3>
 						<p>Des classes ou des traits qui prennent des types en paramètre. <em>DRY</em><sup>tm</sup></p>
 						<pre class="fragment"><code class="language-scala">class Stack[A]:
@@ -1442,7 +1440,7 @@ println(stack.pop()) // 2
 println(stack.pop()) // 1</code></pre>
 					</section>
 
-					<section>
+					<section aria-description="3.4 Types intersection">
 						<h3>Types intersection</h3>
 						<p>Le type <code>A & B</code> représente les valeurs qui sont</p>
 						<ul>
@@ -1460,7 +1458,7 @@ def f(x: Resettable & Growable[String]): Unit =
   x.add("first")</code></pre>
 					</section>
 
-					<section>
+					<section aria-description="3.5 Types unions">
 						<h3>Types unions</h3>
 						<p>Le type <code>A | B</code> représente les valeurs qui sont</p>
 						<ul>
@@ -1480,9 +1478,30 @@ def help(id: Username | Password) =
 						</p>
 					</section>
 
-					<section>
+					<section aria-description="3.6 Typeclasses">
 						<h3>Typeclasses</h3>
-						<!-- https://docs.scala-lang.org/scala3/book/ca-type-classes.html -->
+						<p>
+							C’est un type abstrait et paramétré qui permet d’ajouter des comportements sur des types de
+							données sans avoir besoin de les sous-typer.
+						</p>
+						<pre class="fragment"><code class="language-scala">trait Showable[A]:
+  extension (a: A) def show: String</code></pre>
+						<pre class="fragment"><code class="language-scala">case class Person(firstName: String, lastName: String)</code></pre>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="1-3|1-6">given Showable[Person] with
+  extension (p: Person) def show: String =
+    s"${p.firstName} ${p.lastName}"
+
+val person = Person("John", "Doe")
+println(person.show)</code></pre>
+					</section>
+					<section>
+						<h4>Exemples dans cats</h4>
+						<ul>
+							<li><code>Fonctor</code></li>
+							<li><code>Applicative</code></li>
+							<li><code>Semigroup</code></li>
+							<li><code>Monoid</code></li>
+						</ul>
 					</section>
 				</section>
 
