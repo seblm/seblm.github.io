@@ -1397,7 +1397,6 @@ object Account:
 				<section aria-description="3. Types et polymorphisme">
 					<section><h1>Types et polymorphisme</h1></section>
 
-					<!-- formes de typage, generics, typeclass, sous-typage, types avancés -->
 					<section aria-description="3.1 Qu’est-ce qu’un type ?">
 					    <h2>Qu’est-ce qu’un type ?</h2>
 						<p>Identifie sans ambiguité des définitions de structures de données.</p>
@@ -1494,7 +1493,8 @@ def help(id: Username | Password) =
 val person = Person("John", "Doe")
 println(person.show)</code></pre>
 					</section>
-					<section>
+
+					<section aria-description="3.6 Exemples dans cats">
 						<h4>Exemples dans cats</h4>
 						<ul>
 							<li><code>Fonctor</code></li>
@@ -1502,6 +1502,60 @@ println(person.show)</code></pre>
 							<li><code>Semigroup</code></li>
 							<li><code>Monoid</code></li>
 						</ul>
+					</section>
+
+					<section aria-description="3.6 Exercice pratique" data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
+						<h3>Exercice pratique</h3>
+						<p>Implémenter un <em>monoid</em></p>
+						<p>Un monoid est un type qui a une opération binaire associative et un élément neutre.</p>
+						<pre class="fragment"><code class="language-scala">trait Monoid[A]:
+  def combine(x: A, y: A): A
+  def empty: A</code></pre>
+						<pre class="fragment"><code class="language-scala" data-line-numbers="3-5|1,7">import Result.{Error, Success}
+
+enum Result:
+  case Success(count: Int)
+  case Error(message: String)
+
+case class Report(ok: List[Success], ko: List[Error]</code></pre>
+					</section>
+
+					<section aria-description="3.6 Exercice pratique Test unitaire" data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
+						<h3>Exercice pratique : test unitaire</h3>
+						<pre><code class="language-scala">import cats.kernel.Monoid
+import monoid.Report.{fromResult, given}
+import monoid.Result.{Error, Success}
+import munit.FunSuite</code></pre>
+						<pre><code class="language-scala">class ResultSuite extends FunSuite:
+
+  test("should aggregate successes and errors"):
+    val success1: Success = Success(10)
+    val error: Error = Error("Null reference encountered")
+    val success2: Success = Success(42)
+    val results: Seq[Result] = Vector(success1, error, success2)
+    val reports: Seq[Report] = results.map(fromResult)
+
+    val combinedReport = Monoid.combineAll(reports)
+
+    assertEquals(
+      obtained = combinedReport,
+      actual   = Report(List(success1, success2), List(error)))</code></pre>
+					</section>
+
+					<section aria-description="3.6 Exercice pratique Solution" data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
+						<h3>Exercice pratique : solution</h3>
+						<pre><code class="language-scala" data-line-numbers="1,8-12">object Report:
+  def fromResult(result: Result): Report = result match
+    case success: Success =>
+                  Report(ok = List(success), ko = List.empty)
+    case error: Error     =>
+                  Report(ok = List.empty, ko = List(error))
+
+  given Monoid[Report] with
+    def combine(a: Report, b: Report): Report =
+                  Report(ok = a.ok ++ b.ok, ko = a.ko ++ b.ko)
+    def empty: Report =
+                  Report(ok = List.empty, ko = List.empty)</code></pre>
 					</section>
 				</section>
 
