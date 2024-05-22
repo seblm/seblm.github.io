@@ -1560,7 +1560,70 @@ import munit.FunSuite</code></pre>
 				</section>
 
 				<section aria-description="4. Gestion des effets en programmation fonctionnelle">
-					<h2>Gestion des effets en programmation fonctionnelle</h2>
+					<section><h2>Gestion des effets en programmation fonctionnelle</h2></section>
+
+					<section>
+						<h3>Rappel</h3>
+						<p>Qu’est-ce qu’un effet ?</p>
+						<p class="fragment">Opération qui modifie l’état extérieur d’un programme.</p>
+						<p class="fragment">Exemples :</p>
+						<ul>
+							<li class="fragment">Écrire une ligne dans la sortie standard.</li>
+							<li class="fragment">Exécuter une commande SQL dans une base de données.</li>
+							<li class="fragment">Lire un fichier sur le disque.</li>
+							<li class="fragment">Récupérer une information depuis une API Rest.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Rappel</h3>
+						<p>Qu’est-ce qu’une fonction pure ?</p>
+						<p class="fragment">
+							Une fonction qui ne contient aucun effet — la même entrée produira toujours la même sortie
+							sans changer l’état externe de quoi que soit.
+						</p>
+						<p class="fragment">Exemples :</p>
+						<ul>
+							<li class="fragment">Calculer une somme de contrôle.</li>
+							<li class="fragment">Compresser un tableau d’octets.</li>
+							<li class="fragment">Effectuer une conversion d’un type vers un autre.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3><code>Option</code></h3>
+						<ul>
+							<li>Éviter <code>NullPointerException</code></li>
+							<li>Modéliser la présence ou l'absence d'une donnée</li>
+						</ul>
+						<pre><code class="language-scala" data-line-numbers="1|2|4-6|4-7|9-10|12|14">val value: Option[Int] = Some(42)
+val empty: Option[Int] = None
+
+val map: java.util.Map[Int, String] =
+     new java.util.HashMap[Int, String]()
+map.get(10) // null
+Option(map.get(10)) // None
+
+value.get // 42
+empty.get // NoSuchElementException("None.get")
+
+value.map(_.toString) // Some("42")
+
+value.flatMap(map.get) // None
+
+value.fold(ifEmpty = 0)(identity) // 42</code></pre>
+					</section>
+
+					<section>
+						<h3><code>Try</code></h3>
+						<ul>
+							<li>Éviter de devoir attraper des exceptions</li>
+							<li>Modéliser une erreur <strong>ou</strong> une valeur</li>
+						</ul>
+						<pre><code class="language-scala" data-line-numbers="1|2|4-6|4-7|9-10|12|14">val success: Try[Int] = Success(42)
+val error: Try[Int] = Failure(new IllegalStateException("Boom!"))
+// TODO</code></pre>
+					</section>
 					<!-- effets, puretés, monades (Future, Either, Try, Option, List) -->
 				</section>
 
