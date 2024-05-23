@@ -1560,38 +1560,60 @@ import munit.FunSuite</code></pre>
 				</section>
 
 				<section aria-description="4. Gestion des effets en programmation fonctionnelle">
-					<section><h2>Gestion des effets en programmation fonctionnelle</h2></section>
+					<section><h1>Gestion des effets en programmation fonctionnelle</h1></section>
 
 					<section>
-						<h3>Rappel</h3>
+						<h2>Rappel</h2>
 						<p>Qu’est-ce qu’un effet ?</p>
 						<p class="fragment">Opération qui modifie l’état extérieur d’un programme.</p>
 						<p class="fragment">Exemples :</p>
-						<ul>
-							<li class="fragment">Écrire une ligne dans la sortie standard.</li>
-							<li class="fragment">Exécuter une commande SQL dans une base de données.</li>
-							<li class="fragment">Lire un fichier sur le disque.</li>
-							<li class="fragment">Récupérer une information depuis une API Rest.</li>
+						<ul class="fragment">
+							<li>Écrire une ligne dans la sortie standard.</li>
+							<li>Exécuter une commande SQL dans une base de données.</li>
+							<li>Lire un fichier sur le disque.</li>
+							<li>Récupérer une information depuis une API Rest.</li>
 						</ul>
 					</section>
 
 					<section>
-						<h3>Rappel</h3>
+						<h2>Rappel</h2>
 						<p>Qu’est-ce qu’une fonction pure ?</p>
 						<p class="fragment">
 							Une fonction qui ne contient aucun effet — la même entrée produira toujours la même sortie
 							sans changer l’état externe de quoi que soit.
 						</p>
 						<p class="fragment">Exemples :</p>
-						<ul>
-							<li class="fragment">Calculer une somme de contrôle.</li>
-							<li class="fragment">Compresser un tableau d’octets.</li>
-							<li class="fragment">Effectuer une conversion d’un type vers un autre.</li>
+						<ul class="fragment">
+							<li>Calculer une somme de contrôle.</li>
+							<li>Compresser un tableau d’octets.</li>
+							<li>Effectuer une conversion d’un type vers un autre.</li>
 						</ul>
 					</section>
 
 					<section>
-						<h3><code>Option</code></h3>
+						<h2>Comment on traite les effets en Scala ?</h2>
+						<p>
+							On utilise des conteneurs qui les <em>contiennent</em> et les <em>jouent</em> au moment
+							opportun.
+						</p>
+					</section>
+
+					<section data-transition="none"><img src="img/monad-01.png" alt="valeur"/></section>
+
+					<section data-transition="none"><img src="img/monad-02.png" alt="encapsulation"/></section>
+
+					<section data-transition="none"><img src="img/monad-03.png" alt="map"/></section>
+
+					<section data-transition="none"><img src="img/monad-04.png" alt="flatMap"/></section>
+
+					<section data-transition="none"><img src="img/monad-05.png" alt="fold"/></section>
+
+					<section>
+						<h2>Callback hell</h2>
+					</section>
+
+					<section>
+						<h2><code>Option</code></h2>
 						<ul>
 							<li>Éviter <code>NullPointerException</code></li>
 							<li>Modéliser la présence ou l'absence d'une donnée</li>
@@ -1615,7 +1637,7 @@ value.fold(ifEmpty = 0)(identity) // 42</code></pre>
 					</section>
 
 					<section>
-						<h3><code>Try</code></h3>
+						<h2><code>Try</code></h2>
 						<ul>
 							<li>Éviter de devoir attraper des exceptions</li>
 							<li>Modéliser une erreur <strong>ou</strong> une valeur</li>
