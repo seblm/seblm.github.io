@@ -1614,22 +1614,20 @@ import munit.FunSuite</code></pre>
 							<li>Éviter <code>NullPointerException</code></li>
 							<li>Modéliser une donnée optionnelle</li>
 						</ul>
-						<pre><code class="language-scala">val value: Option[Int] = Some(42)
+						<pre class="fragment"><code class="language-scala">val value: Option[Int] = Some(42)
 val empty: Option[Int] = None
 
 val map: java.util.Map[Int, String] =
      new java.util.HashMap[Int, String]()
 map.get(10) // null
 Option(map.get(10)) // None</code></pre>
-						<pre><code class="language-scala">value.get // 42
+						<pre class="fragment"><code class="language-scala">value.get // 42
 empty.get // NoSuchElementException("None.get")
-
 value.fold(ifEmpty = 0)(identity) // 42
 empty.fold(ifEmpty = 0)(identity) // 0
-
 value.getOrElse(0)                // 42
 empty.getOrElse(0)                // 0</code></pre>
-						<pre><code class="language-scala">value.map(_.toString)                          // Some("42")
+						<pre class="fragment"><code class="language-scala">value.map(_.toString)                          // Some("42")
 value.flatMap(index => Option(map.get(index))) // None</code></pre>
 					</section>
 
@@ -1639,21 +1637,19 @@ value.flatMap(index => Option(map.get(index))) // None</code></pre>
 							<li>Éviter de devoir attraper des exceptions</li>
 							<li>Modéliser une erreur <strong>ou</strong> une valeur</li>
 						</ul>
-						<pre><code class="language-scala">val success: Try[Int] = Success(42)
+						<pre class="fragment"><code class="language-scala">val success: Try[Int] = Success(42)
 val failure: Try[Int] = Failure(new IllegalStateException("Boom!"))
 
 def boom(): Int = throw new IllegalStateException("Boom!")
 boom()      // throws IllegalStateException("Boom!")
 Try(boom()) // Failure(IllegalStateException("Boom!"))</code></pre>
-						<pre><code class="language-scala">success.get // 42
+						<pre class="fragment"><code class="language-scala">success.get // 42
 failure.get // throws IllegalStateException("Boom!")
-
 success.fold(_.getMessage, _.toString) // "42"
 failure.fold(_.getMessage, _.toString) // "Boom!"
-
 success.getOrElse(0) // 42
 failure.getOrElse(0) // 0</code></pre>
-						<pre><code class="language-scala">success.map(_.toString)       // Success("42")
+						<pre class="fragment"><code class="language-scala">success.map(_.toString)       // Success("42")
 success.flatMap(_ => failure) // Failure(IllegalStateException("Boom!"))</code></pre>
 					</section>
 
@@ -1663,9 +1659,29 @@ success.flatMap(_ => failure) // Failure(IllegalStateException("Boom!"))</code><
 							<li>C'est un <code>Try</code> dont l'erreur n'est pas un <code>Throwable</code></li>
 							<li>Modéliser une erreur <strong>ou</strong> une valeur</li>
 						</ul>
-						<pre><code class="language-scala">// TODO</code></pre>
+						<pre class="fragment"><code class="language-scala">val right: Either[String, Int] = Right(42)
+val inferredRight = Right(42).witLeft[String]
+val left: Either[String, Int] = Left("Boom!")
+
+Either.cond(true, 42, "Boom!") // Right(42)</code></pre>
+						<pre class="fragment"><code class="language-scala">right.fold(identity, _.toString) // "42"
+left.fold(identity, _.toString)  // "Boom!"
+
+right.getOrElse(0) // 42
+left.getOrElse(0)  // 0</code></pre>
+						<pre class="fragment"><code class="language-scala">right.map(_.toString)    // Right("42")
+right.flatMap(_ => left) // Left("Boom!")</code></pre>
 					</section>
-					<!-- effets, puretés, monades (Future, Either, Try, Option, List) -->
+
+					<section>
+						<h2><code>Future</code></h2>
+						<ul>
+							<li>C'est un <code>Try</code> asynchrone</li>
+							<li>
+								Modéliser un traitement asynchrone qui peut échouer <strong>ou</strong> produire une valeur
+							</li>
+						</ul>
+					</section>
 
 					<section>
 						<h2>Méthodes qu'il faut connaitre</h2>
@@ -1680,14 +1696,91 @@ success.flatMap(_ => failure) // Failure(IllegalStateException("Boom!"))</code><
 							<li><code>fold</code></li>
 						</ol>
 					</section>
+
+					<section>
+						<h2>Callback hell : contexte</h2>
+						<pre><code class="language-scala">val decodedToken: Try[Map[String, String]] =
+         decodeToken("YSBzZWNyZXQgdG9rZW4gLSBsb2w")
+val username: Try[String] =
+         decodedToken.flatMap(dict => Try(dict("username")))
+val password: Try[String] =
+         decodedToken.flatMap(dict => Try(dict("hash")))
+
+def checkAuthentication(username: String,
+                        hash: String): Try[Boolean]</code></pre>
+					</section>
+
 					<section>
 						<h2>Callback hell</h2>
+						<pre><code class="language-scala">val checked: Try[Boolean] =
+  decodeToken("YSBzZWNyZXQgdG9rZW4gLSBsb2w").flatMap: dict =>
+    Try(dict("username")).flatMap: username =>
+      Try(dict("hash")).flatMap: hash =>
+        checkAuthentication(username, hash)</code></pre>
+					</section>
+
+					<section>
+						<h2>for comprehension</h2>
+						<pre><code class="language-scala">val checked: Try[Boolean] = for
+  dict     <- decodeToken("YSBzZWNyZXQgdG9rZW4gLSBsb2w")
+  username <- Try(dict("username"))
+  hash     <- Try(dict("hash"))
+  checked  <- checkAuthentication(username, hash)
+yield checked</code></pre>
 					</section>
 
 				</section>
 
 				<section aria-description="5. Manipulations et cas pratiques">
-					<h2>Manipulations et cas pratiques</h2>
+
+					<section><h1>Manipulations et cas pratiques</h1></section>
+
+					<section aria-description="5. Manipulations et cas pratiques">
+						<h2>Real world app open source: seblm-meals</h2>
+					</section>
+
+					<section aria-description="5. Manipulations et cas pratiques">
+						<h3>Examen final</h3>
+						<p>Tondeuse à gazon automatique, destinée aux surfaces rectangulaires.
+
+							La tondeuse peut être programmée pour parcourir l'intégralité de la surface.
+							La position de la tondeuse est représentée par une combinaison de coordonnées (x,y) et d'une lettre indiquant l'orientation selon la notation cardinale anglaise (N,E,W,S). La pelouse est divisée en grille pour simplifier la navigation.
+
+							Par exemple, la position de la tondeuse peut être « 0, 0, N », ce qui signifie qu'elle se situe dans le coin inférieur gauche de la pelouse, et orientée vers le Nord.
+
+							Pour contrôler la tondeuse, on lui envoie une séquence simple de lettres. Les lettres possibles sont « D », « G » et « A ». « D » et « G » font pivoter la tondeuse de 90° à droite ou à gauche respectivement, sans la déplacer. « A » signifie que l'on avance la tondeuse d'une case dans la direction à laquelle elle fait face, et sans modifier son orientation.
+
+							Si la position après mouvement est en dehors de la pelouse, la tondeuse ne bouge pas, conserve son orientation et traite la commande suivante.
+
+							On assume que la case directement au Nord de la position (x, y) a pour coordonnées (x, y+1).
+
+							Pour programmer la tondeuse, on lui fournit un fichier d'entrée construit comme suit :
+							•	La première ligne correspond aux coordonnées du coin supérieur droit de la pelouse, celles du coin inférieur gauche sont supposées être (0,0)
+							•	La suite du fichier permet de piloter toutes les tondeuses qui ont été déployées. Chaque tondeuse a deux lignes la concernant :
+							•	la première ligne donne la position initiale de la tondeuse, ainsi que son orientation. La position et l'orientation sont fournies sous la forme de 2 chiffres et une lettre, séparés par un espace
+							•	la seconde ligne est une série d'instructions ordonnant à la tondeuse d'explorer la pelouse. Les instructions sont une suite de caractères sans espaces.
+
+							Chaque tondeuse se déplace de façon séquentielle, ce qui signifie que la seconde tondeuse ne bouge que lorsque la première a exécuté intégralement sa série d'instructions.
+
+							Lorsqu'une tondeuse achève une série d'instruction, elle communique sa position et son orientation.
+
+							OBJECTIF
+							Concevoir et écrire un programme s'exécutant sur une JVM ≥ 1.7, un navigateur web ou un serveur node.js, et implémentant la spécification ci-dessus et passant le test ci-après
+
+							TEST
+							Le fichier suivant est fourni en entrée :
+						<pre><code>5 5
+						1 2 N
+						GAGAGAGAA
+						3 3 E
+						AADAADADDA</code></pre>
+
+						On attend le résultat suivant (position finale des tondeuses) :
+						<pre><code>1 3 N
+						5 1 E</code></pre>
+
+						NB: Les données en entrée peuvent être injectée sous une autre forme qu'un fichier (par exemple un test automatisé).</p>
+					</section>
 				</section>
 
 			</div>
