@@ -1609,31 +1609,28 @@ import munit.FunSuite</code></pre>
 					<section data-transition="none"><img src="img/monad-05.png" alt="fold"/></section>
 
 					<section>
-						<h2>Callback hell</h2>
-					</section>
-
-					<section>
 						<h2><code>Option</code></h2>
 						<ul>
 							<li>Éviter <code>NullPointerException</code></li>
-							<li>Modéliser la présence ou l'absence d'une donnée</li>
+							<li>Modéliser une donnée optionnelle</li>
 						</ul>
-						<pre><code class="language-scala" data-line-numbers="1|2|4-6|4-7|9-10|12|14">val value: Option[Int] = Some(42)
+						<pre><code class="language-scala">val value: Option[Int] = Some(42)
 val empty: Option[Int] = None
 
 val map: java.util.Map[Int, String] =
      new java.util.HashMap[Int, String]()
 map.get(10) // null
-Option(map.get(10)) // None
-
-value.get // 42
+Option(map.get(10)) // None</code></pre>
+						<pre><code class="language-scala">value.get // 42
 empty.get // NoSuchElementException("None.get")
 
-value.map(_.toString) // Some("42")
+value.fold(ifEmpty = 0)(identity) // 42
+empty.fold(ifEmpty = 0)(identity) // 0
 
-value.flatMap(map.get) // None
-
-value.fold(ifEmpty = 0)(identity) // 42</code></pre>
+value.getOrElse(0)                // 42
+empty.getOrElse(0)                // 0</code></pre>
+						<pre><code class="language-scala">value.map(_.toString)                          // Some("42")
+value.flatMap(index => Option(map.get(index))) // None</code></pre>
 					</section>
 
 					<section>
@@ -1642,11 +1639,51 @@ value.fold(ifEmpty = 0)(identity) // 42</code></pre>
 							<li>Éviter de devoir attraper des exceptions</li>
 							<li>Modéliser une erreur <strong>ou</strong> une valeur</li>
 						</ul>
-						<pre><code class="language-scala" data-line-numbers="1|2|4-6|4-7|9-10|12|14">val success: Try[Int] = Success(42)
-val error: Try[Int] = Failure(new IllegalStateException("Boom!"))
-// TODO</code></pre>
+						<pre><code class="language-scala">val success: Try[Int] = Success(42)
+val failure: Try[Int] = Failure(new IllegalStateException("Boom!"))
+
+def boom(): Int = throw new IllegalStateException("Boom!")
+boom()      // throws IllegalStateException("Boom!")
+Try(boom()) // Failure(IllegalStateException("Boom!"))</code></pre>
+						<pre><code class="language-scala">success.get // 42
+failure.get // throws IllegalStateException("Boom!")
+
+success.fold(_.getMessage, _.toString) // "42"
+failure.fold(_.getMessage, _.toString) // "Boom!"
+
+success.getOrElse(0) // 42
+failure.getOrElse(0) // 0</code></pre>
+						<pre><code class="language-scala">success.map(_.toString)       // Success("42")
+success.flatMap(_ => failure) // Failure(IllegalStateException("Boom!"))</code></pre>
+					</section>
+
+					<section>
+						<h2><code>Either</code></h2>
+						<ul>
+							<li>C'est un <code>Try</code> dont l'erreur n'est pas un <code>Throwable</code></li>
+							<li>Modéliser une erreur <strong>ou</strong> une valeur</li>
+						</ul>
+						<pre><code class="language-scala">// TODO</code></pre>
 					</section>
 					<!-- effets, puretés, monades (Future, Either, Try, Option, List) -->
+
+					<section>
+						<h2>Méthodes qu'il faut connaitre</h2>
+						<ol>
+							<li><code>map(f: T => U): M[U]</code></li>
+							<li><code>flatMap(f: T => M[U]): M[U]</code></li>
+							<li><code>filter(p: T => Boolean): M[T]</code></li>
+							<li><code>orElse(default: => M[T]): M[T]</code></li>
+							<li><code>foreach[U](f: T => U): Unit</code></li>
+							<li><code>get: T</code></li>
+							<li><code>getOrElse(default: => T): T</code></li>
+							<li><code>fold</code></li>
+						</ol>
+					</section>
+					<section>
+						<h2>Callback hell</h2>
+					</section>
+
 				</section>
 
 				<section aria-description="5. Manipulations et cas pratiques">
