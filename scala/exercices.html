@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercices</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    margin: auto 20%;
+    padding: 100px;
+}
+    </style>
+</head>
+<body>
+<article>
+<h1>Exercices</h1>
+<h2>Sommaire</h2>
+<dl>
+    <dt><a href="#ascii-art">ASCII Art</a></dt>
+    <dd>Afficher des mots en ASCII Art</dd>
+</dl>
+<h2 id="ascii-art">ASCII Art</h2>
+<h3>Objectif</h3>
+<p>Dans les gares et aéroports, on croise souvent ce type d’écran :</p>
+<p>
+    Vous êtes-vous demandé comment il serait possible de simuler cet affichage dans un bon vieux terminal ? Nous, oui :
+    avec l’art ASCII !
+</p>
+
+<h3>Règles</h3>
+<p>
+    L’art ASCII permet de représenter des formes en utilisant des caractères. Dans notre cas, ces formes sont
+    précisément des mots. Par exemple, le mot <em>MANHATTAN</em> pourra être affiché ainsi en art ASCII :
+</p>
+
+<pre>
+# #  #  ### # #  #  ### ###  #  ###
+### # # # # # # # #  #   #  # # # #
+### ### # # ### ###  #   #  ### # #
+# # # # # # # # # #  #   #  # # # #
+# # # # # # # # # #  #   #  # # # #
+</pre>
+
+<p>
+    Votre mission : écrire un programme capable d’afficher une ligne de texte en art ASCII dans un style qui vous est
+    fourni en entrée.
+</p>
+
+<h3>Entrées du jeu</h3>
+
+<h4>Entrée</h4>
+
+<p>Ligne 1 : la largeur L d’une lettre représentée en art ASCII. Toutes les lettres font la même largeur.</p>
+<p>Ligne 2 : la hauteur H d’une lettre représentée en art ASCII. Toutes les lettres font la même hauteur.</p>
+<p>Ligne 3 : La ligne de texte T, composée de N caractères ASCII</p>
+<p>Lignes suivantes : La chaîne de caractères N représentée en art ASCII.</p>
+
+<h4>Sortie</h4>
+
+<p>Le texte T en art ASCII.</p>
+<p>Les caractères de a à z seront affichés en art ASCII par leur équivalent en majuscule.</p>
+<p>
+    Les caractères qui ne sont pas dans les intervalles [a-z] ou [A-Z], seront affichés par le point d’interrogation en
+    art ASCII.
+</p>
+
+<p>Contraintes</p>
+
+<ul>
+    <li>0 < L < 30</li>
+    <li>0 < H < 30</li>
+    <li>0 < N < 200</li>
+</ul>
+
+<h3>Exemple 1</h3>
+
+<h4>Entrée</h4>
+
+<pre>
+4
+5
+E
+ #  ##   ## ##  ### ###  ## # # ###  ## # # #   # # ###  #  ##   #  ##   ## ### # # # # # # # # # # ### ###
+# # # # #   # # #   #   #   # #  #    # # # #   ### # # # # # # # # # # #    #  # # # # # # # # # #   #   #
+### ##  #   # # ##  ##  # # ###  #    # ##  #   ### # # # # ##  # # ##   #   #  # # # # ###  #   #   #   ##
+# # # # #   # # #   #   # # # #  #  # # # # #   # # # # # # #    ## # #   #  #  # # # # ### # #  #  #
+# # ##   ## ##  ### #    ## # # ###  #  # # ### # # # #  #  #     # # # ##   #  ###  #  # # # #  #  ###  #
+</pre>
+
+<h4>Sortie</h4>
+
+<pre>
+###
+#
+##
+#
+###
+</pre>
+
+<h3>Exemple 2</h3>
+
+<h4>Entrée</h4>
+
+<pre>
+4
+5
+MANHATTAN
+ #  ##   ## ##  ### ###  ## # # ###  ## # # #   # # ###  #  ##   #  ##   ## ### # # # # # # # # # # ### ###
+# # # # #   # # #   #   #   # #  #    # # # #   ### # # # # # # # # # # #    #  # # # # # # # # # #   #   #
+### ##  #   # # ##  ##  # # ###  #    # ##  #   ### # # # # ##  # # ##   #   #  # # # # ###  #   #   #   ##
+# # # # #   # # #   #   # # # #  #  # # # # #   # # # # # # #    ## # #   #  #  # # # # ### # #  #  #
+# # ##   ## ##  ### #    ## # # ###  #  # # ### # # # #  #  #     # # # ##   #  ###  #  # # # #  #  ###  #
+</pre>
+
+<h4>Sortie</h4>
+
+<pre>
+# #  #  ### # #  #  ### ###  #  ###
+### # # # # # # # #  #   #  # # # #
+### ### # # ### ###  #   #  ### # #
+# # # # # # # # # #  #   #  # # # #
+# # # # # # # # # #  #   #  # # # #
+</pre>
+
+</article>
+</body>
+</html>
