@@ -6,20 +6,20 @@
     <style>
 body {
     font-family: Arial, sans-serif;
-    margin: auto 20%;
-    padding: 100px;
+    margin: auto 10%;
 }
     </style>
 </head>
 <body>
-<article>
 <h1>Exercices</h1>
 <h2>Sommaire</h2>
 <dl>
     <dt><a href="#ascii-art">ASCII Art</a></dt>
     <dd>Afficher des mots en ASCII Art</dd>
     <dt><a href="#slm">Small Language Model</a></dt>
-    <dd>Expérimenter la fonctionnalité du <em>next token</em> d'un LLM </dd>
+    <dd>Expérimenter la fonctionnalité du <em>next token</em> d'un LLM</dd>
+    <dt><a href="#cats-effect">cats-effect</a></dt>
+    <dd>Isoler les effets avec cats-effect</dd>
 </dl>
 <h2 id="ascii-art">ASCII Art</h2>
 <h3>Objectif</h3>
@@ -166,54 +166,66 @@ MANHATTAN
 
 <blockquote>je suis donc</blockquote>
 
-<p>De la même manière pour <em>suis donc</em> :</p>
+<p>Les deux derniers mots sont <em>suis donc</em> donc le prochain mot est <em>je</em>.</p>
 
 <blockquote>je suis donc je</blockquote>
 
-    The last two words are “may I”, so the next word is “wish”. We then
-    look up “I wish”, and find our choice is constrained to another “I”.
+<p>
+    En recherchant <em>donc je</em>, on se retrouve alors avec un choix à faire. Choisissons par exemple <em>pense</em>.
+</p>
 
-    ```ruby
-    I may I wish I
-    ```
+<blockquote>je suis donc je pense</blockquote>
 
-    Now we look up “wish I”, and find we have a choice. Let’s choose “may”.
+<p>
+    En suivant la même logique, on peut donc arriver à une suite de mots du type :
+</p>
 
-    ```ruby
-    I may I wish I may
-    ```
+<blockquote>je suis donc je pense donc je décide</blockquote>
 
-    Now we’re back where we started from, with “I may.” Following the same
-    sequence, but choosing “might” this time, we get:
+<p>À ce state, on doit s'arrêter puisqu'aucune séquence ne débute par <em>je décide</em>.</p>
 
-    ```ruby
-    I may I wish I may I wish I might
-    ```
+<p>
+    Si le texte en entrée est très court, l'algorithme n'est pas très intéressant. Nourrissez-le avec un livre, en
+    revanche, en lui fournissnat ainsi beaucoup plus d'options, et vous pourriez obtenir un résultat plus surprenant.
+</p>
 
-    At this point we stop, as no sequence starts “I might.”
+<p>
+    Pour ce kata, essayer d'implémenter un algorithme de trigrammes qui génère une centainte de mots de texte en
+    utilisant un fichier d'entrée de la taille d'un livre comme entrée. Le <a href="https://www.gutenberg.org">projet
+    Gutenberg</a> est une bonne source de livres en ligne.
+</p>
 
-    Given a short input text, the algorithm isn’t too interesting. Feed it
-    a book, however, and you give it more options, so the resulting output
-    can be surprising.
+<h3>Objectifs</h3>
 
-    For this kata, try implementing a trigram algorithm that generates a
-    couple of hundred words of text using a book-sized file as
-    input. Project Gutenberg is a good source of online books (<em>Tom Swift
-    and His Airship</em> is here). Be warned that these files have DOS line
-    endings (carriage return followed by newline).
+<p>
+    Les katas ont pour eux de vous permettre d'essayer quelque chose de nombreuses fois. Dans celui-ci, ce qu'on peut
+    expérimenter n'est pas seulement du code, mais également les heuristiques qui traitent le texte. Comment gère-t-on
+    la ponctuation, les paragraphes ? Avons-nous besoin d'implémenter du retour arrière si nous nous apercevons que nous
+    tombons dans une voie sans issue ?
+</p>
 
-    ### Objectives
+<p><a href="http://codekata.com/kata/kata14-tom-swift-under-the-milkwood">Source</a></p>
 
-    Kata’s are about trying something many times. In this one, what we’re
-    experimenting with is not just the code, but the heuristics of
-    processing the text. What do we do with punctuation? Paragraphs? Do we
-    have to implement backtracking if we chose a next word that turns out
-    to be a dead end?
+<h2 id="cats-effect">Isoler les effets avec cats-effect</h2>
 
-    > I’ll fire the signal and the fun will commence…
+<p>
+    <a href="https://typelevel.org/cats-effect">Cats-effect</a> est une librairie qui permet d'écrire du code qui décrit les futurs effets qui seront
+    exécutés une fois pour toute.
+</p>
 
-    [codekata]: http://codekata.com/kata/kata14-tom-swift-under-the-milkwood
+<p>Voici un schéma et des données Cassandra :</p>
 
-</article>
+<pre>CREATE KEYSPACE IF NOT EXISTS cats_effect WITH REPLICATION = { 'class': 'SimpleStrategy', 'replication_factor': 1 };
+
+CREATE TABLE IF NOT EXISTS cats_effect.cats(id TIMEUUID PRIMARY KEY, name TEXT);
+
+INSERT INTO cats_effect.cats(id, name) VALUES (9761fc50-af5d-11e7-8484-23ac7386a7b4, 'grosminet') IF NOT EXISTS;
+INSERT INTO cats_effect.cats(id, name) VALUES (a83d1e20-b376-11e7-8d2c-c17e24c486da, 'catwoman') IF NOT EXISTS;
+INSERT INTO cats_effect.cats(id, name) VALUES (017cd6d0-b807-11e7-82b1-6db11998e458, 'felix') IF NOT EXISTS;</pre>
+
+<p>
+    Écrire un programme qui liste les chats, inverse leur nom (<code>grosminet</code> devient <code>tenimsorg</code>) et
+    ré-insère les noms inversés en base, le tout au moyen de Cats-effect.
+</p>
 </body>
 </html>
