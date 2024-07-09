@@ -18,6 +18,8 @@ body {
 <dl>
     <dt><a href="#ascii-art">ASCII Art</a></dt>
     <dd>Afficher des mots en ASCII Art</dd>
+    <dt><a href="#slm">Small Language Model</a></dt>
+    <dd>Expérimenter la fonctionnalité du <em>next token</em> d'un LLM </dd>
 </dl>
 <h2 id="ascii-art">ASCII Art</h2>
 <h3>Objectif</h3>
@@ -121,6 +123,96 @@ MANHATTAN
 # # # # # # # # # #  #   #  # # # #
 # # # # # # # # # #  #   #  # # # #
 </pre>
+
+<h2 id="slm">Small Language Model</h2>
+
+<p>
+    Des trigrammes peuvent-être utilisés pour transformer un texte en une nouvelle version surréelle. Mais quelles sont
+    les heuristiques à appliquer pour obtenir un résultat convenable ?
+</p>
+
+<p>
+    L'analyse par trigrammes est assez simple. S'intéresser à chaque groupe de trois mots adjacents dans un document.
+    Utiliser les deux premiers mots de ce groupe comme la clé, et se rappeler que le troisième mot suit cette clé. Une
+    fois terminée, on connait donc la liste de tous les mots qui font suite à toutes les séquences de deux mots dans un
+    document. Par exemple, si on prend cette entrée :
+</p>
+
+<blockquote>je pense donc je suis donc je pense donc je décide</blockquote>
+
+<p>On peut générer :</p>
+
+<pre>
+"je pense" => ["donc", "donc"]
+"pense donc" => ["je", "je"]
+"donc je"  => ["suis", "pense", "décide"]
+"je suis"  => ["donc"]
+"suis donc"  => ["je"]
+</pre>
+
+<p>
+    Cela veut dire que les mots <em>je pense</em> sont tous les deux suivis par le mot <em>donc</em>, que les mots
+    <em>donc je</em> sont suivis une fois par <em>suis</em>, une fois par <em>pense</em> et une fois par
+    <em>décide</em>, etc.
+</p>
+
+<p>
+    Pour générer un nouveau texte à partir de cette analyse, choisir un couple de mots arbitraire comme point de départ.
+    L'utiliser pour trouver aléatoirement un nouveau mot à ce texte. Cela donne maintenant un nouveau couple de mots à
+    la fin du text. L'utiliser pour trouver potentiellement un nouveau mot basé sur ces derniers. L'ajouter au texte et
+    continuer. Dans l'exemple précédent, nous pouvons commencer par <em>je suis</em>. La seule possibilité qui nous est
+    offerte est le mot <em>donc</em>, donc nous obtenons :
+</p>
+
+<blockquote>je suis donc</blockquote>
+
+<p>De la même manière pour <em>suis donc</em> :</p>
+
+<blockquote>je suis donc je</blockquote>
+
+    The last two words are “may I”, so the next word is “wish”. We then
+    look up “I wish”, and find our choice is constrained to another “I”.
+
+    ```ruby
+    I may I wish I
+    ```
+
+    Now we look up “wish I”, and find we have a choice. Let’s choose “may”.
+
+    ```ruby
+    I may I wish I may
+    ```
+
+    Now we’re back where we started from, with “I may.” Following the same
+    sequence, but choosing “might” this time, we get:
+
+    ```ruby
+    I may I wish I may I wish I might
+    ```
+
+    At this point we stop, as no sequence starts “I might.”
+
+    Given a short input text, the algorithm isn’t too interesting. Feed it
+    a book, however, and you give it more options, so the resulting output
+    can be surprising.
+
+    For this kata, try implementing a trigram algorithm that generates a
+    couple of hundred words of text using a book-sized file as
+    input. Project Gutenberg is a good source of online books (<em>Tom Swift
+    and His Airship</em> is here). Be warned that these files have DOS line
+    endings (carriage return followed by newline).
+
+    ### Objectives
+
+    Kata’s are about trying something many times. In this one, what we’re
+    experimenting with is not just the code, but the heuristics of
+    processing the text. What do we do with punctuation? Paragraphs? Do we
+    have to implement backtracking if we chose a next word that turns out
+    to be a dead end?
+
+    > I’ll fire the signal and the fun will commence…
+
+    [codekata]: http://codekata.com/kata/kata14-tom-swift-under-the-milkwood
 
 </article>
 </body>
