@@ -20,6 +20,8 @@ body {
     <dd>Expérimenter la fonctionnalité du <em>next token</em> d'un LLM</dd>
     <dt><a href="#cats-effect">cats-effect</a></dt>
     <dd>Isoler les effets avec cats-effect</dd>
+    <dt><a href="#change-machine">Machine à changer la monnaie</a></dt>
+    <dd>Calculer les billets à distribuer</dd>
 </dl>
 <h2 id="ascii-art">ASCII Art</h2>
 <h3>Objectif</h3>
@@ -227,5 +229,21 @@ INSERT INTO cats_effect.cats(id, name) VALUES (017cd6d0-b807-11e7-82b1-6db11998e
     Écrire un programme qui liste les chats, inverse leur nom (<code>grosminet</code> devient <code>tenimsorg</code>) et
     ré-insère les noms inversés en base, le tout au moyen de Cats-effect.
 </p>
+
+<h2 id="change-machine">Machine à changer la monnaie</h2>
+<p>
+    Étant donné une spécification de devise et un montant, vous devez indiquer le nombre de billets et de pièces
+    nécessaires.
+</p>
+<p>
+    La spécification de devise est une chaîne qui décrit les pièces et les billets de banque par ordre croissant.
+    Exemple pour les euros :
+</p>
+<pre>1 2 5 10 20 50 100 200 500</pre>
+<p>
+    La sortie est une chaîne avec le nombre de billets de banque ou de pièces plus « x » plus le billet de banque ou la
+    pièce par ordre décroissant. Exemple pour 285€ :
+</p>
+<pre>1x200 1x50 1x20 1x10 1x5</pre>
 </body>
 </html>
