@@ -5,8 +5,8 @@ object EmailCleaner:
   private val startAndEndWithSpaces = """^\s+(.*?)\s+$""".r
 
   def clean(notCleanedEmail: String): String = notCleanedEmail match
-    case startAndEndWithQuote(email) => email
-    case startWithQuote(email) => email
-    case endsWithQuote(email) => email
+    case startAndEndWithQuote(email)  => email
+    case startWithQuote(email)        => email
+    case endsWithQuote(email)         => email
     case startAndEndWithSpaces(email) => email
-    case _ => notCleanedEmail
+    case _                            => notCleanedEmail

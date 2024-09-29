@@ -22,15 +22,29 @@
             editing = false;
     }
 
-    function updateItem(event) {
+    async function updateDescription(description) {
+        const response = await fetch(`/api/items/${item.id}`, {method: "PATCH", body: JSON.stringify({description: description})});
+        return await response.json();
+    }
+
+    async function updateItem(event) {
         if (!editing) return;
         const { value } = event.target;
         if (value.length) {
-            item.description = value;
+            const updatedItem = await updateDescription(value);
+            item.description = updatedItem.description;
+            editing = false;
         } else {
           removeItem();
+          editing = false;
         }
-        editing = false;
+    }
+
+    async function updateCompleted(event) {
+        const {checked} = event.target;
+        const response = await fetch(`/api/items/${item.id}`, {method: "PATCH", body: JSON.stringify({completed: checked})})
+        const updatedItem = await response.json();
+        item.completed = updatedItem.completed;
     }
 
     async function focusInput(element) {
@@ -41,7 +55,7 @@
 
 <li class:completed={item.completed} class:editing>
     <div class="view">
-        <input class="toggle" type="checkbox" on:change={(event) => item.completed = event.target.checked} checked={item.completed} />
+        <input class="toggle" type="checkbox" on:change={updateCompleted} checked={item.completed}/>
         <!-- svelte-ignore a11y-label-has-associated-control -->
         <label on:dblclick={startEdit}>{item.description}</label>
         <button on:click={removeItem} class="destroy" />

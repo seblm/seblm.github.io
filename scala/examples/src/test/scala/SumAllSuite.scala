@@ -13,19 +13,22 @@ class SumAllSuite extends FunSuite:
     assertEquals(toNumber("7pqrstsixteen"), "7pqrst6teen")
 
   test("firstAndLastNumber"):
-    assertEquals(firstAndLastNumber("219"),         "29")
-    assertEquals(firstAndLastNumber("8wo3"),        "83")
-    assertEquals(firstAndLastNumber("abc123xyz"),   "13")
-    assertEquals(firstAndLastNumber("x2ne34"),      "24")
-    assertEquals(firstAndLastNumber("49872"),       "42")
-    assertEquals(firstAndLastNumber("z1ight234"),   "14")
+    assertEquals(firstAndLastNumber("219"), "29")
+    assertEquals(firstAndLastNumber("8wo3"), "83")
+    assertEquals(firstAndLastNumber("abc123xyz"), "13")
+    assertEquals(firstAndLastNumber("x2ne34"), "24")
+    assertEquals(firstAndLastNumber("49872"), "42")
+    assertEquals(firstAndLastNumber("z1ight234"), "14")
     assertEquals(firstAndLastNumber("7pqrst6teen"), "76")
 
   test("sumAll"):
-    assertEquals(sumAll("""two1nine
-                          |eightwothree
-                          |abcone2threexyz
-                          |xtwone3four
-                          |4nineeightseven2
-                          |zoneight234
-                          |7pqrstsixteen""".stripMargin), 281)
+    assertEquals(
+      sumAll("""two1nine
+               |eightwothree
+               |abcone2threexyz
+               |xtwone3four
+               |4nineeightseven2
+               |zoneight234
+               |7pqrstsixteen""".stripMargin),
+      281
+    )

@@ -3,12 +3,12 @@ import scala.jdk.StreamConverters.*
 
 object SumAll:
 
-  def firstNumber(value: String): String = value match
+  private def firstNumber(value: String): String = value match
     case ""                                  => ""
     case s if Try(s.take(1).toInt).isSuccess => s.take(1)
     case s                                   => firstNumber(s.drop(1))
 
-  def lastNumber(value: String): String = firstNumber(value.reverse)
+  private def lastNumber(value: String): String = firstNumber(value.reverse)
 
   def firstAndLastNumber(value: String): String = firstNumber(value) + lastNumber(value)
 
@@ -26,7 +26,9 @@ object SumAll:
     case s                          => s.take(1) + toNumber(s.drop(1))
 
   def sumAll(values: String): Int =
-    values.lines().toScala(Vector)
+    values
+      .lines()
+      .toScala(Vector)
       .map(toNumber)
       .map(firstAndLastNumber)
       .map(_.toInt)

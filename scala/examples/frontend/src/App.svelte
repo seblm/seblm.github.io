@@ -13,34 +13,45 @@
     let currentFilter = "all";
     let items = [];
 
-    function addItem(event) {
-        items.push({
-            id: crypto.randomUUID(), // This only works in secure-context.
-            description: event.detail.text,
-            completed: false,
-        });
+    async function addItem(event) {
+        const response = await fetch(`/api/items`, {method: "POST", body: JSON.stringify({description: event.detail.text,})})
+        const newItem = await response.json();
+        items.push(newItem);
         items = items;
     }
 
-    function removeItem(index) {
-        items.splice(index, 1);
-        items = items;
+    async function removeItem(itemId, index) {
+        const response = await fetch(`/api/items/${itemId}`, {method: "DELETE"});
+        if (response.status === 204) {
+            items.splice(index, 1);
+            items = items;
+        }
     }
 
-    function toggleAllItems(event) {
+    async function toggleAllItems(event) {
         const checked = event.target.checked;
-        items = items.map((item) => ({
-            ...item,
-            completed: checked,
-        }));
+        const action = checked ? "completed" : "uncompleted";
+        const response = await fetch(`/api/items/all/${action}`, {method: "PATCH", body: JSON.stringify(items.map((item) => item.id))});
+        if (response.status === 204) {
+            items = items.map((item) => ({
+                ...item,
+                completed: checked,
+            }));
+        }
     }
 
-    function removeCompletedItems() {
-        items = items.filter((item) => !item.completed);
+    async function removeCompletedItems() {
+        const completedItemIds = items.filter((item) => item.completed).map((item) => item.id);
+        const response = await fetch(`/api/items/all/deleted`, {method: "DELETE", body: JSON.stringify(completedItemIds)});
+        if (response.status === 204) {
+            items = items.filter((item) => !item.completed);
+        }
     }
     
-    onMount(() => {
+    onMount(async () => {
       router(route => currentFilter = route).init();
+      const result = await fetch(`/api/items`);
+      items = await result.json();
     });
 
     $: filtered = currentFilter === "all" ? items : currentFilter === "completed" ? items.filter((item) => item.completed) : items.filter((item) => !item.completed);
@@ -58,7 +69,7 @@
         </div>
         <ul class="todo-list">
             {#each filtered as item, index (item.id)}
-                <Item bind:item on:removeItem={() => removeItem(index)} />
+                <Item bind:item on:removeItem={() => removeItem(item.id, index)} />
             {/each}
         </ul>
 
