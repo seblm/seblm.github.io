@@ -4,7 +4,7 @@ services:
     extends:
       file: common.yaml
       service: common
-    command: gem install jekyll --version 4.3.3
+    command: gem install jekyll --version 4.3.4
     profiles:
       - install
 

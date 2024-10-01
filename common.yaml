@@ -1,7 +1,7 @@
 services:
 
   common:
-    image: ruby:3.3.0
+    image: ruby:3.3.5
     volumes:
       - type: volume
         source: gem_home

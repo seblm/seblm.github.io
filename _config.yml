@@ -74,8 +74,6 @@ exclude:
   - Gemfile.lock
   - README.md
   - scala/examples
-  - scala/project
-  - scala/target
 #   - node_modules/
 #   - vendor/bundle/
 #   - vendor/cache/
