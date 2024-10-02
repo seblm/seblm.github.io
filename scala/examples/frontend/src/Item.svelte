@@ -23,7 +23,7 @@
     }
 
     async function updateDescription(description) {
-        const response = await fetch(`/api/items/${item.id}`, {method: "PATCH", body: JSON.stringify({description: description})});
+        const response = await fetch(`/api/items/${item.id}`, {method: "PATCH", body: JSON.stringify({description})});
         return await response.json();
     }
 
