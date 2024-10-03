@@ -14,7 +14,7 @@ import todo.Endpoints.*
 
 import java.util.UUID
 
-class EndpointsSpec extends FunSuite:
+class EndpointsSuite extends FunSuite:
 
   private val learnScala = Item(UUID.fromString("fc03741d-1c27-4afd-88ab-03e085980a36"), "learn Scala", false)
 
@@ -29,16 +29,18 @@ class EndpointsSpec extends FunSuite:
     // then
     response.map(response => assertEquals(response.body, Right(List(learnScala)))).unwrap
 
-  test("it should add a new item"):
-    // given
+  test("it should add new items"):
     val backendStub =
       TapirStubInterpreter(SttpBackendStub(new CatsMonadError[IO]())).whenServerEndpointRunLogic(itemsPostServerEndpoint).backend()
 
-    // when
     val response = basicRequest.post(uri"https://example.com/api/items").body(NewItem("new item")).response(asJson[Item]).send(backendStub)
-
-    // then
     response.map(response => assertEquals(response.body.map(_.description), Right("new item"))).unwrap
+
+    val trimmed = basicRequest.post(uri"https://example.com/api/items").body(NewItem(" to trim  ")).response(asJson[Item]).send(backendStub)
+    trimmed.map(trimmed => assertEquals(trimmed.body.map(_.description), Right("to trim"))).unwrap
+
+    val empty = basicRequest.post(uri"https://example.com/api/items").body(NewItem(" ")).send(backendStub)
+    empty.map(empty => assertEquals(empty.code.isSuccess, false)).unwrap
 
   test("it should update description"):
     // given

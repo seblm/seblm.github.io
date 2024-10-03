@@ -11,23 +11,20 @@ class Items:
   val items: mutable.ArrayBuffer[Item] = mutable.ArrayBuffer(Item(fakeId, "learn Scala", false))
   def list: List[Item] = items.toList
   def addOne(newItem: NewItem): IO[Item] =
-    for {
+    for
       nonEmptyDescription <- IO.fromEither(Item.validateDescription(newItem.description))
       id <- IO.randomUUID
       item = Item(id, nonEmptyDescription, false)
       _ <- IO(items.addOne(item))
-    } yield item
-  def update(itemId: UUID, itemToBeUpdated: ItemToBeUpdated): Item =
-    items.zipWithIndex
-      .find(_._1.id == itemId)
-      .map: (item, index) =>
-        val updatedItem = item.copy(
-          description = itemToBeUpdated.description.getOrElse(item.description),
-          completed = itemToBeUpdated.completed.getOrElse(item.completed)
-        )
-        items.update(index, updatedItem)
-        updatedItem
-      .getOrElse(items.head) // not safe
+    yield item
+  def update(itemId: UUID, itemToBeUpdated: ItemToBeUpdated): IO[Item] =
+    for
+      (item, index) <- IO.fromOption(items.zipWithIndex.find(_._1.id == itemId))(new NoSuchElementException(s"item $itemId not found"))
+      nonEmptyDescription <- itemToBeUpdated.description.fold(IO.pure(item.description)): newDescription =>
+        IO.fromEither(Item.validateDescription(newDescription))
+      updatedItem = item.copy(description = nonEmptyDescription, completed = itemToBeUpdated.completed.getOrElse(item.completed))
+      _ <- IO(items.update(index, updatedItem))
+    yield updatedItem
   def delete(itemId: UUID): Unit = items.zipWithIndex.find(_._1.id == itemId).map(_._2).foreach(items.remove)
   @tailrec final def allDelete(itemIds: List[UUID]): Unit = itemIds match
     case Nil => ()

@@ -25,7 +25,7 @@ object Endpoints:
   private val itemsPatch: PublicEndpoint[(UUID, ItemToBeUpdated), Unit, Item, Any] =
     endpoint.patch.in("api" / "items" / path[UUID]("item-id")).in(jsonBody[ItemToBeUpdated]).out(jsonBody[Item])
   val itemsPatchServerEndpoint: ServerEndpoint[Any, IO] =
-    itemsPatch.serverLogicSuccess((itemId, itemToBeUpdated) => IO.pure(items.update(itemId, itemToBeUpdated)))
+    itemsPatch.serverLogicSuccess((itemId, itemToBeUpdated) => items.update(itemId, itemToBeUpdated))
   private val itemsPatchAllCompleted: PublicEndpoint[List[UUID], Unit, Unit, Any] =
     endpoint.patch.in("api" / "items" / "all" / "completed").in(jsonBody[List[UUID]]).out(statusCode(NoContent))
   private val itemsPatchAllCompletedServerEndpoint: ServerEndpoint[Any, IO] =
