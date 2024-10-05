@@ -16,7 +16,7 @@ on:
       - 'scala/examples/**'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
