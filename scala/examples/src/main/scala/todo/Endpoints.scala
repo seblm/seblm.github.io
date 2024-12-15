@@ -1,6 +1,5 @@
 package todo
 
-import cats.syntax.either.given
 import cats.effect.IO
 import io.circe.generic.auto.*
 import sttp.model.StatusCode.{Created, NoContent}
@@ -11,7 +10,6 @@ import sttp.tapir.server.ServerEndpoint
 import sttp.tapir.swagger.bundle.SwaggerInterpreter
 
 import java.util.UUID
-import scala.annotation.tailrec
 import scala.collection.mutable
 
 object Endpoints:
