@@ -882,7 +882,7 @@ object SumAll:
 					<section>
 						<h3>Comment organiser le code ?</h3>
 						<ul>
-							<li>des méthodes dans les objets compagnions</li>
+							<li>des méthodes dans les objets compagnons</li>
 							<li>style modulaire avec des interfaces et des implémentations</li>
 							<li>des méthodes dans les types de données immuables</li>
 							<li>des méthodes d’extension pour ajouter les fonctionnalités aux types de données</li>
@@ -970,23 +970,24 @@ object ChristmasLights:
 					</section>
 
 					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
-						<h4>Corrigé : application des instruction et somme</h4>
+						<h4>Corrigé : application des instructions et somme</h4>
 						<pre><code class="language-scala">import ChristmasLights.Instruction.{OFF, ON, TOGGLE}
 import scala.jdk.StreamConverters.*
 
 object ChristmasLights:
-  def applyToRectangle[T](c1: Coordinates, c2: Coordinates, effect: (x: Int, y: Int) => T): Seq[T] =
+  def applyToRectangle[T](c1: Coordinates, c2: Coordinates,
+                          effect: (x: Int, y: Int) => T): Seq[T] =
     Range(c1.y, c2.y + 1).flatMap(y => Range(c1.x, c2.x + 1)
                          .map(x => effect(x, y)))</code></pre>
 						<pre><code class="language-scala">  def countLitLights(program: String): Int =
-    val lights = applyToRectangle(Coordinates(0, 0), Coordinates(999, 999), (_, _) => false).toBuffer
-    program.lines().toScala(Vector).map(Instruction.apply)
-                                   .foreach:
-	  case ON(c1, c2)     => applyToRectangle(c1, c2,
+    val lights = applyToRectangle(Coordinates(0, 0), Coordinates(999, 999),
+                                  (_, _) => false).toBuffer
+    program.lines().toScala(Vector).map(Instruction.apply).foreach:
+      case ON(c1, c2)     => applyToRectangle(c1, c2,
         (x, y) => lights.update(y * 1000 + x, true))
-	  case OFF(c1, c2)    => applyToRectangle(c1, c2,
+      case OFF(c1, c2)    => applyToRectangle(c1, c2,
         (x, y) => lights.update(y * 1000 + x, false))
-	  case TOGGLE(c1, c2) => applyToRectangle(c1, c2,
+      case TOGGLE(c1, c2) => applyToRectangle(c1, c2,
         (x, y) => lights.update(y * 1000 + x, !lights(y * 1000 + x)))
     lights.count(lightIsOn => lightIsOn)</code></pre>
 					</section>
@@ -1158,7 +1159,7 @@ savings.deposit(20000)</code></pre>
 					<section>
 						<h3>Constructeurs auxiliaires</h3>
 						<p>On peut définir d’autres constructeurs d’une classe :</p>
-						<pre><code class="language-scala" data-line-numbers="4-6">class Account(private val clock: Clock):
+						<pre><code class="language-scala" data-line-numbers="3-6">class Account(private val clock: Clock):
 
   def this() =
     this(Clock.systemUTC())
