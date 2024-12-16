@@ -982,7 +982,7 @@ object ChristmasLights:
 						<pre><code class="language-scala">  def countLitLights(program: String): Int =
     val lights = applyToRectangle(Coordinates(0, 0), Coordinates(999, 999),
                                   (_, _) => false).toBuffer
-    program.lines().toScala(Vector).map(Instruction.apply).foreach:
+    program.split(lineSeparator()).map(Instruction.apply).foreach:
       case ON(c1, c2)     => applyToRectangle(c1, c2,
         (x, y) => lights.update(y * 1000 + x, true))
       case OFF(c1, c2)    => applyToRectangle(c1, c2,
@@ -1009,7 +1009,7 @@ object ChristmasLights:
 						<pre class="fragment"><code class="language-scala">trait AccountContract:
   def deposit(amount: Int): Unit
   def withdraw(amount: Int): Unit
-  def printStatement(): String</code></pre>
+  def printStatements(): String</code></pre>
 					</section>
 
 					<section>
@@ -1041,7 +1041,7 @@ object ChristmasLights:
     balance -= amount
     val now = clock.instant().atZone(UTC).toLocalDate
     transactions.append(Transaction(now, -amount, balance))
-  override def printStatement(): String = transactions
+  override def printStatements(): String = transactions
     .map(_.toString)
     .mkString("Date       Amount Balance\n", "\n", "")</code></pre>
 					</section>
@@ -1057,17 +1057,17 @@ object ChristmasLights:
 abstract class AccountContract << (T,#A492DE) >> {
   {method} {abstract} +deposit(amount: Int): Unit
   {method} {abstract} +withdraw(amount: Int): Unit
-  {method} {abstract} +printStatement(): String
+  {method} {abstract} +printStatements(): String
 }
 
 abstract class Printable << (T,#A492DE) >> {
-  {method} {abstract} +printStatement(): String
+  {method} {abstract} +printStatements(): String
 }
 
 class Account {
   {method} +deposit(amount: Int): Unit
   {method} +withdraw(amount: Int): Unit
-  {method} +printStatement(): String
+  {method} +printStatements(): String
 }
 
 AccountContract <|-- Account
@@ -1087,11 +1087,11 @@ Printable <|-- Account
 abstract class AccountContract << (T,#A492DE) >> {
   {method} {abstract} +deposit(amount: Int): Unit
   {method} {abstract} +withdraw(amount: Int): Unit
-  {method} +printStatement(): String = "account"
+  {method} +printStatements(): String = "account"
 }
 
 abstract class Printable << (T,#A492DE) >> {
-  {method} +printStatement(): String = "printable"
+  {method} +printStatements(): String = "printable"
 }
 
 class Account {
@@ -1270,9 +1270,9 @@ val deposit =
 						<ul>
 							<li><code>deposit(Int): Unit</code></li>
 							<li><code>withdraw(Int): Unit</code></li>
-							<li><code>printStatement(): String</code></li>
+							<li><code>printStatements(): String</code></li>
 						</ul>
-						<p>Voici un exemple de statement :</p>
+						<p>Voici un exemple de statements :</p>
 						<pre>Date        Amount  Balance
 24.12.2015   +500      500
 23.8.2016    -100      400</pre>
@@ -1301,7 +1301,7 @@ class Account(private val clock: Clock):
     val now = clock.instant().atZone(UTC).toLocalDate
     transactions.append(Transaction(now, -amount, balance))
 
-  def printStatement(): String = transactions
+  def printStatements(): String = transactions
     .map(_.toString)
     .mkString("Date       Amount Balance\n", "\n", "")</code></pre>
 					</section>
@@ -1322,75 +1322,6 @@ object Account:
     override def toString: String =
       val formattedDate = date.format(dateFormatter)
       "%-10s %+5d %7d".format(formattedDate, amount, balance)</code></pre>
-					</section>
-
-					<section data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)">
-						<h3>Contrôle continu</h3>
-						<p>Écrire une version de <code>Account</code><br>en programmation fonctionnelle pure</p>
-						<p>
-							L’interface est libre : à vous de choisir ce qui correspond le mieux au design fonctionnel
-						</p>
-						<pre>Date        Amount  Balance
-24.12.2015   +500      500
-23.8.2016    -100      400</pre>
-					</section>
-
-					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
-						<h3>Corrigé : test unitaire</h3>
-						<pre><code class="language-scala" data-line-numbers="5-11|12|13-15">import munit.FunSuite
-import java.time.LocalDate
-class AccountSuite extends FunSuite:
-  test("should use account"):
-    val account = Account.withdraw(
-      Account.deposit(
-        Account.empty,
-        LocalDate.parse("2015-12-24"),
-        500),
-      LocalDate.parse("2016-08-23"),
-      100)
-    assertEquals(Account.printStatement(account),
-      """Date       Amount Balance
-        |24.12.2015  +500     500
-        |23.8.2016   -100     400""".stripMargin)</code></pre>
-					</section>
-
-					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
-						<h3>Corrigé : fonctions sur Account</h3>
-						<pre><code class="language-scala" data-line-numbers="3|5|7|7-15">import java.time.LocalDate
-
-case class Account(private val transactions: Seq[Transaction])
-
-case class Transaction(date: LocalDate, amount: Int)
-
-object Account:
-  def empty: Account = Account(Seq.empty)
-  def deposit(account: Account, date: LocalDate,
-              amount: Int): Account =
-    Account(account.transactions :+ Transaction(date, amount))
-  def withdraw(account: Account, date: LocalDate,
-               amount: Int): Account =
-    Account(account.transactions :+ Transaction(date, -amount))
-  def printStatement(account: Account): String = ???</code></pre>
-					</section>
-
-					<section data-background="#339966" data-background-gradient="radial-gradient(#339966, #003333)">
-						<h3>Corrigé : affichage du statement</h3>
-						<pre><code class="language-scala" data-line-numbers="2-4|5-11|13-16">object Account:
-  def printStatement(account: Account): String =
-    "Date       Amount Balance" +
-      printStatement(account.transactions, 0)
-  private def printStatement(transactions: Seq[TransactionFP],
-                             balance: Int): String =
-    transactions match
-      case Nil => ""
-      case TransactionFP(date, amount) :: tail =>
-        "\n" + printTransaction(date, amount, balance + amount)
-             + printStatement(tail, balance + amount)
-  private val dateFormatter = DateTimeFormatter.ofPattern("d.M.y")
-  private def printTransaction(date: LocalDate, amount: Int,
-                               balance: Int): String =
-    "%-10s %+5d %7d".format(date.format(dateFormatter), amount,
-                            balance)</code></pre>
 					</section>
 
 				</section>
@@ -1474,7 +1405,7 @@ def help(id: Username | Password) =
     case Password(hash) => lookupPassword(hash)
   // ...</code></pre>
 						<p class="fragment">
-							Ici pas besoin de créer un trait scelé ou une enumeration <em>en avance</em>.
+							Ici pas besoin de créer un trait scellé ou une enumeration <em>en avance</em>.
 						</p>
 					</section>
 
@@ -1558,6 +1489,20 @@ import munit.FunSuite</code></pre>
     def empty: Report =
                   Report(ok = List.empty, ko = List.empty)</code></pre>
 					</section>
+				</section>
+
+				<section data-background="#336699" data-background-gradient="radial-gradient(#336699, #003366)" aria-description="Contrôle continu">
+					<h3>Contrôle continu</h3>
+					<p>
+						À partir d’une ressource qui vous sera communiquée par mail, préparer une soutenance d’une
+						dizaine de minutes maximum qui explique et qui reproduit le problème rencontré ainsi que la ou
+						les solutions qui paraissent satisfaisantes.
+					</p>
+					<p>Vous pouvez vous appuyer sur des slides, du code ou un live-coding.</p>
+					<p>
+						L’idée est de prouver que vous avez compris le problème et que vous avez suffisamment creusé la
+						solution pour répondre à une ou deux questions.
+					</p>
 				</section>
 
 				<section aria-description="4. Gestion des effets en programmation fonctionnelle">

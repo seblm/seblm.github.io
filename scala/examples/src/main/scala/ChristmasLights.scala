@@ -1,5 +1,6 @@
 import ChristmasLights.Instruction.{OFF, ON, TOGGLE}
 
+import java.lang.System.lineSeparator
 import scala.jdk.StreamConverters.*
 import scala.util.matching.Regex
 
@@ -27,8 +28,7 @@ object ChristmasLights:
   def countLitLights(instructions: String): Int =
     val lights = applyToRectangle(Coordinates(0, 0), Coordinates(999, 999), (_, _) => false).toBuffer
     instructions
-      .lines()
-      .toScala(Vector)
+      .split(lineSeparator())
       .map(Instruction.apply)
       .foreach:
         case ON(c1, c2)     => applyToRectangle(c1, c2, (x, y) => lights.update(y * 1000 + x, true))
